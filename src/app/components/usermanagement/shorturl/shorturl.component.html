@@ -1,0 +1,51 @@
+<div class="tabs">
+  <div class="tabLink">
+      <ul>
+          <li (click)="setTab(1)" [ngClass]="{ active: isSet(1) }">
+              Publishing Preferences
+          </li>
+          <!-- <li (click)="setTab(2)" [ngClass]="{ active: isSet(2) }">
+              Queue Settings
+          </li> -->
+      </ul>
+  </div>
+  <div class="tabContent" *ngIf="isSet(1)">
+      <div class="tabContent_listitem">
+          <label>Default Link Shortener</label>
+          <ul class="unstyled centered">
+              <li>
+                  <input class="styled-radio" id="1" type="radio" name="shortUrlRadio" id="shortUrlRadioRebrandly"  [(ngModel)]="shortUrlIntegration" value="Rebrandly" (change)="updateSUrlIntegration()"
+                      >
+                  <label for="shortUrlRadioRebrandly">Storefries</label>
+                  <p class="desc">Default link shortener</p>
+              </li>
+              <li>
+                  <input class="styled-radio" id="2" type="radio" nname="shortUrlRadio" id="shortUrlRadioBitly"  [(ngModel)]="shortUrlIntegration" value="Bitly" (change)="updateSUrlIntegration()"
+                      >
+                  <label for="shortUrlRadioBitly">Bitly</label>
+                  <p class="desc">Need Bitly account to sign-in</p>
+              </li>
+            
+          </ul>
+      </div>
+  </div>
+  <div class="tabContent" *ngIf="isSet(2)">
+
+  </div>
+</div>
+<!-- <div class="card-body">
+
+  <div class="form-check">
+      <input class="form-check-input" type="radio" name="shortUrlRadio" id="shortUrlRadioBitly"  [(ngModel)]="shortUrlIntegration" value="Bitly" (change)="updateSUrlIntegration()">
+      <label class="form-check-label" for="shortUrlRadioBitly">
+        Bitly
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="shortUrlRadio" id="shortUrlRadioRebrandly"  [(ngModel)]="shortUrlIntegration" value="Rebrandly" (change)="updateSUrlIntegration()">
+      <label class="form-check-label" for="shortUrlRadioRebrandly">
+       Rebrandly
+      </label>
+    </div>
+
+</div> -->

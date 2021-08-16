@@ -1,0 +1,51 @@
+<div class="container fb-pages">
+  <div class="row"><br>
+    <div class="col-sm-12" style="position: absolute; padding-left: 35%; padding-right:35%; padding-top: 2%;">
+      <div class="row">
+        <div class="col">
+          <i style="color: #0E76A8;" class="fab fa-linkedin fa-2x"></i> &nbsp;
+        </div>
+        <div class="col">
+          <i style="color: rgb(209, 205, 205);" class="fas fa-exchange-alt fa-2x"></i> &nbsp;
+        </div>
+        <div class="col">
+          <img style="width: 30px;height: 30px;" src="../../../../../assets/img/favicon.ico">
+        </div>
+      </div>
+    </div><br>
+  </div>
+  <div>&nbsp;</div>
+  <hr>
+  <h2>Which pages do you want with Storefries?</h2>
+  <p>In next steps you will determine what Storefries can do with Pages you've selected</p>
+  <div class="col-sm-12">
+    <div *ngIf="messageData && messageData.linkedinProfile">
+      <h3 style="font-weight:500; padding-top: 2rem;">Your Profile</h3> <br/>
+      <div class="col-xs-12 rowGap">
+        <img style="width: 40px; height: 40px;" [src]="messageData.linkedinProfile.profImage" class="socialImage"/> &nbsp;
+        <span class="pageName">{{messageData.linkedinProfile.profileName}}</span>
+        <input style="float: right" type="checkbox" [(ngModel)]="messageData.linkedinProfile.selected" />
+      </div>
+    </div>
+  
+    <div *ngIf="messageData && messageData.linkedinPages">
+      <h3 style="font-weight:500; padding-top: 2rem;">All Pages ({{messageData.linkedinPages.length}})  </h3> <br/>
+      <div *ngFor="let page of messageData.linkedinPages" class="col-xs-12 rowGap">
+        <img style="width: 40px; height: 40px;" [src]="" class="socialImage"/> &nbsp;
+        <span class="pageName">{{page.orgName}}</span>
+        <input style="float: right" type="checkbox" [(ngModel)]="page.selected" />
+      </div>
+    </div>
+    <hr>
+
+  <div class="col" style="padding-bottom: 2%;">
+    <button style="float: left;" class="btn btn-color" (click)="modal.close()">Close</button>
+    <button style="float: right;" class="btn btn-primary " (click)="modal.close(messageData)">Submit</button><br>
+  </div>
+  <div>&nbsp;</div>
+
+  </div>
+  
+  
+</div>
+

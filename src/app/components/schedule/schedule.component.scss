@@ -1,0 +1,871 @@
+.header
+{
+  font-size: 20px;
+  font-weight: bolder;
+  margin-left: 72px;
+}
+.bordercolor
+{
+    border-bottom: 1px solid grey;
+}
+.leftborder
+{
+    border-left: 1px solid rgb(197, 197, 197);
+    margin-top: -15px;
+}
+.socialfilter
+{
+    position: absolute;
+    top: 10%;
+    padding: 20px;
+}
+.filtertext
+{
+    font-size: 20px;
+    padding: 5px;
+    margin: 5px;
+    color: black;
+}
+.button {
+    display: block;
+    margin: 0px auto;
+    height: 40px;
+    background: linear-gradient(to right,#4DABFF ,#62DDFF);
+    color: white;
+    width: 100%;
+    cursor: pointer;
+}
+.switchbutton
+{
+    display: block;
+    margin: 0px auto;
+    border-right: 1px solid black;
+    padding: 10px;
+    background: #4DABFF;
+    color: white;
+    width: 100%;
+    cursor: pointer;
+
+    .active {
+      background: lightgray !important;
+      border: 1px solid #000000 !important;
+    }
+}
+.switchbutton.active {
+      background: lightgray !important;
+      border: 1px solid #000000 !important;
+}
+.switchbuttonDay
+{
+    display: block;
+    margin: 0px auto;
+    padding: 10px;
+    background: #4DABFF;
+    color: white;
+    width: 100%;
+    cursor: pointer;
+
+    .active {
+      background: lightgray  !important;
+      border: 1px solid #000000 !important;
+    }
+}
+.switchbuttonDay.active {
+      background: lightgray  !important;
+      border: 1px solid #000000 !important;
+}
+.left
+{
+    background: -webkit-linear-gradient(#4DABFF, #62DDFF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+h3
+{
+    color: #198ff9;
+}
+::ng-deep {
+  .cal-event {
+    height: auto !important;
+    display: block !important;
+    padding: 0 !important;
+    border-width: 2px !important;
+  }
+
+  .cal-day-view {
+    .cal-week-view .cal-all-day-events .cal-events-row {
+      height: 25px !important;
+      max-height: 185px;
+    }
+  }
+
+  .cal-week-view .cal-all-day-events .cal-events-row {
+    min-height:100px;
+    height: 155px !important;
+    max-height: 185px;
+
+
+    // min-height: calc(100vh - 210px) !important;
+    // height: calc(100vh - 210px) !important;
+    // max-height: calc(100vh - 210px) !important;
+  }
+
+  [dragactiveclass='cal-drag-active'] {
+    padding-bottom: 1rem !important;
+  }
+
+  .side-spacing{
+    padding: 0 0.5rem;
+  }
+
+  .cal-open-day-events, mwl-calendar-day-view {
+    [dragactiveclass='cal-drag-active'] {
+      border: 1px solid #ffffff;
+      border-radius: 5px;
+      padding: 2rem;
+      margin: 0.5rem;
+      margin-bottom: 1rem;
+
+
+      .postData{
+        font-size:20px;
+        padding: 0.5rem 0;
+      }
+
+      .postTime{
+        font-size:16px;
+        padding-bottom: 0.5rem;
+      }
+
+      img {
+        border-radius: 1rem;
+        margin: 1rem 1rem 1rem 0;
+        width: 130px;
+        display: inline-block;
+      }
+    }
+    .cal-week-view .cal-all-day-events .cal-events-row {
+      margin-left: 1rem !important;
+
+    }
+
+    .cal-day-view .cal-all-day-events .cal-event-container {
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+  }
+
+  a.cal-event-action{
+    margin: 1rem 6px 0;
+  }
+
+  mwl-calendar-week-view {
+    .socialImage {
+      width: 100%;
+      font-size: 13px !important;
+    }
+
+    .postData{
+      font-size: 16px;
+    }
+    .postTime{
+      font-size: 14px;
+    }
+
+    img {
+      border-radius: 1rem;
+
+      display: block;
+      width: 100%;
+    }
+    .cal-week-view .cal-time-events {
+      height: 68vh;
+  }
+  .cal-week-view .cal-all-day-events + .cal-time-events{
+    display: none;
+  }
+  .cal-week-view .cal-all-day-events {
+    height: 68vh;
+    overflow: auto;
+  }
+  }
+
+.calendarTile {
+  height: 140px;
+  padding-bottom: 1.5rem;
+
+
+  .calendarHeader.scheduled {
+    background:  rgb(77, 171, 255);
+    color: white;
+    padding: 0 0.5rem;
+    border-radius: 5px 0 0 0;
+
+  }
+  .calendarHeader.published {
+    background: rgb(89, 189, 74);
+    padding: 0 0.5rem;
+    border-radius: 5px 0 0 0;
+    color: white;
+
+  }
+
+  .imagePublished
+  {
+    margin-left: 10px;
+  }
+  .calTime {
+    float: right;
+    color: white;
+  }
+
+  .calendarBody {
+    color: black;
+  }
+
+  .calendarFooter {
+    float: right;
+
+  }
+
+  .postDataCnt {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 0.5rem;
+  }
+
+
+}
+
+.fbColor {
+  color: #4064ac !important;
+}
+
+.twrColor {
+  color: #4c9bef !important;
+}
+
+.lkColor {
+  color: #0A66C2 !important;
+}
+.timePosition
+{
+  margin-left: 0.7rem;
+}
+.scheduledDot {
+  display: inline-block;
+  background: #4dabff;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
+
+.iconSpace
+{
+  padding-left: 10px !important;
+}
+
+.publishedDot {
+  display: inline-block;
+  background: #59bd4a;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
+
+.border-published {
+  border-color: #59bd4a !important;
+}
+
+.border-scheduled {
+  border-color: #4dabff !important;
+}
+
+.badge-twitter {
+  border: 2px solid;
+  border-radius: 5px;
+  margin: 0 0.25rem 0.25rem 0.25rem;
+
+  i {
+    color: #4c9bef;
+    margin-right:0.5rem;
+  }
+}
+
+.publishedImageCalendar
+{
+  width: 70px;
+  height: 40px;
+
+}
+.iconPositions
+{
+  margin-left: 3rem;
+  color: grey;
+
+}
+
+.badge-facebook {
+  border: 2px solid;
+  border-radius: 5px;
+  margin: 0 0.25rem 0.25rem 0.25rem;
+
+  i {
+  color: #4064ac;
+  margin-right:0.5rem;
+  }
+}
+
+.badge-linkedin {
+  border: 2px solid;
+  border-radius: 5px;
+  margin: 0 0.25rem 0.25rem 0.25rem;
+
+  i {
+    color: #0A66C2;
+    margin-right:0.5rem;
+    }
+}
+
+.listRow {
+  border-bottom: 1px;
+  border-right: 1px solid;
+  border-left: 1px solid;
+  border-top: 1px solid;
+  color: black;
+  text-align: center;
+  margin: -1px 0 !important;
+
+  &:nth-last-child(1) {
+    border-bottom: 1px solid;
+  }
+
+  .listCol {
+    border-right: 1px solid;
+    padding: 1rem 0;
+
+   &:nth-last-child(1) {
+    border-right: none;
+   }
+
+   .editIcon{
+      margin-right:0.5rem;
+   }
+  }
+}
+
+
+
+.blurImage {
+  filter: blur(2px);
+}
+
+.lengthPosition {
+  position: absolute;
+  top: 35%;
+  right: 35%;
+
+}
+.textBg {
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  padding:  0.5rem;
+  background: rgb(129, 129, 129);
+  color: white;
+}
+.iconRight {
+  margin-right: 2rem;
+}
+
+.buttonHover
+{
+  margin-left: 6rem !important;
+}
+.buttonHover:hover
+{
+  background: #DCDFE5;
+}
+
+.dropdownBtn:hover
+{
+  background: #DCDFE5;
+}
+.imageBorder
+{
+  border: 1px solid lightgray;
+
+  border-radius: 0.5rem;
+  position: relative;
+}
+
+.cursor
+{
+  cursor: pointer;
+  margin-left: 3rem;
+}
+
+mwl-calendar-week-view-event {
+  mwl-calendar-event-actions {
+    bottom: 0;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 6px 0;
+  }
+}
+
+.blurImage {
+  filter: blur(2px);
+}
+
+.lengthPosition {
+  position: absolute;
+  top: 35%;
+  right: 35%;
+}
+
+.textBg {
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  padding:  0.5rem;
+  background: rgb(129, 129, 129);
+  color: white;
+}
+
+.cell-totals
+{
+  cursor: pointer;
+}
+
+.imageBorder {
+  border: 1px solid lightgray;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  display: inline-block;
+  position: relative;
+}
+
+.lengthScheduled
+{
+  position: relative;
+  right:  100px;
+  top: 10px;
+}
+
+
+}
+
+.cardText
+{
+  color: black;
+  margin-bottom: 20px;
+}
+.dropdownPosition
+{
+  position: absolute;
+  top: 0px;
+  left: -63px !important;
+
+}
+.checkboxHover
+{
+
+  margin-bottom: -55px;
+  cursor: pointer;
+  .checkbox
+  {
+    opacity: 0;
+    display: none;
+  }
+}
+.checkboxHover:hover
+{
+  .checkbox
+  {
+    opacity: 1;
+    display: inline-block;
+  }
+}
+.borderGreen
+{
+  border-left: 2px solid #59bd4a;
+  border-left-width: 10px;
+  border-radius: 5px;
+}
+
+.borderBlue
+{
+  border-left: 2px solid #4dabff;
+  border-left-width: 10px;
+  border-radius: 5px;
+}
+
+.checkboxBgColor
+{
+  background: rgb(218, 246, 255);
+}
+
+.checkboxNoBgColor
+{
+  background: white;
+}
+
+.columnLeft
+{
+  margin-left: -30px;
+  padding-top: 20px;
+}
+
+.example-container {
+
+  width: 100%;
+  height: 100%;
+
+
+}
+
+.navBarMargin
+{
+  margin-left: 1rem;
+}
+
+.settingsButton
+{
+  cursor: pointer;
+  margin-right: 1rem;
+}
+.settingsButton:hover
+{
+  background: #DCDFE5;
+}
+
+.toggleTrigger
+{
+  float: right;
+  margin-left: 1rem;
+  cursor: pointer;
+}
+
+.toggleTrigger:hover
+{
+  background: #DCDFE5;
+}
+
+.toggleTrigger:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.MarginTop
+{
+  // margin-top: -10px;
+}
+.viewCustom
+{
+  // margin-top: -10px;
+}
+
+.cal-cell-top:hover {
+  cursor: pointer;
+  .createPost {
+    visibility: visible;
+  }
+}
+
+.createPost {
+  height: 100px;
+  padding: 3rem;
+  visibility: hidden;
+  cursor: pointer;
+
+  &:hover {
+    visibility: visible;
+  }
+
+  i {
+    background: lightgray;
+    padding: 0.5rem;
+    border-radius: 50%;
+  }
+}
+
+.eventTemplate {
+  border: 2px solid;
+
+  border-radius: 5px;
+  margin: 0 0.5rem;
+}
+
+.accountNameSize
+{
+  font-size: 10px;
+}
+
+
+.scroll{
+  height: calc(100vh - 80px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.card
+{
+    border: none;
+
+}
+.inputContainer {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #c9c6c6;
+    border-radius: 5px;
+    padding: 0;
+    margin: 0;
+    background-color: #bec4c5;
+    width: 50%;
+    cursor: text;
+}
+.inputWithAttach._active textarea, .inputContainer._active textarea, .storyComment._active textarea {
+    margin-bottom: 30px !important;
+    min-height: 60px;
+    width: 80%;
+    overflow-y: auto;
+    max-height: 150px;
+    line-height: 21px;
+}
+.card-body
+{
+    margin-top: -2rem !important;
+}
+.profileImage
+{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    float: left;
+    // margin-top: 8%;
+}
+.profileImageComment
+{
+    width: 175px;
+    height: 35px;
+    margin-left: 10px;
+    border-radius: 50%;
+    float: left;
+    margin-top: 3px;
+}
+.uploadedImage
+{
+    width: 150px;
+    height: 90px;
+}
+// .time
+// {
+//     margin-left: 3.2rem;
+// }
+
+.col-sm-10
+{
+    .profileName
+    {
+        font-size: 18px;
+        font-weight: 500;
+        padding-top: 0.5rem !important;
+        padding-bottom: 0.3rem !important;
+        padding-left: 3.5rem !important;
+    }
+}
+.profileNameFacebook
+{
+    font-size: 18px;
+    font-weight: 500;
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.3rem !important;
+    
+    
+}
+.fbTime
+{
+    margin-top: -0.8rem;
+    margin-left: 3.3rem !important;
+}
+.postDataFacebook
+{
+    margin-left: 3.5rem;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+    font-size: 18px;
+}
+.publishedImageFacebook
+{
+    width: 120px;
+    height: 80px;
+    border: 1px solid rgb(226, 221, 221);
+    border-radius: 5px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-left: 3.5rem;
+}
+.commentColumn
+{
+    margin-left: 25px;
+    padding-top:5px ;
+}
+.postData
+{
+    padding-top: 20px;
+    margin-left: 4rem !important;
+}
+.likeSection
+{
+    margin-left: 3.8rem !important;
+    padding-top: 2rem;
+    margin-top: 10%;
+
+}
+.paddingLikeIcons
+{
+    padding-right: 12px;
+}
+.commentLeftMargin
+{
+    padding-left: 4rem !important;
+}
+.commentLikes
+{
+    padding-left: 60px !important;
+}
+.commentBG
+{
+    background: rgb(239, 249, 255);
+    width: 50%;
+    margin-top: 10px !important;
+    
+}
+.commentSectionFacebook
+{
+    margin-left: 30px;
+    margin-top: 1rem;
+}
+
+.commentProfileImage
+{
+    margin-top: 5px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    float: left;
+    margin-left: 1rem;
+}
+.commentInput
+{
+    border: 1px solid white;
+    border-radius: 5px;
+    height: 40px;
+    outline: none;
+    
+    background:  #F5F6F7;
+}
+.commentSectionDefault
+{
+       
+    margin-top: 20px;
+    background-color: #F5F6F7;
+    height: 60px;
+}
+.paddingRight
+{
+  padding-right: 10px;
+}
+.paddingLeft
+{
+  padding-left: 10px;
+}
+/*.imageBorder
+{
+   
+    background: white;
+    width: 100%;
+    height: 120px;
+    .publishedImage
+        {
+            margin-top: 15px;
+            width: 100%;
+            height: 60%;
+            object-fit: cover;
+            
+        }
+}*/
+.publishedImage {
+    width: 350px;
+    height: 100%;
+    // object-fit: cover;
+    border: none;
+    // border: 1px solid rgb(226, 221, 221);
+
+}
+.publishedImageFacebook
+{
+    width: 120px;
+    height: 80px;
+    border: 1px solid rgb(226, 221, 221);
+    border-radius: 5px;
+    margin-left: 3rem;
+}
+// .imageLeftMargin
+// {
+//     margin-left: -15px;
+// }
+
+.no-padding-right {
+    padding-right: 0;
+  }
+  
+  .no-padding-left {
+    padding-left: 0;
+  }
+  
+  .no-padding {
+    padding-left: 0;
+    padding-right: 0;
+  }
+.postedData
+{
+    font-size: 18px;
+    // margin-left: -15px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+}
+
+.col2
+{
+    margin-right: 4rem;
+}
+.commentSection
+{
+    margin-left: -17px;
+    margin-top: 20px;
+    background-color: #F5F6F7;
+}
+.commentText
+{
+    margin-left: 2.6rem;
+    padding-top: 10px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.defaultCommentMargin
+{
+    margin-left: 2rem;
+}
+.topMargin
+{
+    margin-top: 1rem !important;
+    font-size: 16px;
+    margin-left: 20px;
+}

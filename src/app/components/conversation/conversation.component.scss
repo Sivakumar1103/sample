@@ -1,0 +1,11 @@
+.btn
+{
+    background: linear-gradient(to right, #4DABFF ,#62DDFF);
+    border: none;
+}
+
+.scroll{
+    height: calc(100vh - 85px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }

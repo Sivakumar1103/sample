@@ -1,0 +1,162 @@
+.padding {
+    padding: 5px;
+}
+.height {
+  height: calc(100vh - 135px) !important;
+  max-height: calc(100vh - 135px) !important;
+}
+.border {
+  border: 1px solid rgba(0,0,0,.1);
+}
+.fb-border {
+    padding: 0.5rem;
+    border: 1px solid black;
+    cursor: pointer;
+}
+.scroll
+{
+    height: calc(100vh - 160px) !important;
+    overflow-y: auto;
+}
+
+
+
+img {
+  height: 100px;
+  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  padding: 10px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  cursor:pointer;
+  object-fit: cover;
+}
+p{
+  font-size: 12px;
+  font-weight: 400;
+}
+.btn-group{
+  padding: 0.5rem 0;
+
+  button {
+    margin: 0 0.5rem;
+    border-radius: 5px !important;
+  }
+}
+::ng-deep {
+  .tui-image-editor-canvas-container {
+    margin: auto !important;
+    border: 1px solid lightgray;
+    overflow: auto;
+  }
+}
+
+// new code starts
+.cardTitle{
+  color: #020202;
+  font-weight: 400;
+  font-size: 16px;
+  margin: 0.5rem;
+  display: inline-block;
+}
+
+.uploadButton{
+  float: right;
+  color: #b3b3b3;
+  font-weight: 500;
+}
+
+.imgCard{
+  margin-bottom: 0.5rem;
+}
+
+.margin-right-10{
+  margin-right: 1rem;
+}
+
+
+.margin-right-5{
+  margin-right: 0.5rem;
+}
+
+.cardTitleHeader{
+  background-color: white;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+}
+
+.circleFilter {
+   width: 55%;
+   height: 30%;
+   padding: 0%;
+
+   &.grayscaleFilter {
+    filter: grayscale(2);
+   }
+
+   &.invert{
+    filter: invert(3);
+   }
+
+   &.sepia{
+    filter: sepia(2);
+   }
+
+   &.saturate{
+    filter: saturate(2);
+   }
+
+   &.blur{
+    filter: blur(1);
+   }
+
+   &.hueRotate{
+    filter: hue-rotate(4);
+   }
+
+   &.contrast {
+    filter: contrast(3);
+   }
+
+}
+
+
+.filterBtn{
+  background-color: white;
+  color: black;
+  border: none;
+}
+
+.textStyleContainer{
+  position: absolute;
+  top: 48px;
+  margin: 0 10px;
+    background: #f5f5f5;
+    padding: 12px;
+    border-radius: 5px;
+    box-shadow: 0px 6px 16px 0px rgb(0 0 0 / 22%);
+    z-index: 1;
+}
+
+.cls{
+  background: rgba(210, 63, 17, 0.17);
+  color: #d23f11;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  line-height: 15px;
+}
+#scrollDown::-webkit-scrollbar{
+  width: 6px;
+
+}
+#scrollDown::-webkit-scrollbar-track{
+  background-color: #888;
+}
+#scrollDown::-webkit-scrollbar-track:hover{
+  background-color: #555;
+}
+#scrollDown{
+  height: calc(100vh - 100px) !important;
+    overflow-y: auto;
+}

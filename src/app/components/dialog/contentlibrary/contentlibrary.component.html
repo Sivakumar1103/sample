@@ -1,0 +1,27 @@
+<div class="container content-library">
+  <h3>Content Library</h3>
+  <div class="row no-gutters mediaRow" *ngIf="mediaList">
+
+    <div class="col-sm-3 mediaColumn no-gutters" *ngFor="let media of mediaList">
+      <label>
+        <div>
+          <input type="checkbox" (change)="selectMediaItem()"  [(ngModel)]='media.checked' class="checkbox">
+          <!--<div id="checkboxHover" class="pretty p-default p-thick">
+            <input style="margin: left -4rem;"  (change)="selectMediaItem()"  [(ngModel)]='media.checked' type="checkbox">
+            <div class="state p-primary-o">
+                <label></label>
+            </div>
+          </div>-->
+          <div class="">
+            
+            <img [(ngModel)]='media.checked' src="{{'https://aikyne-mediafiles.s3.ap-south-1.amazonaws.com/'+media.Key}}" />
+            <p class="">{{media.Key.split('/')[2]}}</p>
+          </div>
+        </div>
+      </label>
+    </div>
+  </div>
+  <button class="btn" (click)="modal.close()">Close</button>
+  <button class="btn" [disabled]='!publish' (click)="modal.close(selectedMedia)">Publish</button>
+
+</div>

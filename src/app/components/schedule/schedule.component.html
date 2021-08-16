@@ -1,0 +1,534 @@
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-sm-12 MarginTop">
+      <span class="header">Calendar</span>
+      <button class="btn border cursor buttonHover" mwlCalendarToday [(viewDate)]="viewDate"> Today </button>
+      <i mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()"
+        class="fa fa-chevron-left fa-lg cursor"></i>
+
+      <i mwlCalendarNextView class="arrow" [view]="view" [(viewDate)]="viewDate"
+        (viewDateChange)="closeOpenMonthViewDay()" class="fa fa-chevron-right fa-lg cursor"></i>
+
+      <span style="margin-left:2rem; font-size: 18px;">{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</span>
+
+
+      <div class="dropdown" style="float: right;">
+        <button routerLink='/account' title="Settings" class="btn border settingsButton"><i class="fa fa-cog fa-lg"></i>
+        </button>
+
+        <button class="btn border dropdownBtn dropdown-toggle" type="button" id="dropdownMenuButton"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{viewName}}
+        </button>
+        <div class="dropdown-menu dropdownPosition" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="javascript:void(0);" (click)="setView(CalendarView.Month,'Month')">Month</a>
+          <a class="dropdown-item" href="javascript:void(0);" (click)="setView(CalendarView.Week,'Week')">Week</a>
+          <a class="dropdown-item" href="javascript:void(0);" (click)="setView(CalendarView.Day,'Day')">Day</a>
+        </div>
+
+        <span>
+          <button (click)="sideNav.toggle()" mat-button title="Filter" class="btn toggleTrigger border">
+            <i class="fas fa-sliders-h" style="font-size: 22px;"></i></button>
+        </span>
+      </div>
+
+      <hr>
+      <div class="col-sm-12">
+        <mat-drawer-container class="example-container">
+          <mat-drawer #sideNav mode="side" opened="false" [position]="nav_position"
+            style="width: 180px; margin-top: 1rem !important;">
+            <span style="margin-top: 10px;">
+              <input class="navBarMargin" type="checkbox" (change)="filterEvents()" [(ngModel)]="scheduledCheck"
+                name="socialFilter" id="scheduled_filter" style='display:inline-block;'> &nbsp;<span
+                class="scheduledDot"></span> Scheduled
+              <br />
+              <input class="navBarMargin" type="checkbox" (change)="filterEvents()" [(ngModel)]="publishedCheck"
+                name="socialFilter" id="published_filter" style='display:inline-block;'> &nbsp;<span
+                class="publishedDot"></span> Published
+            </span>
+
+
+
+            <div style="padding-left:10px;padding-top: 10px;">
+              <div style="font-weight: 500;"> Filter by Social Profile </div>
+
+              <div (change)="filterCalendar()" [(ngModel)]="data.checked"
+                [ngClass]="{'checkboxBgColor' :data.checked, 'checkboxNoBgColor': !data.checked}"
+                *ngFor="let data of dropdownList" title="{{data.socialName}}">
+                <label class="checkboxHover">
+                  <input class="checkbox" type="checkbox" [(ngModel)]="data.checked" name="socialFilter"
+                    id="{{data.userId}}">
+                  <img style="width: 30px; height: 30px; border-radius: 50%;" [src]="data.socialImage"
+                    class="socialImage" *ngIf="data.socialType!='facebook'" />
+                  <img style="width: 30px; height: 30px; border-radius: 50%;"
+                    [src]="'https://graph.facebook.com/'+data.pageId+'/picture'" class="socialImage"
+                    *ngIf="data.socialType=='facebook'" />
+                  <i style="color: #4c9bef;" class="fab fa-twitter fa-sm circle-icon iconPosition"
+                    *ngIf="data.socialId.startsWith('twitter')"></i>
+                  <i style="color: #0A66C2;" class="fab fa-linkedin fa-sm circle-icon iconPosition"
+                    *ngIf="data.socialId.startsWith('linkedin')"></i>
+                  <i style="color: #4064ac;" class="fab fa-facebook fa-sm circle-icon iconPosition"
+                    *ngIf="data.socialType == 'facebook'"> </i>
+                  {{(data.socialName.length>15)? (data.socialName | slice:0:10) +'...':(data.socialName)}}
+                </label>
+                <hr>
+              </div>
+            </div>
+          </mat-drawer>
+          <mat-drawer-content>
+            <span>
+              <i style="display: none;" (click)="sideNav.toggle()" mat-button title="Filter"
+                class="fa fa-filter fa-lg toggleTrigger"></i>
+            </span>
+
+
+            <ng-template #customCellTemplate let-day="day" let-locale="locale">
+
+              <div class="cal-cell-top">
+                <!-- <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">
+                Total : {{ day.badgeTotal }}</span> -->
+                <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+                <div (click)="createPost(day.date)" *ngIf="(day.isToday ||day.isFuture) && day.badgeTotal==0"
+                  class="createPost">
+                  <i class="fas fa-plus"></i>
+                </div>
+              </div>
+              <div class="cell-totals">
+                <!-- placement="bottom" [ngbTooltip]="htmlContent" -->
+                <!-- triggers="click:blur" -->
+                <span (click)="openMonthViewModal(day,group[0])" *ngFor="let group of day.eventGroups"
+                  placement="right" [autoClose]="'outside'" [ngbPopover]="popover"
+                  class="badge badge-{{ group[0].split('-')[1] }} border-{{group[0].split('-')[0]}}">
+                  <i class="fab fa-{{ group[0].split('-')[1]}} fa-sticky"></i>{{ group[1].length }}
+                </span>
+
+              </div>
+            </ng-template>
+            <!-- data-toggle="modal" data-target=".bd-example-modal-lg" -->
+            <ng-template #customListTemplate let-weekEvent="weekEvent">
+
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="card card-body cardText"
+                    [ngClass]="{'borderGreen' :weekEvent.event.meta.postType == 'published', 'borderBlue':  weekEvent.event.meta.postType == 'scheduled'}">
+                    <span>
+
+                      <span [innerHTML]="weekEvent.event.meta.social"></span>
+                      <span>
+
+
+                        <span>
+                          <span>
+                            <i class="far fa-comment-alt-lines"></i> {{weekEvent.event.meta.postData}}
+                            <span *ngIf="weekEvent.event.meta.postType=='scheduled' && !weekEvent.event.meta.mediaData">
+                              <span class="iconPositions" style="float: right;">
+
+                                <i mat-raised-button matTooltip="Edit post" class="fas fa-pencil editIcon iconSpace"
+                                  (click)="editPost(weekEvent.event.id)"
+                                  *ngIf="weekEvent.event.meta.postType=='scheduled'"></i>
+                                <i mat-raised-button matTooltip="Delete post" class="fas fa-trash iconSpace"
+                                  (click)="deletePost(weekEvent.event.id)"
+                                  *ngIf="weekEvent.event.meta.postType=='scheduled'"></i>
+                                <i mat-raised-button matTooltip="View Post" class="fas fa-eye editIcon iconSpace"
+                                  (click)="viewPost(weekEvent.event.id)"
+                                  *ngIf="weekEvent.event.meta.postType=='published'"></i>
+                                <i mat-raised-button matTooltip="Publish again" class="fas fa-copy iconSpace"
+                                  (click)="copyPostText(weekEvent.event.meta.postData)"
+                                  *ngIf="weekEvent.event.meta.postType=='published'"></i>
+                              </span>
+                            </span>
+
+                            <span *ngIf="weekEvent.event.meta.postType=='published' && !weekEvent.event.meta.mediaData">
+                              <span class="iconPositions" style="float: right;">
+
+                                <i mat-raised-button matTooltip="Edit post" class="fas fa-pencil editIcon iconSpace"
+                                  (click)="editPost(weekEvent.event.id)"
+                                  *ngIf="weekEvent.event.meta.postType=='scheduled'"></i>
+                                <i mat-raised-button matTooltip="Delete post" class="fas fa-trash iconSpace"
+                                  (click)="deletePost(weekEvent.event.id)"
+                                  *ngIf="weekEvent.event.meta.postType=='scheduled'"></i>
+                                <i mat-raised-button matTooltip="View Post" class="fas fa-eye editIcon iconSpace"
+                                  (click)="viewPost(weekEvent.event.id)"
+                                  *ngIf="weekEvent.event.meta.postType=='published'"></i>
+                                <i mat-raised-button matTooltip="Publish again" class="fas fa-copy iconSpace"
+                                  (click)="copyPostText(weekEvent.event.meta.postData)"
+                                  *ngIf="weekEvent.event.meta.postType=='published'"></i>
+                              </span>
+                            </span>
+                          </span>
+                          <span style="float: right;">
+                            <span *ngIf="weekEvent.event.meta.postType=='published'"
+                              [innerHTML]="weekEvent.event.meta.mediaData"></span>
+
+                            <span
+                              *ngIf="weekEvent.event.meta.postType=='published' && weekEvent.event.meta.mediaData && weekEvent.event.meta.mediaData.length > 0"
+                              class="iconPositions" style="float: right;">
+                              <i mat-raised-button matTooltip="Edit post" class="fas fa-pencil editIcon iconSpace"
+                                (click)="editPost(weekEvent.event.id)"
+                                *ngIf="weekEvent.event.meta.postType=='scheduled'"></i>
+                              <i mat-raised-button matTooltip="Delete post" class="fas fa-trash iconSpace"
+                                (click)="deletePost(weekEvent.event.id)"
+                                *ngIf="weekEvent.event.meta.postType=='scheduled'"></i>
+                              <i mat-raised-button matTooltip="View Post" class="fas fa-eye editIcon iconSpace"
+                                (click)="viewPost(weekEvent.event.id)"
+                                *ngIf="weekEvent.event.meta.postType=='published'"></i>
+                              <i mat-raised-button matTooltip="Publish again" class="fas fa-copy iconSpace"
+                                (click)="copyPostText(weekEvent.event.meta.postData)"
+                                *ngIf="weekEvent.event.meta.postType=='published'"></i>
+                            </span>
+                          </span>
+                          <div>
+                            <span class="timePosition">
+                              {{weekEvent.event.meta.timeData}}
+                            </span>
+                            <span
+                              *ngIf='weekEvent.event.meta.mediaData && weekEvent.event.meta.mediaData.length > 0 && weekEvent.event.meta.postType=="scheduled"'>
+                              <span>
+                                <span style="float: right;">
+                                  <span>
+                                    <span *ngIf='weekEvent.event.meta.mediaData'
+                                      [ngClass]="{'imageShow' :weekEvent.event.meta.mediaData.length == 1, 'blurImage':  weekEvent.event.meta.mediaData.length > 1}">
+                                      <img class="border" [src]='weekEvent.event.meta.mediaData[0].fileUrl'
+                                        alt="{{weekEvent.event.meta.mediaData[0].fileDisplayName}}"
+                                        *ngIf="!!weekEvent.event.meta.mediaData[0].fileUrl">
+                                      <img class="border" [src]='weekEvent.event.meta.mediaData[0]'
+                                        alt="{{weekEvent.event.meta.mediaData[0]}}"
+                                        *ngIf="!weekEvent.event.meta.mediaData[0].fileUrl">
+                                    </span>
+                                    <span *ngIf='weekEvent.event.meta.mediaData.length > 1' class="lengthScheduled">
+                                      <span class="textBg">+{{weekEvent.event.meta.mediaData.length-1}}</span>
+                                    </span>
+                                  </span>
+
+                                  <span class="iconPositions">
+
+                                    <i mat-raised-button matTooltip="Edit post" class="fas fa-pencil editIcon iconSpace"
+                                      (click)="editPost(weekEvent.event.id)"
+                                      *ngIf="weekEvent.event.meta.postType=='scheduled'"></i>
+                                    <i mat-raised-button matTooltip="Delete post" class="fas fa-trash iconSpace"
+                                      (click)="deletePost(weekEvent.event.id)"
+                                      *ngIf="weekEvent.event.meta.postType=='scheduled'"></i>
+                                    <i mat-raised-button matTooltip="View Post" class="fas fa-eye editIcon iconSpace"
+                                      (click)="viewPost(weekEvent.event.id)"
+                                      *ngIf="weekEvent.event.meta.postType=='published'"></i>
+                                    <i mat-raised-button matTooltip="Publish again" class="fas fa-copy iconSpace"
+                                      (click)="copyPostText(weekEvent.event.meta.postData)"
+                                      *ngIf="weekEvent.event.meta.postType=='published'"></i>
+                                  </span>
+                                </span>
+
+                              </span>
+
+
+                            </span>
+
+                          </div>
+
+
+
+
+                        </span>
+
+
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+            </ng-template>
+
+            <ng-template #weekTemplate let-weekEvent="weekEvent">
+              <div [innerHTML]="weekEvent.event.title" class="eventTemplate"
+                [style.backgroundColor]="weekEvent.event.color?.secondary"
+                [style.borderColor]="weekEvent.event.color?.primary"></div>
+              <mwl-calendar-event-actions [event]="weekEvent.event">
+              </mwl-calendar-event-actions>
+            </ng-template>
+
+            <div class="col-sm-12" style="background: white;">
+              <div [ngSwitch]="view">
+                <mwl-calendar-month-view style="color: #4DABFF;" *ngSwitchCase="CalendarView.Month"
+                  [viewDate]="viewDate" [events]="events" [refresh]="refresh" [cellTemplate]="customCellTemplate"
+                  (beforeViewRender)="beforeMonthViewRender($event)" [activeDayIsOpen]="false">
+
+                </mwl-calendar-month-view>
+
+
+                <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events"
+                  [refresh]="refresh" [dayStartHour]="dayStartHour" [dayEndHour]="dayEndHour"
+                  [eventTemplate]="weekTemplate">
+                </mwl-calendar-week-view>
+                <mwl-calendar-day-view style="color: #4DABFF;" *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate"
+                  [events]="events" [refresh]="refresh" [dayStartHour]="dayStartHour" [dayEndHour]="dayEndHour"
+                  [eventTemplate]="customListTemplate">
+                </mwl-calendar-day-view> <br />
+              </div>
+            </div>
+          </mat-drawer-content>
+        </mat-drawer-container>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #popover>
+  <div class="overflow-auto" style="height: 300px;">
+    <table class="table table-white" style="width: 100%;">
+      <thead>
+        <tr>
+          <th>Post Data</th>
+          <th>Post content</th>
+          <th>Profile</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let media of modelData; let i = index">
+          <span (click)='retreiveDetailedPost(media.socialName, media.postId, media.userId)'>
+            <td> {{media.postDate | date: 'mediumDate'}} <br /> {{media.postDate | date: 'shortTime'}}</td>
+          </span>
+          <td>
+            <span (click)='retreiveDetailedPost(media.socialName, media.postId, media.userId)'>
+              <span *ngIf='media.mediaUrl && media.mediaUrl.length > 0'>
+                <div>
+                  <i class="fa fa-image iconRight"></i>
+                  <span *ngIf='media.mediaUrl'
+                    [ngClass]="{'imageShow' :media.mediaUrl.length == 1, 'blurImage':  media.mediaUrl.length > 1}">
+                    <img [src]='media.mediaUrl[0]' alt="Published Image" class="publishedImage">
+                  </span>
+                  <span *ngIf='media.mediaUrl.length > 1' class="pl-3">
+                    <span class="textBg">+{{media.mediaUrl.length-1}}</span>
+                  </span>
+                  {{(media.postData.length>30)? (media.postData | slice:0:20)+' ......':(media.postData)}}
+                </div>
+              </span>
+              <span *ngIf='media.mediaUrl && media.mediaUrl.length == 0'>
+                <i class="fa fa-comment-alt iconRight"></i>
+                {{(media.postData.length>30)? (media.postData | slice:0:20)+' ......':(media.postData)}}
+              </span>
+            </span>
+          </td>
+          <td>
+            <span *ngFor='let data of dropdownList'>
+              <img *ngIf="data.socialType=='twitter' && data.userId === media.userId" [src]="data.socialImage"
+                class="socialImage">
+              <img *ngIf="data.socialType=='facebook' &&  data.pageId === media.pageId"
+                [src]="'https://graph.facebook.com/'+data.pageId+'/picture'" class="socialImage" />
+              <img *ngIf="data.socialType=='linkedin' &&  data.pageId === media.pageId && !!media.pageId"
+                [src]="data.socialImage" class="socialImage" />
+              <img *ngIf="data.socialType=='linkedin' &&  data.userId === media.userId && !media.pageId"
+                [src]="data.socialImage" class="socialImage" />
+              <i style="color: rgb(99, 179, 211);" class="fab fa-{{data.socialType}} circle-icon iconPosition"
+                *ngIf="data.socialType!='facebook' && data.userId === media.userId"></i>
+              <i style="color: rgb(132, 118, 209);" class="fab fa-facebook fa-sm circle-icon iconPosition"
+                *ngIf="data.socialType=='facebook' && data.pageId === media.pageId"></i>
+            </span>
+          </td>
+          <ng-container matColumnDef="Icon">
+            <th class="tableHeader" mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let media">
+              <i title="Duplicate post" class="fa fa-copy"></i>
+              <i (click)='deletePostWeb(media.postId, media.socialName, media.userId, media.pageId)' title="Delete post"
+                style="padding-left:1rem;" class="fa fa-trash"></i>
+            </td>
+          </ng-container>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</ng-template>
+<ng-container>
+  <div class="card" >
+    <div class="card-body" *ngIf='postData && postData.profileData'>
+  
+      <div *ngFor='let item of postData.profileData'>
+        <span *ngIf='item.name == "facebook"'>
+  
+          <div class="col-sm-12">
+            <span *ngIf='postData && postData.socialData'>
+              <span *ngFor='let data of dropdownList'>
+                <img *ngIf="data.socialType=='facebook'&& data.pageId === postData.socialData.postInfo.pageId"
+                  [src]="'https://graph.facebook.com/'+data.pageId+'/picture'" class="socialImage" />
+              </span>
+            </span>
+  
+            <span *ngIf='postData && postData.socialData'>
+              <span class="profileNameFacebook">{{postData.socialData.postInfo.userName}} </span> <small>via
+                StoreFries</small>
+  
+              <div class="fbTime">
+                {{postData.socialData.postInfo.postDate | date:'longDate'}}
+                {{postData.socialData.postInfo.postDate | date:'shortTime'}}
+              </div>
+  
+              <div>
+                <div class="postDataFacebook">{{postData.socialData.postData}}</div>
+                <span *ngIf='postData.socialData.postInfo.mediaUrl && postData.socialData.postInfo.mediaUrl.length > 0'>
+                  <span *ngFor='let img of postData.socialData.postInfo.mediaUrl;let i=index'
+                    [ngClass]="{'no-padding-right':i==0,'padding-left':i==1}">
+                    <img [src]="img" class="publishedImageFacebook">
+                  </span>
+                </span>
+                <br />
+                <span class="likeSection">
+                  <span class="paddingLikeIcons"><i class="fa fa-thumbs-up"></i> Unlike</span>
+                  <span class="paddingLikeIcons"><i class="fa fa-comment-alt"></i> Comment</span>
+                  <span class="paddingLikeIcons"><i class="fa fa-thumbs-up"></i>
+                    {{postData.socialData.public_metrics.likes}}</span>
+                  <span class="paddingLikeIcons"><i class="far fa-comment-alt"></i>
+  
+                    <span *ngIf='!postData.socialData.conversations'>
+                      0
+                    </span>
+                    <span *ngIf='postData.socialData.conversations && postData.socialData.conversations.data.length > 0'>
+                      {{postData.socialData.conversations.data.length}}
+                    </span>
+                  </span>
+  
+  
+  
+  
+  
+                </span>
+                <div>
+                  <div class="commentSectionFacebook">
+                    <span *ngIf='postData && postData.socialData'>
+                      <span *ngFor='let data of dropdownList'>
+                        <img *ngIf="data.socialType=='facebook'&& data.pageId === postData.socialData.postInfo.pageId"
+                          [src]="'https://graph.facebook.com/'+data.pageId+'/picture'" class="socialImage" />
+                      </span>
+                    </span>
+                    <span>Comment as {{postData.socialData.postInfo.userName}}</span>
+                  </div>
+                  <div class="commentSectionFacebook"
+                    *ngIf='postData.socialData.conversations && postData.socialData.conversations.data.length > 0'>
+                    <div *ngFor='let data of postData.socialData.conversations.data'>
+  
+                      <div class=" commentBG">
+                        <img [src]="'https://graph.facebook.com/'+data.from.id+'/picture'" class="profileImageComment">
+                        <div>
+                          <div class="commentLeftMargin" style="font-weight: bold;">{{data.from.name}}</div>
+                          <div class="commentLeftMargin">{{data.message}} </div>
+  
+                        </div>
+  
+                      </div>
+                      <div class="commentLikes">Like &bull; Reply {{data.created_time | date: 'medium'}}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </span>
+          </div>
+        </span>
+        <span *ngIf='item.name == "twitter"'>
+          <div class="col-sm-2" style="margin-left: 8%;">
+            <img [src]='item.userProfileImage' class="profileImage">
+          </div>
+          <div class="col-sm-10">
+            <span *ngIf='postData && postData.socialData'>
+              <div class="profileName">{{item.screenName}}<span class="float-right"><i
+                    class="fas fa-ellipsis-h "></i></span>
+              </div>
+              <div class="time" style="margin-left: 15%;">{{postData.socialData.postInfo.postDate | date:'h:mm a'}} &bull;
+                {{postData.socialData.postInfo.postDate | date:'MMMM dd, yyyy'}} &bull;
+                Via StoreFries</div>
+              <div class="postedData" style="margin-left: 16%;">{{postData.socialData.postData}}</div>
+              <div class="postData">
+                <div>
+                  <span *ngIf='postData.socialData.postInfo.mediaUrl && postData.socialData.postInfo.mediaUrl.length > 0'>
+                    <span class="row  justify-content-center">
+                      <span class=" col-sm-6 no-padding"
+                        *ngFor='let image of postData.socialData.postInfo.mediaUrl; let i=index'
+                        [ngClass]="{'no-padding-right':i==0,'padding-left':i==1}">
+                        <img [src]="image" alt="{{image}}" class="publishedImage " />
+                      </span>
+                    </span>
+                  </span>
+                </div>
+  
+                <div class="row topMargin" style="margin-left: 30%;">
+                  <div class="col col1">
+                    <i class="fa fa-comment"></i> {{postData.socialData.public_metrics.reply_count}}
+                  </div>
+                  <div class="col">
+                    <i class="fa fa-retweet"></i> {{postData.socialData.public_metrics.retweet_count}}
+                  </div>
+                  <div class="col col2">
+                    <i class="fa fa-heart"></i> {{postData.socialData.public_metrics.like_count}}
+                  </div>
+                </div>
+  
+                <div class="commentSection" *ngFor='let data of postData.socialData.conversations.data'
+                  style="margin-top: 400px;">
+                  <div class="col-sm-2">
+                    <img [src]="data.userProfImage" class="profileImage">
+                  </div>
+                  <div class="col-sm-10">
+                    {{postData.socialData.postInfo.userName}} <small>{{data.created_at | date: 'medium'}}</small>
+                    <div>{{data.userDetailName}}</div>
+                    <div class="commentText">{{data.text}} </div>
+                    <div class="row commentColumn">
+                      <div class="col">
+                        <i class="fa fa-comment"></i> 0
+                      </div>
+                      <div class="col">
+                        <i class="fa fa-retweet"></i> 0
+                      </div>
+                      <div class="col">
+                        <i class="fa fa-heart"></i> 0
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </span>
+          </div>
+        </span>
+  
+        <div id="1423238316577546248_pub_det_text_box_container" class="inputContainer _active"
+          style="margin-left: 26%;margin-top: 2%;">
+          <div>
+            <div class="col-sm-2">
+              <img [src]='item.userProfileImage' class="profileImage" style="width: 40px;height: 80%;margin-top: 8px;">
+            </div>
+          </div>
+          <textarea id="1423238316577546248_pub_det_text_box" class="inputBox" style="margin-top: 2%;margin-left: 2%;"
+            mention_array_str="null"> @{{item.screenName}} 
+          </textarea>
+        </div>
+        <span *ngIf='item.name == "linkedin"'>
+          <div class="col-sm-2 ">
+            <img [src]='item.userProfileImage' class="profileImage">
+          </div>
+          <div class="col-sm-10">
+            <span *ngIf='postData && postData.socialData'>
+              <div class="profileName ">{{item.screenName}}</div>
+              <div class="time">{{postData.socialData.postInfo.postDate | date:'h:mm a'}} &bull;
+                {{postData.socialData.postInfo.postDate | date:'MMMM dd, yyyy'}} &bull;
+                StoreFries
+              </div>
+  
+              <div class="postData">
+                <div>
+                  <div class="postedData">{{postData.socialData.postData}}</div>
+                  <span *ngIf='postData.socialData.postInfo.mediaUrl.length > 0'>
+                    <span class="post row ">
+                      <span class="px-0  col-sm-6 no-padding"
+                        *ngFor='let image of postData.socialData.postInfo.mediaUrl; let i=index'
+                        [ngClass]="{'no-padding-right':i==0,'padding-left':i==1}">
+                        <img [src]="image" alt="{{image}}" class="publishedImage" />
+                    </span>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </span>
+          </div>
+  
+  
+        </span>
+      </div>
+    </div>
+  </div>
+</ng-container>

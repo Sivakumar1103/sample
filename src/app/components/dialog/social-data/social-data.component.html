@@ -1,0 +1,275 @@
+<div class="fluid-container">
+  <div class="modal-header">
+    Post Details
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <div class="card">
+
+
+      <!--Facebook Preview starts-->
+      <div class="card-body" *ngIf='postData && postData.profileData'>
+
+        <div *ngFor='let item of postData.profileData'>
+          <span *ngIf='item.name == "facebook"'>
+
+            <div class="col-sm-12">
+              <span *ngIf='postData && postData.socialData'>
+                <span *ngFor='let data of dropdownList'>
+                  <img *ngIf="data.socialType=='facebook'&& data.pageId === postData.socialData.postInfo.pageId"
+                    [src]="'https://graph.facebook.com/'+data.pageId+'/picture'" class="socialImage" />
+                </span>
+              </span>
+
+              <span *ngIf='postData && postData.socialData'>
+                <span class="profileNameFacebook">{{postData.socialData.postInfo.userName}} </span> <small>via
+                  StoreFries</small>
+
+                <div class="fbTime">
+                  {{postData.socialData.postInfo.postDate | date:'longDate'}}
+                  {{postData.socialData.postInfo.postDate | date:'shortTime'}}
+                </div>
+
+                <div>
+                  <div class="postDataFacebook">{{postData.socialData.postData}}</div>
+                  <span
+                    *ngIf='postData.socialData.postInfo.mediaUrl && postData.socialData.postInfo.mediaUrl.length > 0'>
+                    <span *ngFor='let img of postData.socialData.postInfo.mediaUrl;let i=index'
+                      [ngClass]="{'no-padding-right':i==0,'padding-left':i==1}">
+                      <img [src]="img" class="publishedImageFacebook">
+                    </span>
+                  </span>
+                  <br />
+                  <span class="likeSection">
+                    <span class="paddingLikeIcons"><i class="fa fa-thumbs-up"></i> Unlike</span>
+                    <span class="paddingLikeIcons"><i class="fa fa-comment-alt"></i> Comment</span>
+                    <span class="paddingLikeIcons"><i class="fa fa-thumbs-up"></i>
+                      {{postData.socialData.public_metrics.likes}}</span>
+                    <span class="paddingLikeIcons"><i class="fa fa-comment-alt"></i>
+
+                      <span *ngIf='!postData.socialData.conversations'>
+                        0
+                      </span>
+                      <span
+                        *ngIf='postData.socialData.conversations && postData.socialData.conversations.data.length > 0'>
+                        {{postData.socialData.conversations.data.length}}
+                      </span>
+                    </span>
+
+
+
+
+
+                  </span>
+                  <div>
+                    <div class="commentSectionFacebook">
+                      <span *ngIf='postData && postData.socialData'>
+                        <span *ngFor='let data of dropdownList'>
+                          <img *ngIf="data.socialType=='facebook'&& data.pageId === postData.socialData.postInfo.pageId"
+                            [src]="'https://graph.facebook.com/'+data.pageId+'/picture'" class="socialImage" />
+                        </span>
+                      </span>
+                      <span>Comment as {{postData.socialData.postInfo.userName}}</span>
+                    </div>
+                    <div class="commentSectionFacebook"
+                      *ngIf='postData.socialData.conversations && postData.socialData.conversations.data.length > 0'>
+                      <div *ngFor='let data of postData.socialData.conversations.data'>
+
+                        <div class=" commentBG">
+                          <img [src]="'https://graph.facebook.com/'+data.from.id+'/picture'"
+                            class="profileImageComment">
+                          <div>
+                            <div class="commentLeftMargin" style="font-weight: bold;">{{data.from.name}}</div>
+                            <div class="commentLeftMargin">{{data.message}} </div>
+
+                          </div>
+
+                        </div>
+                        <div class="commentLikes">Like &bull; Reply {{data.created_time | date: 'medium'}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </span>
+            </div>
+          </span>
+        </div>
+      </div>
+
+      <!--Facebook Preview ends-->
+
+      <!--Twitter Preview starts-->
+
+      <div class="card-body" *ngIf='postData && postData.profileData'>
+        <div *ngFor='let item of postData.profileData'>
+          <span *ngIf='item.name == "twitter"'>
+            <div class="col-sm-2" style="padding-left: 20%;">
+              <img [src]='item.userProfileImage' class="profileImage">
+            </div>
+            <div class="col-sm-10" style="padding-left: 20%;">
+              <span *ngIf='postData && postData.socialData'>
+                <div class="profileName">{{item.screenName}} <span class="offset-8"><i
+                      class="fa fa-ellipsis-h "></i></span></div>
+
+
+                <div class="time">{{postData.socialData.postInfo.postDate | date:'h:mm a'}} &bull;
+                  {{postData.socialData.postInfo.postDate | date:'MMMM dd, yyyy'}} &bull;
+                  StoreFries</div>
+
+                <div class="postData">
+                  <div>
+                    <div *ngIf='postData.socialData.postInfo.linkObj' class="postedData">{{postData.socialData.postData}} <span
+                        *ngIf='postData.socialData.postInfo.linkObj.length > 0'>
+                        <span class="px-0  col-sm-6 no-padding"
+                          *ngFor='let url of postData.socialData.postInfo.linkObj; let i=index'>
+                          <a href="{{url.url}}" style="text-decoration: none;" target="_blank"
+                            title="{{url.expanded_url}}">{{url.display_url}}</a>
+                        </span>
+                      </span></div>
+                    <span *ngIf='postData.socialData.postInfo.mediaUrl.length == 1' class="row">
+                      <span class="px-0  col-sm-12 no-padding"
+                        *ngFor='let image of postData.socialData.postInfo.mediaUrl; let i=index'
+                        [ngClass]="{'no-padding-right':i==0,'padding-left':i==1}">
+                        <img [src]="image" alt="{{image}}" class="publishedImage" />
+                      </span>
+                    </span>
+                    <span *ngIf='postData.socialData.postInfo.mediaUrl.length == 2' class="row">
+                      <span class="px-0  col-sm-6 no-padding"
+                        *ngFor='let image of postData.socialData.postInfo.mediaUrl; let i=index'
+                        [ngClass]="{'no-padding-right':i==0,'padding-left':i==1}">
+                        <img [src]="image" alt="{{image}}" class="publishedImage" />
+                      </span>
+                    </span>
+                    <span *ngIf='postData.socialData.postInfo.mediaUrl.length == 3' class="row">
+                      <!-- <span *ngFor='let image of postData.socialData.postInfo.mediaUrl; let i=index' [ngClass]="{'no-padding-right':i==0,'padding-left':i==1}"> -->
+                      <div class="px-0  col-sm-6 no-padding">
+                        <img [src]="postData.socialData.postInfo.mediaUrl[0]"
+                          alt="{{postData.socialData.postInfo.mediaUrl[0]}}" class="publishedImage" />
+                      </div>
+                      <div class="col-sm-6 no-padding">
+                        <div class="px-0  col-sm-12 no-padding">
+                          <img [src]="postData.socialData.postInfo.mediaUrl[1]"
+                            alt="{{postData.socialData.postInfo.mediaUrl[1]}}" class="publishedImage" />
+                        </div>
+                        <div class="px-0  col-sm-12 no-padding">
+                          <img [src]="postData.socialData.postInfo.mediaUrl[2]"
+                            alt="{{postData.socialData.postInfo.mediaUrl[2]}}" class="publishedImage" />
+                        </div>
+                      </div>
+                      <!-- </span> -->
+                    </span>
+
+                    <span *ngIf='postData.socialData.postInfo.mediaUrl.length == 4' class="row">
+                      <!-- <span *ngFor='let image of postData.socialData.postInfo.mediaUrl; let i=index' [ngClass]="{'no-padding-right':i==0,'padding-left':i==1}"> -->
+                      <div class="col-sm-6 no-padding">
+                        <div class="px-0  col-sm-12 no-padding">
+                          <img [src]="postData.socialData.postInfo.mediaUrl[0]"
+                            alt="{{postData.socialData.postInfo.mediaUrl[0]}}" class="publishedImage" />
+                        </div>
+                        <div class="px-0  col-sm-12 no-padding">
+                          <img [src]="postData.socialData.postInfo.mediaUrl[2]"
+                            alt="{{postData.socialData.postInfo.mediaUrl[2]}}" class="publishedImage" />
+                        </div>
+                      </div>
+                      <div class="col-sm-6 no-padding">
+                        <div class="px-0  col-sm-12 no-padding">
+                          <img [src]="postData.socialData.postInfo.mediaUrl[1]"
+                            alt="{{postData.socialData.postInfo.mediaUrl[1]}}" class="publishedImage" />
+                        </div>
+                        <div class="px-0  col-sm-12 no-padding">
+                          <img [src]="postData.socialData.postInfo.mediaUrl[3]"
+                            alt="{{postData.socialData.postInfo.mediaUrl[3]}}" class="publishedImage" />
+                        </div>
+                      </div>
+                      <!-- </span> -->
+                    </span>
+
+                    <!-- <span *ngIf='postData.socialData.postInfo.mediaUrl.length == 4' class="row">
+                        <span *ngFor="let image of postData.socialData.postInfo.mediaUrl; let i=index">
+                          <div *ngIf='i!=2 && i!=3' class="col-sm-6"
+                            [ngClass]="{'no-padding-right':i==0,'no-padding-left':i==1}">
+                            <img [src]="image" alt="{{image}}" />
+                          </div>
+        
+                          <div *ngIf='i!=0 && i!= 1' class="col-sm-6"
+                            [ngClass]="{'no-padding-right':i==2,'no-padding-left':i==3}">
+                            <img [src]="image" alt="{{image}}" />
+                          </div>
+                        </span>
+                      </span> -->
+                  </div>
+
+                  <div class="row topMargin">
+                    <div class="col col1">
+                      <i class="far fa-comment fa-lg"></i> {{postData.socialData.public_metrics.reply_count}}
+                    </div>
+                    <div class="col">
+                      <i class="fa fa-retweet fa-lg"></i> {{postData.socialData.public_metrics.retweet_count}}
+                    </div>
+                    <div *ngIf='postData.socialData.favorited == true' class="col col2">
+                      <i class="fa fa-heart fa-lg" style="color: crimson;"
+                        (click)="twitterLike('twitter','unlike',postData.socialData.postInfo.postId,postData.socialData.postInfo.userId)"></i>
+                      {{postData.socialData.public_metrics.like_count}}
+                    </div>
+                    <div *ngIf='postData.socialData.favorited == false' class="col col2">
+                      <i class="fa fa-heart fa-lg" style="color: rgb(240, 233, 235);"
+                        (click)="twitterLike('twitter','like',postData.socialData.postInfo.postId,postData.socialData.postInfo.userId)"></i>
+                      {{postData.socialData.public_metrics.like_count}}
+                    </div>
+                  </div>
+
+                  <div class="commentSection" *ngFor='let data of postData.socialData.conversations.data'>
+                    <div class="col-sm-2">
+                      <img [src]="data.userProfImage" class="profileImage">
+                    </div>
+                    <div class="col-sm-10">
+                      {{postData.socialData.postInfo.userName}} <small>{{data.created_at | date: 'medium'}}</small>
+                      <div>{{data.userDetailName}}</div>
+                      <div class="commentText">{{data.text}} </div>
+                      <div class="row commentColumn">
+                        <div class="col">
+                          <i class="fa fa-comment"></i> 0
+                        </div>
+                        <div class="col">
+                          <i class="fa fa-retweet"></i> 0
+                        </div>
+                        <div class="col">
+                          <i class="fa fa-heart"></i> 0
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </span>
+
+              <div id="1423238316577546248_pub_det_text_box_container" class="inputContainer _active col-sm-12"
+                style="margin-top: 2%; margin-left: 10%;">
+                <div>
+                  <div class="col-sm-2">
+                    <img [src]='item.userProfileImage' class="profileImage"
+                      style="width: 40px;height: 80%;margin-top: 8px;">
+                  </div>
+                </div>
+                <textarea id="1423238316577546248_pub_det_text_box" class="inputBox"
+                  style="margin-top: 2%;margin-left: 2%;" mention_array_str="null"> @{{item.screenName}} </textarea>
+              </div>
+            </div>
+
+          </span>
+
+        </div>
+      </div>
+
+      <!--Twitter Preview ends-->
+
+
+    </div>
+
+  </div>
+</div>
+<!--
+
+-->

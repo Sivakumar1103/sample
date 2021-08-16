@@ -1,0 +1,41 @@
+<div class="container fb-pages">
+  <div class="row">
+    <div class="col-sm-12" style="position: absolute; left: -5%;">
+      <ul>
+        <li><i style="color: rgb(74, 74, 175);" class="fab fa-facebook fa-2x"></i> &nbsp;</li>
+        <li><i style="color: rgb(209, 205, 205);" class="fas fa-exchange-alt fa-2x"></i> &nbsp;</li>
+        <li><img style="width: 30px;height: 30px;" src="../../../../../assets/img/favicon.ico"></li>
+      </ul>
+    </div>
+  </div>
+  <div>&nbsp;</div>
+  <hr>
+  <h2>Which pages do you want with Storefries?</h2>
+  <p>In next steps you will determine what Storefries can do with Pages you've selected</p>
+  <div *ngIf="messageData && messageData.facebookPages">
+    <h3 style="font-weight:500; padding-top: 2rem;">All Pages ({{messageData.facebookPages.length}})  </h3> <br/>
+    <div *ngFor="let page of messageData.facebookPages" class="col-xs-12 rowGap">
+      <img style="width: 40px; height: 40px;" [src]="'https://graph.facebook.com/'+page.id+'/picture'" class="socialImage"/> &nbsp;
+      <span class="pageName">{{page.name}}</span>
+      <input style="float: right" type="checkbox" [(ngModel)]="page.selected" />
+
+    </div>
+  </div>
+
+  <div *ngIf="messageData && messageData.facebookGroups">
+    <h3 style="font-weight:500; padding-top: 2rem;">All Groups ({{messageData.facebookGroups.length}})  </h3> <br/>
+    <div *ngFor="let page of messageData.facebookGroups" class="col-xs-12 rowGap">
+      <img style="width: 40px; height: 40px;" [src]="'https://graph.facebook.com/'+page.id+'/picture'" class="socialImage"/> &nbsp;
+      <span class="pageName">{{page.name}}</span>
+      <input style="float: right" type="checkbox" [(ngModel)]="page.selected" />
+
+    </div>
+  </div>
+  <hr>
+  <div class="col-sm-12">
+    <button style="float: left;" class="btn btn-color" (click)="modal.close()">Close</button>
+    <button style="float: right;" class="btn btn-primary " (click)="modal.close(messageData)">Submit</button>
+  </div>
+  <div>&nbsp;</div>
+</div>
+

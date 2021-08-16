@@ -1,0 +1,23 @@
+<div class="row pt-5">
+    <div class="col-md-6 mx-auto">
+        <div class="card rounded-0">
+            <div class="card-header">
+                <div class="mb-0">Update Profile</div>
+            </div>
+            <div class="card-body">
+                <form  autocomplete="off" [formGroup]='update'>
+                    <div class="form-group">
+                        <label for="">First Name</label>
+                        <input type="text"  name="firstName" minlength="4" maxlength="20" [(ngModel)]="updateUserData.firstName" formControlName="fname" class="form-control rounded-0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Last Name</label>
+                        <input type="text"name="lastName" minlength="4" maxlength="20" [(ngModel)]="updateUserData.lastName" formControlName="lname" class="form-control rounded-0" required>
+                    </div> <br/>
+                    <button  type="button" (click)="editUser()" class="btn btn-primary">Update</button> &nbsp;
+                    <button  type="reset" class="btn btn-primary">Reset</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

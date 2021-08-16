@@ -1,0 +1,45 @@
+<div class="container-fluid" style="padding: 20px;">
+    <div class="card">
+        <span style="float: left;padding: 10px;">Invite Member</span>
+    </div><br/>
+    <div>
+        <form [formGroup]='login'   (ngSubmit)="OnSubmit()" autocomplete="off" novalidate>
+            <table class="table table-bordered">
+                <tr>
+                  <th colspan="3">Add Team Member</th>
+                  <th>
+                    <button type="button" (click)="addRow()" class="btn btn-primary">+ Add</button>
+                  </th>
+                </tr>
+                <tr *ngFor="let dynamic of dynamicArray; let i = index;">
+
+                    <td>
+                        <label>First Name</label>
+                        <input [(ngModel)]="dynamicArray[i].firstname" class="form-control" type="text"/>
+                    </td>
+                    <td>
+                        <label>Last Name</label>
+                        <input [(ngModel)]="dynamicArray[i].lastname" class="form-control" type="text"/>
+                    </td>
+                    <td>
+                        <label>Email</label>
+                        <input [(ngModel)]="dynamicArray[i].email" class="form-control" formControlName='email' type="email"/>
+                        <div>
+                            <!--question mark(?) is a safe navigation operator-->
+                            <small *ngIf="login.controls.email.errors?.pattern" class="text-danger">Please provide a valid email address</small>
+                        </div>
+                    </td>
+                    <td (click)="deleteRow(i)">
+                        <i class="fas fa-trash fa-2x"></i>
+                    </td>
+                </tr>
+              </table>
+
+        </form>
+
+
+
+    </div>
+
+
+</div>

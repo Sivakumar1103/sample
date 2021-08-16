@@ -1,0 +1,53 @@
+
+.ak-sidebar {
+  position: sticky;
+  top: 0;
+  min-height: calc(100vh - 54px);
+  max-height: calc(100vh - 54px);
+  overflow-y: auto;
+  background: #3282c9;
+  padding-bottom: 54px;
+  .listcolour  {
+  background: #3282c9;
+  }
+
+
+}
+.ak-sidebar
+{
+
+  .dropdown
+  {
+    .white
+    {
+      background-color: #3282c9;
+    }
+
+  }
+}
+button
+{
+  background-color: #3282c9;
+}
+.ak-sidebar
+{
+  .show
+  {
+    :hover
+    {
+      background: #4dabff;
+      color: white;
+    }
+  }
+}
+.active
+{
+  background-color: #4dabff;
+}
+
+.dropdown-item{
+  background-color: #3282c9;
+}
+.active{
+  background: #4dabff;
+}

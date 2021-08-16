@@ -1,0 +1,279 @@
+<div class="header-wrap">
+
+</div>
+
+
+
+
+
+
+<div class="container-fluid white" style="background-color: white;"
+    *ngIf='searchQuery=="" && !!mediaList && mediaList.length == 0'>
+    <img src="../../../assets/img/image Library_.png" class="emptyLibraryImage">
+    <p>Oops! You have not uploaded any image.</p>
+    <div class="center">
+        <button (click)="uploader.click()" class="btn border"><i class="fa fa-upload"></i> Upload image</button>
+        <input hidden type="file" #uploader multiple (change)="uploadImage($event)" accept=".jpeg,.jpg,.png" />
+        or
+        <button class="btn border"><a routerLink='/socialmedia/creative/imageeditor'><i class="fas fa-magic"></i> Image
+                editor</a></button>
+    </div>
+</div>
+<div class="container-fluid p-0" *ngIf='(!!mediaList && mediaList.length > 0 )|| searchQuery!=""'>
+    <div class="scroll">
+        <div class="row" style="padding-top: 1rem;">
+            <div class="col-sm-3">
+                <form>
+                    <div class="input-group mb-3">
+                        <div class="position-relative">
+                            <input class="form-control" placeholder="Search in library" [(ngModel)]="searchModel"
+                                name='searchLib' aria-label="Media Search" aria-describedby="basic-addon2">
+
+                            <div class="clear">
+                                <span *ngIf='(searchModel != "" || searchQuery!="")' style="cursor:pointer;"
+                                    (click)='resetSearch()' class="input-group-text" id="basic-addon2">&times;</span>
+                            </div>
+                        </div>
+
+                        &nbsp;
+                        <button class="btn btn-primary" type="submit" style="color: white;font-weight: bold;"
+                            (click)="searchLibrary()"><i class="fa fa-search"></i></button>
+                    </div>
+
+                </form>
+            </div>
+
+
+            <div class="col-sm-9">
+                <div class="row">
+                    <div class="col-sm-3">
+
+                        <select class="form-control" [(ngModel)]="mediaTypeFilter" name="filterType"
+                            (change)="applyFileFilter()">
+                            <option value="">Media type</option>
+                            <option value="jpeg">JPEG</option>
+                            <option value="jpg">JPG</option>
+                            <option value="png">PNG</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-5">
+                        <button class="btn border btnHover" (click)="uploader.click()"
+                            style="color: black;height: 2.7rem;width: 10rem;"><i class="fa fa-upload"></i>&nbsp;Upload
+                            image</button>&nbsp;
+                        <input hidden type="file" #uploader multiple (change)="uploadImage($event)"
+                            accept=".jpeg,.jpg,.png" />
+                        <button class="btn border btnHover" style="color: white;height: 2.7rem;width: 10rem;"><a
+                                class="imageEditorA" routerLink='/socialmedia/creative/imageeditor'><i
+                                    class="fas fa-magic"></i> Image editor</a></button>
+
+                    </div>
+                    <div class="col-sm-3">
+                        <span>
+                            <span class="btnHover canva-btn canva-btn-theme-light canva-btn-size-m" id="dropdownMenu2"
+                                data-toggle="dropdown">
+                                <span class="canva-btn-i"></span>
+                                Design on Canva
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                                    style="cursor: pointer;">
+                                    <a class="dropdown-item" (click)="createCanva('SocialMedia', 800, 800)">Fits
+                                        all<span style="float: right;">800 x 800</span></a>
+                                    <a class="dropdown-item" (click)="createCanva('FacebookPost', 1080,  1080 )"><i
+                                            class="fab fa-facebook fa-lg" aria-hidden="true"></i>&nbsp; <i
+                                            class="fab fa-twitter fa-lg" aria-hidden="true"></i>&nbsp; <i
+                                            class="fas fa-instagram fa-lg" aria-hidden="true"></i> <span
+                                            style="float: right;">&nbsp; 1080 x 1080</span></a>
+                                    <a class="dropdown-item" (click)="createCanva('InstagramPost', 1080, 1920)"><i
+                                            class="fab fa-instagram fa-lg" aria-hidden="true"></i> <span
+                                            style="float: right;">1080 x 1920</span></a>
+                                </div>
+                            </span>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <hr>
+
+
+
+        <div class="row" *ngIf='clickmedia'>
+            <div class="col-sm-12 ">
+                <span style="float: right;cursor: pointer;">
+                    <i title="Delete" class="fal fa-trash-alt fa-lg"></i>&nbsp;&nbsp;
+                    <i title="Add to new post" class="fal fa-edit fa-lg"></i>&nbsp;&nbsp;
+                    <i title="Open with image editor" class="fa fa-pencil fa-lg"></i>
+                </span>
+            </div>
+        </div>
+
+        <!--Grid-->
+        <div class="row">
+            <div class="col-sm-12 d-flex  " *ngIf='mediaList'>
+                {{(mediaList | fileExtFilter: mediaTypeFilter).length}} Media items
+
+                <span class="text-left ml-auto">
+                    <button class="btn btn-primary" *ngIf='newpost' (click)="createPost()">Publish</button> &nbsp;
+                    <button class="btn btn-primary" *ngIf='delete' (click)="deleteSelected()">Delete</button> &nbsp;
+                    <button (click)="selectAll()" class="btn btn-primary"
+                        *ngIf="(mediaList | fileExtFilter: mediaTypeFilter).length > 0">{{buttonName}} All</button>
+                    &nbsp;
+                    <i *ngIf="displayType==='grid'" title="List view" class="fa fa-list fa-lg"
+                        (click)="displayType='list'"></i>
+                    <i *ngIf="displayType==='list'" title="Grid view" class="fa fa-th fa-lg"
+                        (click)="displayType='grid'"></i>
+                </span>
+
+            </div>
+        </div>
+        <hr>
+
+        <div class="row" *ngIf="displayType==='grid' && mediaList">
+            <div class="col-sm-12">
+                <ul>
+                    <li *ngFor="let media of mediaList | fileExtFilter: mediaTypeFilter; let i=index">
+                        <label>
+                            <figure class="uploadedImage shadow  mb-5 bg-white rounded">
+                                <img class="cardsize" (click)="open(i)" [src]="media.src"
+                                    title="{{media.Key.split('/')[2]}}" />
+                                <caption class="caption" title="{{media.Key.split('/')[2]}}">
+                                    {{(media.Key.split('/')[2].length>20)? (media.Key.split('/')[2] |
+                                    slice:0:20)+'..':(media.Key.split('/')[2])}}
+                                    <br />
+
+                                    <div id="checkboxHover" class="pretty p-default p-thick">
+                                        <input type="checkbox" (change)="enable()" [(ngModel)]='media.checked' />
+                                        <div class="state p-primary-o">
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                    <span style="float: right;">
+                                        <i class="fas fa-edit" (click)="editInLibrary(media.Key)"
+                                            title="Edit with image editor" style="cursor:pointer;"></i> &nbsp;
+                                        <i class="fas fa-trash" (click)="removeMedia([media.Key])"
+                                            style="cursor:pointer;" title="Remove Media"></i>
+                                    </span>
+                                </caption>
+                            </figure>
+                        </label>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+        <!--List-->
+
+
+        <div class="row-scrollbar" [hidden]="displayType!=='list'">
+
+
+            <table mat-table [dataSource]="mediaDatasource" matSort class="matTable mat-elevation-z1">
+
+                <!--Checkbox Column-->
+                <ng-container matColumnDef="checked">
+                    <th mat-header-cell *matHeaderCellDef>
+                        <mat-checkbox (change)="$event ? masterToggle() : null"
+                            [checked]="selection.hasValue() && isAllSelected()" color="primary" (click)='selectAll()'
+                            [(ngModel)]="selectAllModel">
+                        </mat-checkbox>
+                    </th>
+                    <td mat-cell *matCellDef="let media">
+                        <mat-checkbox (click)="$event.stopPropagation()"
+                            (change)="$event ? selection.toggle(media) : null" [checked]="selection.isSelected(media)"
+                            color="primary" (change)="enable()" [(ngModel)]='media.checked'>
+                        </mat-checkbox>
+                    </td>
+                    <!--<th mat-header-cell *matHeaderCellDef>
+                    <div id="checkboxHover"  class="pretty p-default p-thick">
+                        <input type="checkbox" (click)='selectAll()' [(ngModel)]="selectAllModel">
+                        <div class="state p-primary-o">
+                          <label></label>
+                      </div>
+                    </div>
+                </th>
+                <td mat-cell *matCellDef="let media;">
+                    <div id="checkboxHover" class="pretty p-default p-thick">
+                        <input type="checkbox" (change)="enable()" [(ngModel)]='media.checked' />
+                        <div class="state p-primary-o">
+                          <label></label>
+                        </div>
+                    </div>
+                </td>-->
+                </ng-container>
+
+                <!--Image Column-->
+                <ng-container matColumnDef="src" class="image">
+                    <th mat-header-cell *matHeaderCellDef> File </th>
+                    <td mat-cell *matCellDef="let media; let i=index" class="imageTd">
+                        <img class="cardsize" style="width: 140px; height: 100px;cursor: zoom-in;" (click)="open(i)"
+                            [src]="media.src">
+                    </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+                    <td mat-cell *matCellDef="let media"> {{media.name}} </td>
+                </ng-container>
+
+                <!--Last Modified Colums-->
+                <ng-container matColumnDef="LastModified">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Last modified </th>
+                    <td mat-cell *matCellDef="let media"> {{media.LastModified | date: 'dd/MM/yyyy'}} </td>
+                </ng-container>
+
+                <!-- File Size Column -->
+                <ng-container matColumnDef="Size">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> File Size </th>
+                    <td mat-cell *matCellDef="let media"><span [hidden]="true">{{media.Size}}</span> {{media.calcSize}}
+                    </td>
+                </ng-container>
+
+                <!-- Delete/New Post Column -->
+                <ng-container matColumnDef="Options">
+                    <th mat-header-cell *matHeaderCellDef> </th>
+                    <td mat-cell *matCellDef="let media" class="dataWidth">
+                        <ng-container *ngIf='singleDelete'>
+                            <i class="fa fa-edit" (click)="editInLibrary(media.Key)" title="Edit with image editor"
+                                style="cursor:pointer;"></i> &nbsp;&nbsp;&nbsp;
+                            <i class="fas fa-trash" (click)="removeMedia([media.Key])" style="cursor:pointer;"
+                                title="Remove Media"></i>
+                        </ng-container>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let media; columns: displayedColumns;" (click)="toggleRowCustom(media);"></tr>
+
+            </table>
+
+        </div>
+
+        <div class="row my-5" style="display: none;">
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="card-body scroll">
+                        <div class="row no-gutters mediaRow" *ngIf="mediaList">
+                            <div class="col-sm-6" *ngFor="let media of mediaList">
+                                <img src="{{'https://aikyne-mediafiles.s3.ap-south-1.amazonaws.com/'+media.Key}}" />
+                                <div class="col-sm-12">{{media.Key.split('/')[1]}}</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body border text-center height" #tuiImageEditor>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

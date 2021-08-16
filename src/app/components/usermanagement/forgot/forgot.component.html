@@ -1,0 +1,38 @@
+<div class="container-fluid login-screen">
+  <div class="row">
+    <div class="col-md-8 nodisplay">
+      <img src="../../../../assets/img/Social_Media_Marketing.png" alt="Login">
+    </div>
+    <div class="col-md-4">
+      <div class="my-5 margin-center">
+        <div class="card-body">
+          <img class="logo" src="../../../../assets/img/_Storefries.png" alt="StoreFries"> <br/>
+          <h3 class="card-title text-center"><p style="font-weight: bold;">Forgot Password</p></h3>
+          <form class="form-signin" [formGroup]='login' (ngSubmit)="OnSubmit()" autocomplete="off" novalidate>
+              <div class="form-label-group">
+
+                <input type="email" name="email" formControlName="email" class="form-control" placeholder="Enter email"  [(ngModel)]="forgotUserData.email">
+
+                <div *ngIf="(login.controls.email.invalid && login.controls.email.touched) || login.controls.email.dirty">
+									<small *ngIf="login.controls.email.errors?.pattern" class="text-danger">Please provide a valid email address</small>
+								</div>
+
+              </div>
+
+              <button style="cursor: pointer;" class="btn btn-lg btn-block text-uppercase" type="submit" value="Submit code"
+                (click)="forgotUser()" [disabled]="!login.valid"><i class="fas fa-sign-in-alt"></i> Reset Password</button>
+              <hr class="my-4">
+
+              <div class="anchor">
+                Already have an account? &nbsp;<a style="color: blue;" routerLink='/login' class="pointer">Sign in now.</a> <br />
+                Do not have an account? &nbsp;<a style="color: blue;" routerLink='/register' class="pointer">Sign up now.</a>
+              </div>
+          </form>
+
+        </div>
+        <a style="font-weight: bold; cursor: pointer; color: black;" routerLink='/privacypolicy'>Privacy Policy</a>
+      </div>
+
+    </div>
+  </div>
+</div>

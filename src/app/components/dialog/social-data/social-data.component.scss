@@ -1,0 +1,260 @@
+
+.card
+{
+    width: 100%;
+    border: none;
+   
+}
+.card-body
+{
+    margin-top: -2rem !important;
+}
+.profileImage
+{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    float: left;
+}
+.profileImageComment
+{
+    width: 35px;
+    height: 35px;
+    margin-left: 10px;
+    border-radius: 50%;
+    float: left;
+    margin-top: 3px;
+}
+.uploadedImage
+{
+    width: 150px;
+    height: 90px;
+}
+.time
+{
+    margin-left: 3.2rem;
+}
+
+.col-sm-10
+{
+    .profileName
+    {
+        font-size: 18px;
+        font-weight: 500;
+        padding-top: 0.5rem !important;
+        padding-bottom: 0.3rem !important;
+        padding-left: 3.5rem !important;
+    }
+}
+.profileNameFacebook
+{
+    font-size: 18px;
+    font-weight: 500;
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.3rem !important;
+    
+    
+}
+.fbTime
+{
+    margin-top: -0.8rem;
+    margin-left: 3.3rem !important;
+}
+.postDataFacebook
+{
+    margin-left: 3.5rem;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+    font-size: 18px;
+}
+.publishedImageFacebook
+{
+    width: 120px;
+    height: 80px;
+    border: 1px solid rgb(226, 221, 221);
+    border-radius: 5px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-left: 3.5rem;
+}
+.commentColumn
+{
+    margin-left: 25px;
+    padding-top:5px ;
+}
+.postData
+{
+    padding-top: 20px;
+    margin-left: 4rem !important;
+}
+.likeSection
+{
+    margin-left: 3.8rem !important;
+    padding-top: 2rem;
+
+}
+.paddingLikeIcons
+{
+    padding-right: 12px;
+}
+.commentLeftMargin
+{
+    padding-left: 4rem !important;
+}
+.commentLikes
+{
+    padding-left: 60px !important;
+}
+.commentBG
+{
+    background: rgb(239, 249, 255);
+    width: 50%;
+    margin-top: 10px !important;
+    
+}
+.commentSectionFacebook
+{
+    margin-left: 30px;
+    margin-top: 1rem;
+}
+
+.commentProfileImage
+{
+    margin-top: 5px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    float: left;
+    margin-left: 1rem;
+}
+
+.inputBox{
+    width: 70%;
+    
+}
+.commentInput
+{
+    border: 1px solid white;
+    border-radius: 5px;
+    height: 40px;
+    outline: none;
+    
+    background:  #F5F6F7;
+}
+.commentSectionDefault
+{
+       
+    margin-top: 20px;
+    background-color: #F5F6F7;
+    height: 60px;
+}
+.paddingRight
+{
+  padding-right: 10px;
+}
+.paddingLeft
+{
+  padding-left: 10px;
+}
+/*.imageBorder
+{
+   
+    background: white;
+    width: 100%;
+    height: 120px;
+    .publishedImage
+        {
+            margin-top: 15px;
+            width: 100%;
+            height: 60%;
+            object-fit: cover;
+            
+        }
+}*/
+.publishedImage
+{
+    width: 100%;
+    height: 100%;
+    // border: 1px solid rgb(226, 221, 221);
+    // border-radius: 20px;
+}
+.publishedImageFacebook
+{
+    width: 120px;
+    height: 80px;
+    border: 1px solid rgb(226, 221, 221);
+    border-radius: 5px;
+    margin-left: 3rem;
+}
+.imageLeftMargin
+{
+    margin-left: -15px;
+}
+
+.no-padding-right {
+    padding-right: 0;
+  }
+  
+  .no-padding-left {
+    padding-left: 0;
+  }
+  
+  .no-padding {
+    padding-left: 0;
+    padding-right: 0;
+  }
+.postedData
+{
+    font-size: 18px;
+    margin-left: -15px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+}
+
+
+.inputContainer {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    padding: 0;
+    margin: 0;
+    background-color: #e3e5e6;
+    width: 94%;
+    cursor: text;
+}
+.inputWithAttach._active textarea, .inputContainer._active textarea, .storyComment._active textarea {
+    margin-bottom: 30px !important;
+    min-height: 30px;
+    width: 80%;
+    overflow-y: auto;
+    max-height: 150px;
+    line-height: 21px;
+    overflow: auto;
+}
+
+.col2
+{
+    margin-right: 4rem;
+}
+.commentSection
+{
+    margin-left: -17px;
+    margin-top: 20px;
+    background-color: #F5F6F7;
+}
+.commentText
+{
+    margin-left: 2.6rem;
+    padding-top: 5px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.defaultCommentMargin
+{
+    margin-left: 2rem;
+}
+.topMargin
+{
+    margin-top: 1rem !important;
+    font-size: 16px;
+}

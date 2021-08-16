@@ -1,0 +1,250 @@
+.white
+{
+  margin-top: 10rem !important;
+  display: block;
+  .emptyLibraryImage
+  {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 20%;
+  }
+  p
+  {
+    text-align: center;
+    font-size: xx-large;
+    font-weight: bolder;
+  }
+  .center
+  {
+    text-align: center;
+  }
+  a
+  {
+    text-decoration: none;
+    color: black;
+  }
+}
+
+
+.container-fluid
+{
+  background-color: white;
+  margin: 0;
+}
+.btncolor
+{
+    background: linear-gradient(to right, #4DABFF ,#62DDFF);
+    border: none;
+}
+
+.col-sm-12
+{
+  ul
+  {
+    li
+    {
+      list-style: none;
+      float: left;
+      figure
+      {
+        .caption
+        {
+          border-top: 1px solid #DADBDB; 
+          background-color: white;
+          width: 220px; 
+          color: black; 
+          padding: 10px;
+          cursor: pointer;
+        }
+        .caption:hover
+        {
+          background-color: rgb(214, 214, 214);
+        }
+        .cardsize:hover
+        {
+          border:2px solid black;
+        }
+      }
+      
+    }
+  }
+}
+.imageEditorA
+{
+  color: black;
+  text-decoration: none;
+}
+.btnHover:hover
+{
+  background: #DCDFE5;
+}
+
+#checkboxHover
+{
+  opacity: 1;
+}
+#checkboxHover:checked
+{
+  opacity: 1;
+}
+
+figure:hover #checkboxHover
+{
+  opacity: 1;
+}
+table:hover #checkboxHover
+{
+  opacity: 1;
+  
+}
+
+figure
+{
+  img
+  {
+    width: 220px; 
+    height: 150px; 
+    cursor: zoom-in;
+  }
+  i
+  {
+    display: none;
+  }
+  &:hover
+  {
+    i
+    {
+      display: list-item;
+      list-style: none;
+      float: left;
+      padding: 2px;
+    }
+  }
+}
+
+.marginRight
+{
+  margin-right: 3rem;
+}
+
+table
+{
+  cursor: pointer;
+  th
+  {
+    background: white !important;
+    font-size: 18px;
+    color: black;
+    
+    text-transform: none;
+    
+  }
+  td
+  {
+    background: white;
+  }
+  .imageTd
+  {
+    padding: 10px;
+  }
+  .cardsize
+  {
+    padding: 5px;
+    border: 1px solid rgb(212, 212, 212);
+    border-radius: 5px;
+  }
+  .cardsize:hover
+  {
+    border:2px solid black;
+ 
+  }
+  i
+  {
+    opacity: 0;
+    
+  }
+ 
+}
+
+table
+{
+  .dataWidth
+  {
+    width: 5rem !important;
+  }
+
+  tr:hover
+  {
+    td
+    {
+      background: rgb(228, 242, 255);
+    }
+    i
+    {
+      opacity: 1;
+    }
+  }
+}
+
+.uploadedImage
+{
+  margin-left: 30px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.matTable {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.clear{
+  position: absolute;
+  right: 5px;
+  top: 9px;
+}
+
+.clear span{
+  background: rgb(210 63 17/17%);
+  color: #d23f11;
+  padding: 0;
+  width: 20px;
+  border: 0;  
+  height: 20px;
+  line-height: 18px;
+  border-radius: 50%;
+  justify-content: center;
+  display: block;
+}
+.row-scrollbar{
+  max-height: calc(100vh - 239px);
+  overflow-y: auto;
+}
+
+.row-scrollbar::-webkit-scrollbar {
+  width: 12px;
+  height:12px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+ 
+/* Handle */
+.row-scrollbar::-webkit-scrollbar-thumb {
+  background: #cccccc; 
+  border-radius: 0;
+}
+
+/* Handle on hover */
+.row-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #919191; 
+}
+
+/*Canva*/
+// .scroll{
+//   height: calc(100vh - 80px);
+//   overflow-y: scroll;
+//   overflow-x: hidden;
+// }

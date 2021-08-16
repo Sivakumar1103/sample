@@ -1,0 +1,104 @@
+<div class="">
+    <div class="row">
+        <div class="col-sm-2 px-0 border-right">
+            <div style="background-color: #3282c9;">
+                <h5 class="p-3" style="color: #ecf9fd;">User Profile</h5>
+            </div>
+            <div style="border-bottom: 0px solid #ccc;"></div>
+            <div class="px-3" style="padding: 8px; height: 53px;">Account</div>
+            <ul style="padding-left: 0px;">
+                <li>
+                    <a href="javascript:void(0)"
+                        class="list-group-item list-group-item-action list-group-item-secondary" (click)="tabName = 'personal'" [ngClass]="{'active' : (tabName == 'personal')}">
+                        Personal
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)"
+                        class="list-group-item list-group-item-action list-group-item-secondary" (click)="tabName = 'account'" [ngClass]="{'active' : (tabName == 'account')}">
+                        Account Settings
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)"
+                        class="list-group-item list-group-item-action list-group-item-secondary" (click)="tabName = 'billing'" [ngClass]="{'active' : (tabName == 'billing')}">
+                        Billing & Plan
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)"
+                        class="list-group-item list-group-item-action list-group-item-secondary"(click)="tabName = 'security'" [ngClass]="{'active' : (tabName == 'security')}">
+                        Security
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)"
+                        class="list-group-item list-group-item-action list-group-item-secondary" (click)="tabName = 'manage'" [ngClass]="{'active' : (tabName == 'manage')}">
+                        Manage user accounts
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)"
+                        class="list-group-item list-group-item-action list-group-item-secondary" (click)="tabName = 'shorturl'; " [ngClass]="{'active' : (tabName == 'shorturl')}">
+                        Publishing
+                    </a>
+                </li>
+            </ul>
+            <ng-container>
+                <div class=" modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <h4 class="modal-title w-100 font-weight-bold">Deactivate Account</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form [formGroup]="deleteForm" autocomplete="off">
+                                <div class="form-group">
+                                    <div class="col-12"><br>
+                                        <i class="fas fa-envelope prefix grey-text"></i>                                        
+                                        <label class="ml-3" for="email">Your Email</label>
+                                        <input style="cursor: not-allowed" name="email" [(ngModel)]="profileService.userData.email" formControlName="email" id="email" class="form-control " [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+                                        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                                            <div *ngIf="f.username.errors.required">Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <div class="col-12">
+                                        <i class="fas fa-lock prefix grey-text"></i>
+                                        <label class="ml-3" data-success="right" for="password">Your Password</label>
+                                        <input type="password" name="password"  [(ngModel)]="loginUserData.password" formControlName="password" id="password"class="form-control"[ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                                        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                            <div *ngIf="f.password.errors.required">Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer d-flex justify-content-center">
+                                    <button class="btn btn-danger" [disabled]="clicked" (click)="clickMethod()" >Delete</button>
+                                    <button  class="btn btn-info" data-dismiss="modal" aria-label="Close">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="">
+                    <button class="cancel btn btn-danger btn-rounded mb-4" data-toggle="modal"
+                        data-target="#modalLoginForm">Deactivate account</button>
+                </div>
+            </ng-container>
+        </div>
+        <div class="col-sm-10" style="min-height: calc(100vh - 75px); max-height: calc(100vh - 75px);overflow: auto;">
+            <app-personalinformation *ngIf="tabName === 'personal'"></app-personalinformation>
+            <app-profile *ngIf="tabName === 'account'"></app-profile>
+            <app-billinginformation *ngIf="tabName === 'billing'"></app-billinginformation>
+            <app-passwordupdate *ngIf="tabName === 'security'"></app-passwordupdate>
+            <!--<app-usersocialprofile *ngIf="tabName === ''"></app-usersocialprofile>-->
+            <app-manageaccount *ngIf='tabName=== "manage"'></app-manageaccount>
+            <app-shorturl *ngIf='tabName=== "shorturl"'></app-shorturl>
+        </div>
+    </div>
+</div>

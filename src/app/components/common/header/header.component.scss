@@ -1,0 +1,131 @@
+.top-navbar {
+  background: #3282c9;
+
+
+  .brandLogo{
+    width:15rem;
+    font-weight: bold;
+    color: white;
+
+    .brandText{
+      padding: 0 1rem 0 0.5rem;
+    }
+  }
+  .border-bottom
+  {
+    border-bottom: 1px solid grey;
+  }
+  .menuStyle
+  {
+    
+    border-radius: 10px;
+  }
+  .dropdown-menu-right
+  {
+    position: absolute;
+    right: -80px;
+  }
+  .dropdown-menu-right-right
+  {
+    position: absolute;
+    left: -13rem !important;
+  }
+  .seeAll
+  {
+    color: black;
+  }
+  .dropdown-item:hover
+  {
+    background: white;
+    .delete
+    {
+      opacity: 1;
+    }
+  }
+  .readIcon
+  {
+    float: right;
+  }
+  .delete
+  {
+    opacity: 0;
+    margin-right: 10px;
+  }
+  
+  .notificationText
+  {
+
+    padding: 10px;
+    background: #3282C9;
+    color: white;
+  }
+  .notificationText:hover
+  {
+    background: #3282C9;
+    color: white;
+  }
+  .notificationTextInside
+  {
+    font-weight: bolder;
+    font-size: large;
+  }
+  .notificationData
+  {
+    
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .envPosition
+  {
+    float: right;
+    
+  }
+ 
+.markAllIcon
+{
+  float: right;
+  margin-right: 20px;
+}
+
+.nav-item
+{
+  cursor: pointer;
+}
+.iconStyle
+{
+  float: right;
+  color: #3282c9;
+  padding: 5px;
+}
+  li.menuText {
+    a {
+      color: white;
+      font-size: 18px;
+      padding: 0 1rem;
+      font-weight:bold;
+    }
+  }
+}
+
+.badge{
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 50%;
+  border: 1px solid #3282c9;
+  font-size: 8px;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  line-height: 14px;
+  text-align: center;
+}
+.hovermenu{
+  width: 15rem;
+  a:hover
+  {
+    padding-left:1.7rem;
+    font-weight: 500;
+  }
+}

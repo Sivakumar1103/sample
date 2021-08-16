@@ -1,0 +1,472 @@
+.select2-container .select2-selection--single{
+  height:34px !important;
+}
+.select2-container--default .select2-selection--single{
+  border: 1px solid #ccc !important;
+  border-radius: 0px !important;
+}
+.circle-icon {
+  color: #1da1f2;
+
+  border-radius: 50%;
+  margin: 0.5rem;
+}
+
+.horizontal-bar{
+  width: 100%;
+  margin-top: 0rem;
+  margin-bottom: 1rem;
+}
+
+.accountName
+{
+  font-size: 15px;
+  position: absolute;
+  top: 2px;
+  color: black;
+}
+h4
+{
+  color: black;
+}
+h5
+{
+  color: white;
+}
+
+.textpreview
+{
+  background: white;
+  margin: 0 auto;
+  border-radius: 20px;
+  text-align: left;
+}
+.btncolor {
+  margin: 0px auto;
+  background: linear-gradient(to right,#4DABFF ,#62DDFF);
+
+}
+.col-sm-6 {
+  .file-upload{
+
+      input[type='file']
+    {
+      position:absolute;
+      top:0;
+      left:0;
+      opacity:0;
+      cursor:pointer;
+
+    }
+  }
+}
+
+textarea
+{
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  outline: none;
+
+
+}
+
+
+.rowmargin {
+  margin: 2rem 0;
+}
+.fb {
+  background-color: #3B5998;
+  color: white;
+}
+
+
+.postbutton {
+  width: 10%;
+}
+.fa-facebook {
+span {
+    display: inline-block;
+}
+}
+.customborder
+{
+  border: 1px solid #CED7DF;
+}
+.postRow{
+padding: 1rem 0;
+}
+
+.editorSection{
+
+
+h5 {
+  color: black;
+}
+
+.textEditor{
+
+  padding-right: 1rem;
+
+  .innerEditor{
+
+
+    textarea {
+      border: none;
+      border-radius: 5px;
+      height: 9rem;
+
+    }
+
+    hr {
+      padding: 0;
+      margin: 0;
+      border-top: 1px solid;
+    }
+
+    button {
+      background: transparent;
+      border: none;
+      padding: 0.5rem;
+    }
+  }
+}
+}
+.trigger
+{
+background: linear-gradient(to right, #4DABFF ,#62DDFF);
+color: black;
+cursor: pointer;
+text-align: center;
+box-shadow: inset 0 0 0 #ddd;
+}
+.btn.btn-primary::placeholder
+{
+color: #fff;
+
+}
+
+.ngx-file-drop__drop-zone {
+border: 2px solid black;
+text-align: center;
+}
+
+
+.contentLink {
+color: #4DABFF;
+font-weight: bold;
+cursor: pointer;
+}
+
+.emoji-mart {
+  position: absolute;
+  z-index: 999;
+}
+
+.itemimage
+{
+  border: 1px solid rgb(206, 205, 205);
+  border-radius: 5px;
+  width: 60px;
+  height: 60px;
+
+}
+.imageMargin
+{
+  margin-right: -20px !important;
+}
+.previewimage
+{
+width: 200px;
+height: 200px;
+border: 1px solid black;
+
+}
+.border
+{border: solid grey;
+border-radius: 5px ;
+}
+.geeks {
+width:150px;
+height:300px;
+
+}
+img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  }
+
+
+.button-group
+{
+background: linear-gradient(to right, #62DDFF ,#62DDFF);
+}
+.scrolltextarea
+{
+  height: calc(100vh - 206px) !important;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.scroll
+{
+  height: calc(100vh - 140px) !important;
+  overflow: scroll;
+}
+.iconsize
+{
+  font-size: 24px;
+}
+.innerEditor
+{
+.hover1
+{
+  .hover2
+  {
+
+    .iconsize:hover
+    {
+      font-size: 26px;
+    }
+
+  }
+}
+}
+.import
+{
+  color: white;
+  width: 120px;
+}
+
+
+
+@media (max-width: 767px)
+{
+  i
+  {
+    font-size: 20px;
+  }
+
+}
+
+/* Tab */
+
+.facebook {
+ background-color: #f3f4f4;
+ color:  #3B5999;
+}
+
+.twitter {
+ background-color: #f3f4f4;
+ color: #1B9FF1;
+}
+.linkedin
+{
+ background-color:  #f3f4f4	;
+ color: #0077b5;
+}
+.postButtons
+{
+  margin-top: 1.2rem;
+  margin-left: 6.2rem;
+}
+.paddingRight
+{
+  padding-right: 10px;
+}
+.paddingLeft
+{
+  padding-left: 10px;
+}
+.socialProfile {
+  padding: 5px;
+  border-radius: 50%;
+  height:40px;
+  width:40px;
+}
+.socialProfileLinkedIn {
+  padding: 5px;
+  border-radius: 50%;
+  height:40px;
+  width:40px;
+}
+
+.dropdownimage {
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+}
+
+.no-padding-right {
+  padding-right: 0;
+}
+
+.no-padding-left {
+  padding-left: 0;
+}
+
+.no-padding {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.secondaryButton
+{
+  border: none;
+  background-color: #61DCFF;
+}
+
+.deleteMedia
+{
+  position: relative;
+  left: -18px;
+}
+.tdPaddingRight
+{
+  padding-right: 3rem !important;
+}
+.tdPaddingLeft
+{
+  padding-left: 3rem !important;
+}
+.caretBtn{
+  display: inline-block;
+    background: #007bff;
+    padding: 8px 10px 8px 12px;
+    border-radius: 4px 0 0  4px;
+    font-size: 16px;
+    line-height: 1.5;
+    vertical-align: middle;
+    border-right: 1px solid rgb(0 0 0 / 16%);
+    color: #fff;
+    cursor: pointer;
+    transition: 300ms all;
+}
+.caretBtn:hover{
+  background: rgb(0 123 255 / 86%);
+}
+.arrow{
+  border: 0;
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 8px 10px;
+  width: 160px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.overlay{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #000;
+  opacity: 0.3;
+}
+.box{
+position: relative;
+}
+.post{
+  position: relative;
+  display: flex;
+  // margin: 0 43px;
+}
+.part{
+  display: block;
+  position: absolute;
+  z-index: 1000;
+  bottom: 50px;
+  background: #fff;
+  width: 300px;
+  border-radius: 4px;
+    margin-left: -135px
+}
+
+.showTime{
+  display: flex;
+    align-items: center;
+    background: #007bff;
+    float: right;
+    padding: 10px 15px;
+    border-radius: 20px;
+    color: #fff;
+}
+
+.mat-card-header .mat-card-title {
+  font-size: 16px;
+}
+
+.attchdLink{
+  border: 1px solid #CED7DF;
+}
+.vgbbf{
+  border-bottom: 1px solid #CED7DF;
+}
+
+.dateShown{
+  position: relative;
+}
+.dateShown input{
+  font-weight: 500;
+  margin-left: 5px;
+  font-size: 12px;
+  padding-left: 25px !important;
+  width: auto;
+  padding-right: 35px !important;
+  text-align: left;
+}
+.dateShown > i,.dateShown button{
+  position: absolute;
+}
+.dateShown > i{
+  left: 14px;
+  color: #fff;
+}
+.dateShown button{
+  right: 8px;
+}
+.dropdown-menu{
+  font-size: 13px !important;
+  padding: 3px !important;
+}
+.line-clamp{
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+}
+.selected-facebook{
+  background-color: blue;
+  color: white;
+
+}
+.selected-linkedin{
+  background-color: #0077b5;
+  color:white	 ;
+}
+.selected-twitter{
+  color: white; 
+  background-color: #1DA1F2
+}
+
+.closeDrag{
+  cursor: pointer;
+  background: rgba(210, 63, 17, 0.17);
+  color: #d23f11;
+  padding: 0;
+  width: 20px;
+  border: 0;
+  height: 20px;
+  line-height: 18px;
+  border-radius: 50%;
+  text-align: center;
+}
+// .justify-content-end{
+//   left: 47px;
+// }
+// .post_now{
+//   left: 129px;
+// }

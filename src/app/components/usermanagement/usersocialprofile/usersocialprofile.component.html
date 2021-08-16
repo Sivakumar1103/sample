@@ -1,0 +1,73 @@
+<div class="container-fluid">
+    <div>
+        <span>
+            <span style="padding-left: 10px;">Users & Social Profile</span>
+            <span style="float: right;">
+                <span style="padding: 10px;"><a href="javascript:void(0)"><i class="fas fa-folders"></i> Create a group</a></span>
+                <span style="padding: 10px;"style="padding: 5px;"><a routerLink='/addmember'><i class="fas fa-users"></i> Invite a Team Member</a></span>
+                <span style="padding: 10px;"><a href="javascript:void(0)" (click)="openSocialModal()"><i class="fas fa-plus-square"></i> Connect a profile</a></span>
+                <span style="padding: 10px;"><button class="btn btn-primary">Save</button></span>
+            </span>
+           
+        </span>
+    </div>
+    <hr>
+    <div style="padding-left: 10px;">
+        Your Company
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="text">
+                <span>
+                    StoreFries <br/>
+                    <span>Manage Groups and Profile</span>
+                </span>
+            </div>
+            
+            <div>
+                <input type="search" class="search" placeholder="Search account">    
+            </div>
+
+            <div>
+                Arun Venkat
+            </div>
+
+            <div>
+                <a routerLink='/addmember'>Invite a Team Member</a>
+            </div>
+        </div>
+
+        <div class="col-sm-9" style="border-left: 1px solid black;">
+            <h5>Group Filter</h5>
+            <div class="col-sm-2" style="background: #3282c9; border-radius: 5px;">
+                <span style="color: white; font-size: 18px;"><i class="fas fa-folders"></i> Aikyne</span>
+            </div>
+            <div><span>1 team member in Aikyne &nbsp; <i class="fas fa-pencil-alt"></i> &nbsp; <i class="fas fa-trash-alt"></i> </span></div>
+            <span>
+                <span>AV</span>
+                <div><b>1 profile connected</b></div>
+            </span>
+
+            <div class="padding">Filter by: <i style="color: #4064ac;" class="fab fa-facebook fa-2x"></i> <i style="color: #4c9bef;" class="fab fa-twitter-square fa-2x"></i> <i style="color: red;" class="fab fa-instagram fa-2x"></i> <i style="color: #0c61bf" class="fab fa-linkedin-in fa-2x"></i>
+                <input style="float: right;" class="search" placeholder="&#xf002; Search profile" type="search">
+            </div>
+
+            <div *ngFor="let data of dropdownList" style="padding: 10px;">
+                <div class="row">
+                    <div class="col-sm-12">
+                        {{data.socialName}}  <i style="float: right;" class="fas fa-ellipsis-h fa-lg"></i> <hr>
+                    </div>
+                </div>
+            </div>
+
+            <div><h6>Available for Connection</h6></div>
+            <hr>
+
+            <div class="text-center">
+                <b>All available profiles connected</b> 
+                <div><button class="btn btn-primary" (click)="openSocialModal()">Connect a profile</button></div>
+            </div>
+        </div>
+    </div>
+</div>

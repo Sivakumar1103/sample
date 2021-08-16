@@ -1,0 +1,543 @@
+<h2 class="mb-2">New Post</h2>
+<hr class="horizontal-bar">
+<div class="row">
+  <div class="col-sm-7 editorSection ">
+    <div class="textEditor scrolltextarea">
+      <div class="innerEditor customborder">
+        <ng-multiselect-dropdown [placeholder]="'Select Social Profile'" [settings]="dropdownSettings"
+          [data]="dropdownList" [(ngModel)]="selectedSocailProfile" (onSelect)="showPreview()"
+          (onDeSelect)="showPreview()">
+          <ng-template #optionsTemplate let-item let-option="option" let-id="id" let-isSelected="isSelected">
+            <div style="right:2px;top:-2px">
+              <label style="color: #333;min-width: 130px;"
+                [ngStyle]="{ 'color': getItems[id].isDisabled? 'lightgrey':''}">
+                <img class="dropdownimage"
+                  [src]="(!!getItems[id].socialImage)?getItems[id].socialImage:'https://graph.facebook.com/'+getItems[id].pageId+'/picture'" />
+                <i style="color: rgb(52, 140, 190); position: relative; left: -12px; top: 14px;"
+                  class="fab fa-{{getItems[id].socialId.split('-')[0]}} fa-sm circle-icon"></i>
+                {{getItems[id].socialName}}
+              </label>
+            </div>
+          </ng-template>
+          <ng-template #optionSelectedTemplate let-option="option" let-id="id">
+            <div>
+              <i class="fab fa-{{getItems[id].socialId.split('-')[0]}} fa-lg circle-icon"></i>
+              {{option}}
+            </div>
+          </ng-template>
+
+        </ng-multiselect-dropdown>
+        <!-- <div placeholder="What's happening?"(blur)="getContent($event.target.innerHTML)" contenteditable [innerHTML]="content"></div> -->
+        <div id="contentTagDiv" class="p-3" placeholder="What's happening?"
+          style="resize:none; outline: none; height: 6rem !important;" contenteditable="true" name="postingData"
+          [(ngModel)]="postingData" #ctrl="ngModel"></div>
+
+        <!-- <textarea [(ngModel)]="postingData" style="resize:none; outline: none; height: 6rem !important;" rows="4"
+            placeholder="What's happening?" name="textarea" maxlength="280"></textarea> -->
+        <span>
+
+          <span style="float: right;margin:0 1rem;" *ngIf="showTwitterPreview"><i style="color: #1da1f2;"
+              class="fab fa-twitter fa-lg"></i> : {{tweetLength - postingData.length}} </span> &nbsp;
+          <span style="float: right;margin:0 1rem;" *ngIf="showFacebookPreview"><i style="color: #1877f2;"
+              class="fab fa-facebook fa-lg"></i> : {{facebookLength - postingData.length}}</span>
+        </span>
+        <hr style="color: #CED7DF;">
+        <div class="px-2">
+          <div class="row align-items-center hover1 py-2">
+            <div class="col hover2">
+              <fa-icon [icon]="faSmileBeam" style="cursor: pointer; color: #f7bc32"
+                (click)="isEmojiPickerVisible = !isEmojiPickerVisible;" class="iconsize"></fa-icon>
+            </div>
+            <div class="col hover2">
+              <i title="Upload media" style="cursor: pointer;color: #3282c9;" class=" iconsize fas fa-image"
+                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                (click)="isEmojiPickerVisible=false;"></i>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="cursor: pointer;">
+                <a class="dropdown-item" (click)="openContentLibraryDialog();">
+                  <fa-icon [icon]="faImage"></fa-icon> Media Library
+                </a>
+                <a (click)='showdrag = true;' class="dropdown-item">
+                  <fa-icon [icon]="faDesktop"></fa-icon> Upload images
+                </a>
+              </div>
+            </div>
+
+            <div class="col hover2">
+              <i title="Location" style="cursor: pointer; color: #2668bf;" class="iconsize fas fa-map-marker-alt"></i>
+            </div>
+            <div class="col hover2">
+              <i title="Hashtag" style="cursor: pointer; color: #4a56a7;" class="iconsize fas fa-hashtag"></i>
+            </div>
+            <div class="col hover2" (click)="linkOpen()">
+              <i title="Link" style="cursor: pointer; color: #676be6;"
+                [ngClass]="!linkToggle? 'iconsize fas fa-link': 'iconsize fas fa-unlink'"></i>
+            </div>
+            <div class="col">
+              <!--<span class="canva-btn canva-btn-theme-default canva-btn-size-m">
+                <span class="canva-btn-i"></span>
+                <button style="color: white; font-weight: bold;" (click)="createCanva()">Design with Canva</button>
+              </span>-->
+
+              <span>
+                <span class="canva-btn canva-btn-theme-light canva-btn-size-m" id="dropdownMenu2"
+                  data-toggle="dropdown">
+                  <span class="canva-btn-i"></span>
+                  Design on Canva
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="cursor: pointer;">
+                    <a class="dropdown-item" (click)="createCanva('SocialMedia', 800, 800)">Fits all<span
+                        style="float: right;">800 x 800</span></a>
+                    <a class="dropdown-item" (click)="createCanva('FacebookPost', 1080,  1080 )"><i
+                        class="fab fa-facebook fa-lg" aria-hidden="true"></i>&nbsp; <i class="fab fa-twitter fa-lg"
+                        aria-hidden="true"></i>&nbsp; <i class="fas fa-instagram fa-lg" aria-hidden="true"></i> <span
+                        style="float: right;">&nbsp; 1080 x 1080</span></a>
+                    <a class="dropdown-item" (click)="createCanva('InstagramPost', 1080, 1920)"><i
+                        class="fab fa-instagram fa-lg" aria-hidden="true"></i> <span style="float: right;">1080 x
+                        1920</span></a>
+                  </div>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <emoji-mart class="emoji-mart" *ngIf="isEmojiPickerVisible" (emojiSelect)="addEmoji($event)"
+        title="Choose your emoji"></emoji-mart>
+      <div class="customborder mt-2" *ngIf='showdrag'>
+        <table *ngIf='showdrag' class="table table-striped uploadImage">
+          <thead>
+            <tr>
+              <th scope="col">Selected image ({{mediaData.length}}) &nbsp;</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <span *ngFor="let item of mediaData; let i=index">
+                <td *ngIf='item.progressStatus==!"Done"'>
+                  <span class="spinner-border" style="color: #1da1f2;" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </span>
+                </td>
+                <span *ngIf='item.progressStatus=="Done"' class="imageMargin">
+                  <td><img class="itemimage" [src]="item.fileUrl" alt="{{item.fileDisplayName}}"></td>
+                  <td> <i class="fas fa-times-circle fa-md deleteMedia" (click)="removeMedia(item.fileKey)"
+                      style="cursor:pointer;" title="Remove Media"></i></td>
+                </span>
+              </span>
+            </tr>
+          </tbody>
+        </table>
+
+        <div *ngIf='mediaData.length != 4' class="px-3">
+          <ngx-file-drop *ngIf='showdragbox' id="open" dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)">
+            <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+              Drag and drop files here &nbsp;
+              <i (click)="openFileSelector()" style="cursor: pointer;" class="fas fa-cloud-upload-alt fa-2x"></i>
+            </ng-template>
+          </ngx-file-drop>
+          <div class="d-flex justify-content-end py-2">
+            <div class="closeDrag" *ngIf='showdragbox' (click)="showdragbox = false;">&times;</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="attchdLink mt-2" *ngFor="let preview of linkPreviewList;">
+        <div class="vgbbf p-3 mb-3 d-flex justify-content-between">
+          <label class="mb-0">Attached Link</label>
+          <i class="fa fa-chevron-up" style="color: gray;"></i>
+        </div>
+        <div class="d-flex align-items-center">
+          <div class="col-8">
+            <input *ngIf="bitlyUrlEdit" type="text" [(ngModel)]="preview.link" class="form-control" readonly />
+            <input *ngIf="!bitlyUrlEdit" type="text" [(ngModel)]="preview.link" class="form-control" />
+          </div>
+          <button *ngIf="bitlyUrlEdit" class="col"
+            style="border: 1px solid #000;border-radius: 4px;padding: 7px 0;background: none;"
+            (click)="editBitlyUrl(preview.link)">Edit
+          </button>
+          <button *ngIf="!bitlyUrlEdit" class="col"
+            style="border: 1px solid #000;border-radius: 4px;padding: 7px 0;background: none;"
+            (click)="editBitlyUrl(preview.link)">Save
+          </button>
+          <span (click)="linkPreviewList = [];" class="far fa-trash-alt col-1"></span>
+        </div>
+        <mat-card class="example-card">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"><img class="previewImg" [src]="preview.metaImage" /></div>
+            <mat-card-title [innerHTML]="preview.title"></mat-card-title>
+            <mat-card-subtitle>
+              <p [innerHTML]="preview.metadescr"></p>
+            </mat-card-subtitle>
+          </mat-card-header>
+        </mat-card>
+      </div>
+    </div>
+
+    <div class="row pt-3">
+      <div class="col-12 d-flex justify-content-end">
+        <div class="position-relative d-flex align-items-center justify-content-end " style="cursor: pointer;"
+          id="datetimepicker1" data-target-input="nearest" data-target="#datetimepicker1" data-toggle="datetimepicker">
+          <owl-date-time #dt1 style="height: 10px;"></owl-date-time>
+          <div class="d-flex align-items-center justify-content-end" [ngClass]="{'dateShown' : scheduleTime}">
+            <i class="far fa-calendar-alt" [hidden]="scheduleTime === ''" style="font-size: 12px;"></i>
+            <input class="btn btn-primary arrow" [disabled]="postingData ===''" id="name" [(ngModel)]="scheduleTime"
+              readonly [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" placeholder="Later" [min]="min"
+              style="float:right;border-top-left-radius: 4px;border-bottom-left-radius: 4px;background: #007bff;padding: 10px 15px;font-weight: 500;border-radius: 20px;">
+            <button class="btn btn-outline-secondary bg-transparent secondaryButton" [hidden]="scheduleTime === ''"
+              (click)=reset() type="button" style="color: #ffffff;margin-left: 15px; padding: 0"><i
+                style="cursor: pointer;" class="far fa-times-circle fa-lg"></i></button>
+          </div>
+        </div>
+        <!-- <div class="showTime" *ngIf="scheduleTime" [hidden]="scheduleTime === ''">
+          <i class="far fa-calendar-alt" [hidden]="scheduleTime === ''" style="font-size: 12px;"></i>
+          <span style="font-weight: 500;margin-left: 5px;font-size: 12px;">{{scheduleTime | date:'medium'}}</span>
+          <button class="btn btn-outline-secondary bg-transparent secondaryButton" [hidden]="scheduleTime === ''"
+            (click)=reset() type="button" style="color: #ffffff;margin-left: 15px; padding: 0"><i
+              style="cursor: pointer;" class="far fa-times-circle fa-lg"></i></button>
+        </div> -->
+        <div class="box" style="margin-left: 10px;margin-right: 1rem;">
+          <div class="post">
+            <div class="part text-left" [style.display]="showBtnMenu ? 'block' : 'none'">
+              <div (click)="showBtn = 'saveAsDraft';showBtnMenu=!showBtnMenu" class="py-2 px-3 pointer">
+                <span style="font-weight: 600; font-size: 16px;">Save as Draft</span>
+                <p style="font-size: 12px; color: gray; font-weight: 600; margin: 0px;">Share at a
+                  specific
+                  time</p>
+              </div>
+
+              <div (click)="showBtn = 'postNow';showBtnMenu=!showBtnMenu" class="py-2 px-3 pointer">
+                <span class="" style="font-weight: 600; font-size: 16px;">{{scheduleTime?'S chedule':'Post Now'}}</span>
+                <p class="" style="font-size: 12px; color: gray; font-weight: 600; margin: 0px;">Share when your
+                  audience is
+                  most active</p>
+              </div>
+              <div class="text-center text-white mb-n2">
+                <i class="fas fa-sort-down"></i>
+              </div>
+
+            </div>
+
+            <div>
+              <div class="caretBtn" (click)="showBtnMenu=!showBtnMenu">
+                <i class="fas fa-caret-up"></i>
+              </div>
+              <ng-container *ngIf="showBtn == 'postNow'">
+                <button class="btn btn-primary arrow" [hidden]="scheduleTime === ''"
+                  (click)="schedulePost()">Schedule</button>
+                <button type="button" class="btn btn-primary arrow" [disabled]="postingData ===''"
+                  [hidden]="scheduleTime" (click)="postToSocialProfile()">Post Now </button>
+              </ng-container>
+              <ng-container *ngIf="showBtn == 'saveAsDraft'">
+                <button type="button" class="btn btn-primary arrow" [disabled]="postingData ===''"
+                  (click)="saveAsDraft()">Save as Draft</button>
+              </ng-container>
+              <ng-container *ngIf="showBtn == 'later'">
+                <button type="button" (click)="schedulePost()" [hidden]="scheduleTime === ''"
+                  class="btn btn-primary arrow">Schedule</button>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 post_now">
+        <!-- <table class="postButtons">
+              <tr>
+                <td class="paddingRight">
+                  <div class="input-group date input-group-append" style="cursor: pointer;" id="datetimepicker1"
+                    data-target-input="nearest" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                    <input class="form-control trigger" [disabled]="postingData ===''" id="name"
+                      [(ngModel)]="scheduleTime" readonly [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1"
+                      placeholder="Later" [min]="min">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary secondaryButton" [hidden]="scheduleTime === ''"
+                        (click)=reset() type="button"><i style="cursor: pointer;"
+                          class="fas fa-times-circle fa-lg"></i></button>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <button style="width: 140px" class="btn btncolor btn-block" [hidden]="scheduleTime === ''"
+                    (click)="schedulePost()">Schedule</button>
+                  <button style="width: 140px;" class="btn btncolor btn-block" [disabled]="postingData ===''"
+                    [hidden]="scheduleTime" (click)="postToSocialProfile()">Post Now</button>
+                </td>
+                <td class="paddingLeft">
+                  <button class="btn btn-block btncolor" [disabled]="postingData ===''" (click)="saveAsDraft()">Save as
+                    Draft</button>
+                </td>
+              </tr>
+            </table> -->
+      </div>
+    </div>
+  </div>
+
+  <div style=" background: #f3f4f4;" class="col-sm-5 text previewSection scroll">
+    <div style="color: black; justify-content: center; font-weight: 400;">
+      <div class="mb-2" style="border-bottom: 1px solid grey;">
+        <div class="d-flex">
+          <b class="mt-2">Preview Post</b>
+          <ul class="nav nav-tabs" style="font-size: 23px;">
+            <li (click)="selected_icon='facebook'" class="nav-item">
+              <button class="nav-link"
+                [ngClass]="{'facebook' : showFacebookPreview, 'grey': !showFacebookPreview,'selected-facebook':(displayTabName == 'facebook')}"
+                [disabled]="!showFacebookPreview" (click)="displayTabName='facebook';">
+                <i class="fab fa-facebook fa-md" aria-hidden="true"></i>
+              </button>
+            </li>
+            <li (click)="selected_icon='twitter'" class="nav-item">
+              <button class="nav-link mr-2 ml-2"
+                [ngClass]="{'twitter' : showTwitterPreview, 'grey': !showTwitterPreview,'selected-twitter':(displayTabName == 'twitter') }"
+                [disabled]="!showTwitterPreview" (click)="displayTabName='twitter';">
+                <i class="fab fa-twitter fa-md"></i>
+              </button>
+            </li>
+
+            <li (click)="selected_icon='twitter'"> <button class="nav-link"
+                [ngClass]="{'linkedin' : showLinkedinPreview, 'grey': !showLinkedinPreview, 'selected-linkedin':(displayTabName == 'linkedin')}"
+                [disabled]="!showLinkedinPreview" (click)="displayTabName='linkedin';">
+                <i class="fab fa-linkedin-in"></i>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <i class="fas fa-info-circle"></i> &nbsp; <small>Social networks regularly
+        make updates to formatting so your post may appear slightly different when published.</small>
+    </div>
+
+    <div class="mt-3" *ngIf="postingData == '' && (selectedSocailProfile.length == 0 || mediaData.length == 0)">
+      <div class="col-sm-8 textpreview" style="padding: 10px;">
+        <img oncontextmenu="return false" src="../../../../assets/img/preview.png">
+      </div>
+    </div>
+
+    <ng-container *ngFor='let data of selectedSocailProfile'>
+      <div class="my-3 " [ngClass]="{fixedContainer: (mediaData.length == 1 && selectedSocailProfile.length == 1)}">
+        <ng-container
+          *ngIf="showFacebookPreview && displayTabName==='facebook' && (postingData!='' || mediaData.length != 0) &&  (data.socialId.startsWith('facebook')) ">
+          <div class="textpreview" [ngClass]="{'col-7': (mediaData.length == 1),'col-8':(mediaData.length > 1)}">
+            <div style="font-family: 'Poppins'; ">
+              <span *ngFor='let drop of dropdownList'>
+                <img [src]="'https://graph.facebook.com/'+drop.pageId+'/picture'" class="socialProfile"
+                  *ngIf="drop.socialId.startsWith('facebook') && drop.pageId === data.socialId.split('-')[2]" />
+              </span>
+              <span class="accountName">{{data.socialName}} <br />
+                <small>1m</small></span> <i style="float: right;margin-top: 10px;" class="fas fa-ellipsis-h"></i> <br />
+
+              <div>
+                <div class="line-clamp my-2" readonly
+                  style="resize: none; border: none;word-break: break-all;font-size: 12px;line-height: 1.3;">
+                  {{postingData}}
+                </div>
+
+                <span class="row border" *ngIf="mediaData.length<=2">
+                  <ng-container *ngFor="let item of mediaData; let i=index">
+                    <div class="px-0"
+                      [ngClass]="{'col-sm-12':mediaData.length == 1,'col-sm-6 no-padding':mediaData.length == 2}">
+                      <img [src]="item.fileUrl" alt="{{item.fileDisplayName}}" />
+                    </div>
+                    <!-- <img [src]="item.fileUrl" alt="{{item.fileDisplayName}}" /> -->
+                  </ng-container>
+                </span>
+                <span class="row border" *ngIf='mediaData.length == 3'>
+                  <ng-container *ngFor="let item of mediaData; let i=index">
+                    <div *ngIf='i == 0' class="col-sm-12">
+                      <img [src]="item.fileUrl" alt="{{item.fileDisplayName}}" />
+                    </div>
+                    <div *ngIf='i != 0' class="col-sm-6" [ngClass]="{'no-padding-right':i==1,'no-padding-left':i==2}">
+                      <img [src]="item.fileUrl" alt="{{item.fileDisplayName}}" />
+                    </div>
+                  </ng-container>
+                </span>
+                <span class="row border" *ngIf='mediaData.length == 4'>
+                  <ng-container *ngFor="let item of mediaData; let i=index">
+                    <div *ngIf='i == 0' class="col-sm-12">
+                      <img [src]="item.fileUrl" alt="{{item.fileDisplayName}}" />
+                    </div>
+                    <div *ngIf='i != 0' class="col-sm-4"
+                      [ngClass]="{'no-padding-right':i==1,'no-padding':i==2,'no-padding-left':i==3}">
+                      <img [src]="item.fileUrl" alt="{{item.fileDisplayName}}" />
+                    </div>
+                  </ng-container>
+                </span>
+              </div>
+
+              <div class="row d-flex justify-content-center" style="padding-top: 15px;padding-bottom: 10px;">
+                <table>
+                  <tr>
+                    <td class="tdPaddingRight">
+                      <i class="fal fa-thumbs-up"></i> &nbsp;<span style="font-size: 13px;">Like</span>
+                    </td>
+                    <td>
+                      <i class="fal fa-comment-alt"></i>&nbsp;<span style="font-size: 13px;">Comment</span>
+                    </td>
+                    <td class="tdPaddingLeft">
+                      <i class="far fa-share"></i>&nbsp;<span style="font-size: 13px;">Share</span>
+                    </td>
+                  </tr>
+                </table>
+                <!--
+                  <div class="col">
+                    <i class="fal fa-thumbs-up"></i><span style="font-size: 13px;">Like</span>
+                  </div>
+                  <div class="col">
+                    <i class="fal fa-comment-alt"></i> <span style="font-size: 13px;">Comment</span>
+                  </div>
+                  <div class="col">
+                    <span style="float: right;"> <i class="far fa-share"></i> <span style="font-size: 13px;">Share</span> </span>
+                  </div>
+                  -->
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container
+          *ngIf="showTwitterPreview && (displayTabName==='twitter') && (postingData!='' || mediaData.length != 0)  &&  data.socialId.startsWith('twitter')">
+          <div class="textpreview dssdfd" [ngClass]="{'col-6':mediaData.length >= 3,'col-8':mediaData.length <= 2}">
+
+            <div style="font-family:arial;">
+              <span *ngFor='let drop of dropdownList'>
+                <img [src]="drop.socialImage" class="socialProfile"
+                  *ngIf="drop.socialId.startsWith('twitter') && data.socialId.split('-')[1] == drop.socialId.split('-')[1]" />
+              </span>
+
+              <span style="font-size: 14px; position: absolute; color: black;top: 10px;">{{data.socialName}}
+                &bull; <span style="color: grey;"> 1s </span>
+              </span> <i style="float: right;margin-top: 10px;" class="fas fa-ellipsis-h"> </i>
+              <div class="line-clamp my-2" readonly style="border: none; resize: none;word-break: break-all;">
+                {{postingData}}
+              </div>
+              <span class="row border dsfd" *ngIf='mediaData.length <= 2'>
+                <ng-container *ngFor="let item of mediaData; let i=index">
+                  <div class="px-0"
+                    [ngClass]="{'col-sm-12':mediaData.length == 1,'col-sm-6 no-padding':mediaData.length == 2}">
+                    <img [src]="item.fileUrl" alt="{{item.fileDisplayName}}" />
+                  </div>
+                </ng-container>
+              </span>
+              <span class="row border" *ngIf='mediaData.length == 3'>
+                <div class="col-sm-6 no-padding">
+                  <img [src]="mediaData[0].fileUrl" alt="{{mediaData[0].fileDisplayName}}" />
+                </div>
+                <div class="col-sm-6 no-padding">
+                  <div class="col-sm-12 no-padding">
+                    <img [src]="mediaData[1].fileUrl" alt="{{mediaData[1].fileDisplayName}}" />
+                  </div>
+                  <div class="col-sm-12 no-padding">
+                    <img [src]="mediaData[2].fileUrl" alt="{{mediaData[2].fileDisplayName}}" />
+                  </div>
+                </div>
+              </span>
+
+              <span class="row border" *ngIf='mediaData.length == 4'>
+                <ng-container *ngFor="let item of mediaData; let i=index">
+                  <div *ngIf='i!=2 && i!=3' class="col-sm-6"
+                    [ngClass]="{'no-padding-right':i==0,'no-padding-left':i==1}">
+                    <img [src]="item.fileUrl" alt="{{item.fileDisplayName}}" />
+                  </div>
+
+                  <div *ngIf='i!=0 && i!= 1' class="col-sm-6"
+                    [ngClass]="{'no-padding-right':i==2,'no-padding-left':i==3}">
+                    <img [src]="item.fileUrl" alt="{{item.fileDisplayName}}" />
+                  </div>
+                </ng-container>
+              </span>
+              <!--<span class="row border" *ngIf='mediaData.length == 4'>
+              <span *ngFor="let item of mediaData; let i=index" class="col-sm-6">
+                <span>
+                  <img [src]="item.fileUrl" alt="{{item.fileDisplayName}}" />
+                </span>
+              </span>
+            </span>-->
+              <div class="row d-flex justify-content-center" style="padding-top: 8px;padding-bottom: 10px;">
+                <div class="col-sm-2">
+                  <i class="far fa-comment fa-lg" style="color: #55acee	;"></i>
+                </div>
+                <div class="col-sm-2">
+                  <i class="far fa-heart fa-lg" style="color: crimson;"></i>
+                </div>
+                <div class="col-sm-2">
+                  <i class="fas fa-retweet fa-lg" style="color: #19cf86;"></i>
+                </div>
+                <div class="col-sm-2">
+                  <i class="far fa-arrow-from-bottom fa-lg"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container
+          *ngIf="showLinkedinPreview && (displayTabName==='linkedin') && (postingData!='' || mediaData.length != 0)  &&  data.socialId.startsWith('linkedin')">
+          <div class="textpreview" [ngClass]="{'col-6':mediaData.length >= 3,'col-8':mediaData.length <= 2}">
+            <div style="font-family:arial;">
+              <span *ngFor='let drop of dropdownList'>
+                <img [src]="drop.socialImage" class="socialProfileLinkedIn"
+                  *ngIf="drop.socialId.startsWith('linkedin') && data.socialId.split('-')[1] == drop.socialId.split('-')[1]" />
+              </span>
+
+              <span class="accountName">{{data.socialName}} <br />
+                <small>{{Today | date: 'mediumDate'}}</small></span> <i style="float: right;margin-top: 10px;"
+                class="fas fa-ellipsis-h"></i>
+
+              <br />
+              <div class="line-clamp my-2" readonly style="resize: none; border: none;word-break: break-all;">
+                {{postingData}}
+              </div>
+              <span class="row border rfr" *ngIf="mediaData.length<=2">
+                <ng-container *ngFor="let item of mediaData; let i=index">
+                  <div class="px-0"
+                    [ngClass]="{'col-sm-12':mediaData.length == 1,'col-sm-6 no-padding':mediaData.length == 2}">
+                    <img [src]="item.fileUrl" alt="{{item.fileDisplayName}}" />
+                  </div>
+                  <!-- <img [src]="item.fileUrl" alt="{{item.fileDisplayName}}" /> -->
+                </ng-container>
+              </span>
+              <span class="row border" *ngIf='mediaData.length == 3'>
+                <ng-container *ngFor="let item of mediaData; let i=index">
+                  <div *ngIf='i == 0' class="col-sm-12">
+                    <img [src]="item.fileUrl" alt="{{item.fileDisplayName}}" />
+                  </div>
+                  <div *ngIf='i != 0' class="col-sm-6" [ngClass]="{'no-padding-right':i==1,'no-padding-left':i==2}">
+                    <img [src]="item.fileUrl" alt="{{item.fileDisplayName}}" />
+                  </div>
+                </ng-container>
+              </span>
+
+              <span class="row border" *ngIf='mediaData.length == 4'>
+                <ng-container *ngFor="let item of mediaData; let i=index">
+                  <div *ngIf='i == 0' class="col-sm-12">
+                    <img [src]="item.fileUrl" alt="{{item.fileDisplayName}}" />
+                  </div>
+                  <div *ngIf='i != 0' class="col-sm-4"
+                    [ngClass]="{'no-padding-right':i==1,'no-padding':i==2,'no-padding-left':i==3}">
+                    <img [src]="item.fileUrl" alt="{{item.fileDisplayName}}" />
+                  </div>
+                </ng-container>
+              </span>
+
+              <div class="row d-flex justify-content-center" style="padding-top: 15px;padding-bottom: 10px;">
+                <table>
+                  <tr>
+                    <td>
+                      <i class="far fa-thumbs-down fa-lg fa-rotate-180"></i> Like &nbsp;
+                    </td>
+                    <td>
+                      <i class="far fa-comment-lines fa-lg"></i> Comment &nbsp;
+                    </td>
+                    <td>
+                      <i class="fal fa-level-down fa-lg fa-rotate-270"></i> &nbsp; Share &nbsp;
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+  </div>
+</div>
+<div class="overlay" (click)="showBtnMenu=!showBtnMenu" *ngIf="showBtnMenu"></div>
+<div class="overlay" style="background: none;" (click)="isEmojiPickerVisible=false" *ngIf="isEmojiPickerVisible"></div>

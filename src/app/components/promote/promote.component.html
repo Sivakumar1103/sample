@@ -1,0 +1,73 @@
+<div class="container-fluid ">
+    <div class="row my-3">
+        <div class="col-sm-2">
+            <ng-multiselect-dropdown [placeholder]="'Filter by Social Profile'" [settings]="dropdownSettings"
+            [data]="dropdownList" [(ngModel)]="selectedFilterSocailProfile">
+            </ng-multiselect-dropdown>
+            
+        </div>
+    </div>
+<!--     <div class="card">
+        <div class="card-body">
+          <input type="checkbox"> &nbsp;
+            <select>
+                <option disabled selected>Export to</option>
+            </select>
+        </div>
+    </div> -->
+
+    <div class="container">
+        <div class="card" *ngFor="let pubPost of (publishedPost | postfilter: selectedFilterSocailProfile)">
+            <div class="card-header">
+                <i class="fab fa-twitter fa-lg circle-icon" *ngIf="pubPost.socialName=='twitter'"></i>
+                <i class="fab fa-facebook fa-lg circle-icon"*ngIf="pubPost.socialName=='facebook'"></i>
+                <button style="float: right;" class="btn btn-primary">Boost post</button>
+                <b>{{pubPost.userName}}</b> &nbsp; {{pubPost.postDate | date:'medium'}}
+             </div>
+            <div class="card-body">
+                <div>
+                    <span><b>{{pubPost.postData}}</b></span>
+                    <img style="float: right;" src="../../../assets/img/Landscape.jpg" alt="Published image" class="publishedImage">
+                </div>
+            </div>
+            <div class="card-footer" style="background: white; border: none;">
+                
+                <span *ngIf="pubPost.socialName=='facebook'" ><i style="float: left; color: darkcyan;" class="far fa-thumbs-up fa-lg"></i> &nbsp;0 </span> 
+                <span *ngIf="pubPost.socialName=='twitter'"><i style="float: left; color: crimson;" class="fas fa-heart-circle fa-lg"></i> &nbsp;0</span>
+                <span style="float: right;">
+                    <i title="Duplicate" style="color: #65a1d6; cursor: pointer;" class="fas fa-copy fa-lg"></i> &nbsp;
+                    <i title="Promote" style="color: #65a1d6; cursor: pointer;" class="fas fa-usd-circle fa-lg"></i> &nbsp;
+                    <span>0 comments</span>
+                </span>
+            </div>
+        </div>
+      </div>
+<!--
+    <div class="card" *ngFor="let pubPost of (publishedPost | postfilter: selectedFilterSocailProfile) ">
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-sm-1">
+                    <input type="checkbox">&nbsp;
+                    <i class="fab fa-twitter fa-2x circle-icon" *ngIf="pubPost.socialName=='twitter'"></i>
+                    <i class="fab fa-facebook fa-2x circle-icon"*ngIf="pubPost.socialName=='facebook'"></i>
+                </div>
+                <div class="col-sm-2">
+                    <b>{{pubPost.userName}}</b>
+                </div>
+                <div class="col-sm-6">
+                    <p><b>{{pubPost.postData}}</b></p>
+                    <p>Status : {{pubPost.postStatus}} &bull; Posted on : {{pubPost.postDate}}</p>
+                </div>
+                <div class="col-sm-3" class="imageDiv" *ngIf="pubPost.mediaUrl.length >0">
+                    <img [src]="img" alt="Published image" class="publishedImage" *ngFor="let img of pubPost.mediaUrl">
+                </div>
+
+        </div>
+    </div>
+
+-->
+
+
+
+</div>

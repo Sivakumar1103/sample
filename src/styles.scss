@@ -1,0 +1,797 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$Aikyne_SMP-primary: mat-palette($mat-indigo);
+$Aikyne_SMP-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$Aikyne_SMP-warn: mat-palette($mat-red);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$Aikyne_SMP-theme: mat-light-theme((
+  color: (
+    primary: $Aikyne_SMP-primary,
+    accent: $Aikyne_SMP-accent,
+    warn: $Aikyne_SMP-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($Aikyne_SMP-theme);
+
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+
+
+/* You can add global styles to this file, and also import other style files */
+
+body, html, .container-fluid
+{
+    margin: 0;
+    padding: 0;
+    // height: 100%;
+    background: white;
+    font-size: 15px;
+}
+
+*
+{
+  // font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Poppins';
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: local("Poppins"), url(./assets/fonts/Poppins-Regular.otf) format("truetype");
+}
+
+/* LOGIN PAGES */
+
+:root {
+  --input-padding-x: 0rem;
+  --input-padding-y: 0rem;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height:8px;
+}
+::-webkit-scrollbar:hover {
+  width: 10px;
+  height:10px;
+}
+
+/* Track */
+// ::-webkit-scrollbar-track {
+//   box-shadow: inset 0 0 5px grey; 
+//   border-radius: 10px;
+// }
+// ::-webkit-scrollbar-button{
+//   height: 7px;
+// }
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #cccccc; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  width: 10px;
+  height: 10px;
+  background: #919191; 
+}
+
+.form-signin {
+  width: 100%;
+
+ .btn {
+    font-size: 80%;
+    letter-spacing: .1rem;
+    font-weight: bold;
+    padding: 1rem;
+    transition: all 0.2s;
+  }
+}
+
+.form-label-group {
+  position: relative;
+  margin-bottom: 1rem;
+
+  input {
+    height: 50px;
+    text-indent: 20px;
+
+    &::-webkit-input-placeholder {
+      color: grey;
+    }
+
+    &:-ms-input-placeholder {
+      color: grey;
+    }
+
+    &::-ms-input-placeholder {
+      color: grey;
+    }
+
+    &::-moz-placeholder {
+      color: grey;
+    }
+
+    &::placeholder {
+      color: grey;
+
+    }
+
+    &:not(:placeholder-shown)~label {
+      padding-top: calc(var(--input-padding-y) / 3);
+      padding-bottom: calc(var(--input-padding-y) / 3);
+      font-size: 12px;
+      color: #777;
+    }
+  }
+}
+
+.form-label-group>input,
+.form-label-group>label {
+  padding: var(--input-padding-y) var(--input-padding-x);
+}
+
+.form-label-group>label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  margin-bottom: 0;
+  /* Override default `<label>` margin */
+  line-height: 1.5;
+  color: #495057;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  transition: all .1s ease-in-out;
+}
+
+.emoji-mart-scroll {
+  height: 180px !important;
+}
+
+.btn-google {
+  color: white;
+  background-color: #ea4335;
+}
+
+.btn-facebook {
+  color: white;
+  background-color: white;
+}
+
+/* Fallback for Edge
+-------------------------------------------------- */
+
+@supports (-ms-ime-align: auto) {
+  .form-label-group>label {
+    display: none;
+  }
+  .form-label-group input::-ms-input-placeholder {
+    color: #777;
+  }
+}
+
+/* Fallback for IE
+-------------------------------------------------- */
+
+@media all and (-ms-high-contrast: none),
+(-ms-high-contrast: active) {
+  .form-label-group>label {
+    display: none;
+  }
+  .form-label-group input:-ms-input-placeholder {
+    color: #777;
+  }
+}
+
+.anchor a {
+  color: black;
+}
+
+.pointer {
+  cursor: pointer;;
+}
+
+.error {
+  color: red;
+  position: relative;
+  left: 20px;
+}
+
+.login-screen{
+
+  overflow: hidden;
+
+  .margin-center {
+    margin-top:4rem !important;
+  }
+
+  
+
+
+  img
+  {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 75%;
+
+  }
+  .nodisplay
+  {
+    position: relative;
+    top: -20%;
+  }
+  .message
+  {
+    color: red;
+  }
+
+
+  .col-md-8
+  {
+    background: #f7f7f7;
+  }
+  .col-md-4
+  {
+      background-color: white;
+      text-align: center;
+      min-height: 100vh;
+  }
+
+  .error {
+      color: red;
+      font-size: medium;
+  }
+
+  input {
+      display: block;
+      margin: 0px auto;
+      width: 80%;
+      background-color: white;
+      color: black;
+  }
+
+  input::placeholder {
+      color: black;
+      opacity: 70%;
+  }
+
+  button {
+      display: block;
+      margin: 0px auto;
+      background: linear-gradient(to right,#4DABFF ,#62DDFF);
+      color: white;
+      width: 80%;
+  }
+
+}
+
+/* LOGIN PAGES */
+
+@media screen and (max-width: 767px)
+{
+    .nodisplay
+    {
+        display: none;
+    }
+
+    .response{
+      flex: none !important;
+      max-width: 100% !important;
+    }
+}
+
+.text-danger
+{
+    font-size: 15px;
+}
+
+
+.socialbutton
+{
+  .fb {
+    background-color: #3B5998;
+    color: white;
+    margin: 20px;
+    width: 300px;
+  }
+
+  .google {
+    display: inline-block;
+      background: white;
+      color: #444;
+      width: 250px;
+      border-radius: 5px;
+      border: thin solid #888;
+      box-shadow: 1px 1px 1px grey;
+      white-space: nowrap;
+  }
+
+}
+
+
+  .hr-text {
+    line-height: 1em;
+    position: relative;
+    outline: 0;
+    border: 0;
+    color: black;
+    text-align: center;
+    height: 1.5em;
+    opacity: .5;
+    &:before {
+      content: '';
+      // use the linear-gradient for the fading effect
+      // use a solid background color for a solid bar
+      background: linear-gradient(to right, transparent, #818078, transparent);
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 100%;
+      height: 1px;
+    }
+    &:after {
+      content: attr(data-content);
+      position: relative;
+      display: inline-block;
+      color: black;
+
+      padding: 0 .5em;
+      line-height: 1.5em;
+      // this is really the only tricky part, you need to specify the background color of the container element...
+      color: #818078;
+      background-color: #fcfcfa;
+    }
+  }
+  // Published and draft table styling
+  .white
+  {
+
+    .emptyLibraryImage
+    {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 40%;
+    }
+    p
+    {
+      text-align: center;
+      font-size: xx-large;
+      font-weight: bolder;
+    }
+    .center
+    {
+      text-align: center;
+    }
+
+  }
+  input[type="date"]:before {
+    content: attr(placeholder) !important;
+    color: #aaa;
+    margin-right: 0.5em;
+
+  }
+  input[type="date"]:focus:before,
+  input[type="date"]:valid:before {
+    content: "Search by date";
+  }
+
+  .container-fluid {
+    background-color: white;
+    margin: 0;
+    padding: 10px;
+  }
+
+  .publishedImage {
+    width: 120px;
+    height: 90px;
+    border-radius: 5px;
+    border: 1px solid rgb(194, 194, 194);
+
+  }
+  .noDisplay
+  {
+    display: none;
+  }
+
+  .socialImage
+{
+  border-radius: 50%;
+  height:30px;
+  width:30px;
+  margin: 10px;
+}
+.iconPosition
+{
+  position: relative;
+  left: -13px;
+  top: 10px;
+
+}
+
+  .dropdownimage {
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+  }
+
+  .logoImage {
+    color: rgb(52, 140, 190);
+    position: relative;
+    left: -12px; top: 14px;
+  }
+
+  .logoImageWhite {
+    color: rgb(52, 140, 190);
+    position: relative;
+    left: -12px; top: 14px;
+    background: white;
+    border-radius: 50%;
+  }
+
+  .blurImage
+  {
+    filter: blur(2px);
+
+  }
+
+  .textBg
+  {
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    padding: 3px;
+    background: rgb(129, 129, 129);
+    color: white;
+  }
+
+  .tableHeader
+  {
+    background-color: rgb(250, 250, 250) !important;
+    font-weight: 500;
+    color: black;
+    font-size: 16px;
+    text-transform: none;
+    text-align: left;
+  }
+
+  .matTable
+  {
+    width: 100%;
+    tr:hover
+    {
+      td
+      {
+        background: rgb(242, 246, 248) !important;
+      }
+    }
+    td
+    {
+      padding-top: 10px !important;
+      padding-bottom: 10px !important;
+      cursor: pointer;
+      background: white;
+
+    }
+  }
+
+
+  th.mat-sort-header-sorted {
+    color: black;
+  }
+
+  .iconRight
+  {
+    margin-right: 2rem;
+  }
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: 'Poppins'; }
+
+
+//Canva Button css
+
+
+.canva-btn {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-smooth: always;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  line-height: 1.6;
+  box-sizing: border-box;
+  user-select: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  max-width: 100%;
+  min-width: 80px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  transition: background-color 0.1s linear;
+}
+
+.canva-btn-i {
+  background-size: contain;
+}
+
+.canva-btn-theme-default {
+  background-color: #00c4cc;
+  color: #ffffff;
+}
+
+.canva-btn-theme-default:hover,
+.canva-btn-theme-default:focus {
+  background-color: #00d9e1;
+}
+
+.canva-btn-theme-default:active {
+  background-color: #00afb5;
+}
+
+.canva-btn-theme-dark {
+    background-color: #0e1318;
+    color: #ffffff;
+}
+
+.canva-btn-theme-light {
+  border-color: #9A9DA3;
+  background-color: #ffffff;
+  color: #0e1318;
+}
+
+.canva-btn-theme-light:active {
+  background-color: #f8f9f9;
+}
+
+.canva-btn-size-l {
+  height: 48px;
+  border-radius: 5px;
+  font-size: 16px;
+  padding-right: 16px;
+}
+
+.canva-btn-size-l .canva-btn-i {
+  width: 32px;
+  height: 32px;
+  margin-left: 11px;
+  margin-right: 13px;
+}
+
+.canva-btn-size-m {
+  height: 40px;
+  border-radius: 4px;
+  font-size: 14px;
+  padding-right: 16px;
+}
+
+.canva-btn-size-m .canva-btn-i {
+  width: 24px;
+  height: 24px;
+  margin: 0 9px;
+}
+
+.canva-btn-size-s {
+  height: 32px;
+  border-radius: 3px;
+  font-size: 12px;
+  padding-right: 12px;
+}
+
+.canva-btn-size-s .canva-btn-i {
+  width: 20px;
+  height: 20px;
+  margin: 0 8px;
+}
+
+.canva-btn-size-xs {
+  height: 24px;
+  border-radius: 2px;
+  font-size: 12px;
+  padding-right: 8px;
+}
+
+.canva-btn-size-xs .canva-btn-i {
+  width: 16px;
+  height: 16px;
+  margin-left: 6px;
+  margin-right: 5px;
+}
+
+
+/* SVG files are inlined here just as an example. If you're going to use Canva logo in SVG format on your website, you can host SVG files and use them in CSS using URL in `background-image: url(...)`; */
+
+.canva-btn-theme-default .canva-btn-i {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' d='M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm5-7.7c0-.2-.2-.3-.4-.3s-.3 0-.4.2l-.1.2-.1.1c-.6 1-1.1 1.3-2.2 1.9a4 4 0 0 1-1.7.3c-1.7 0-2.6-1.3-3-2.5-.5-2 .4-4.6 1.6-6 .7-.9 1.5-1.4 2.2-1.4.3 0 .7.2 1 .5.3.6.4 1 0 1.9 0 .2 0 .4.2.5.3 0 .6 0 1-.6.4-.5.4-1.4 0-2A3 3 0 0 0 12.7 6c-.8 0-1.5.2-2.1.6a7.5 7.5 0 0 0-3.4 8 4.7 4.7 0 0 0 4.4 3.4c1.4 0 2.4-.5 3-1 .8-.4 1.4-1 2-1.8l.1-.2.2-.2v-.5z'/%3E%3C/svg%3E");
+}
+
+.canva-btn-theme-dark .canva-btn-i,
+.canva-btn-theme-light .canva-btn-i {
+  background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cmask id='mask0' mask-type='alpha' maskUnits='userSpaceOnUse' x='2' y='2' width='28' height='28'%3E%3Cpath d='M16 29.3334C23.3638 29.3334 29.3333 23.3638 29.3333 16C29.3333 8.63622 23.3638 2.66669 16 2.66669C8.63619 2.66669 2.66666 8.63622 2.66666 16C2.66666 23.3638 8.63619 29.3334 16 29.3334Z' fill='white'/%3E%3C/mask%3E%3Cg mask='url(%23mask0)'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M1.33331 1.33337H30.6666V30.6667H1.33331V1.33337Z' fill='%2300C4CC'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M21.4773 18.628C21.4479 18.498 21.3762 18.3814 21.2734 18.2965C21.1706 18.2115 21.0426 18.1631 20.9093 18.1587C20.8021 18.1551 20.696 18.182 20.6035 18.2363C20.511 18.2906 20.4358 18.37 20.3866 18.4654C20.3306 18.5507 20.28 18.6374 20.232 18.7187C20.1965 18.7797 20.16 18.8402 20.1226 18.9C19.496 19.8867 19.0026 20.324 17.8333 20.936C17.3078 21.2065 16.7269 21.352 16.136 21.3614C14.416 21.3614 13.416 19.8387 13.0826 18.5347C12.496 16.2254 13.4693 13.352 14.736 11.708C15.4546 10.7734 16.2573 10.2347 16.9386 10.232C17.1224 10.2379 17.3021 10.2874 17.463 10.3765C17.6239 10.4655 17.7613 10.5915 17.864 10.744C18.2213 11.3187 18.3373 11.8027 17.9306 12.712C17.8729 12.8495 17.8671 13.0032 17.9145 13.1446C17.9618 13.2859 18.0591 13.4052 18.188 13.48C18.528 13.6614 18.9466 13.4574 19.4013 12.8054C19.8813 12.1187 19.912 11.04 19.472 10.3494C18.9293 9.50005 17.8786 8.97205 16.7093 8.97205C15.893 8.97931 15.0946 9.21236 14.4026 9.64538C11.5226 11.4654 9.87196 15.668 10.724 19.012C11.028 20.2054 11.6973 21.284 12.5586 21.9747C12.8973 22.2414 14.112 23.112 15.5853 23.112H15.6026C17.088 23.1054 18.216 22.4747 18.9386 21.9987C19.728 21.4734 20.416 20.7507 21.0453 19.7894C21.0973 19.7107 21.148 19.6294 21.1973 19.5467L21.336 19.3214C21.4063 19.2219 21.4552 19.1089 21.4795 18.9896C21.5038 18.8702 21.5031 18.7471 21.4773 18.628ZM15.5853 22.8067V22.808V22.8067Z' fill='white'/%3E%3C/g%3E%3C/svg%3E%0A");
+}
+
+.canva-btn-theme-dark:hover .canva-btn-i,
+.canva-btn-theme-dark:focus .canva-btn-i,
+.canva-btn-theme-light:hover .canva-btn-i,
+.canva-btn-theme-light:focus .canva-btn-i {
+  background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cmask id='mask0' mask-type='alpha' maskUnits='userSpaceOnUse' x='2' y='2' width='28' height='28'%3E%3Cpath d='M16 29.3334C23.3638 29.3334 29.3333 23.3638 29.3333 16C29.3333 8.63622 23.3638 2.66669 16 2.66669C8.63619 2.66669 2.66666 8.63622 2.66666 16C2.66666 23.3638 8.63619 29.3334 16 29.3334Z' fill='white'/%3E%3C/mask%3E%3Cg mask='url(%23mask0)'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M1.33331 1.33337H30.6666V30.6667H1.33331V1.33337Z' fill='%2300D9E1'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M21.4773 18.628C21.4479 18.498 21.3762 18.3814 21.2734 18.2965C21.1706 18.2115 21.0426 18.1631 20.9093 18.1587C20.8021 18.1551 20.696 18.182 20.6035 18.2363C20.511 18.2906 20.4358 18.37 20.3866 18.4654C20.3306 18.5507 20.28 18.6374 20.232 18.7187C20.1965 18.7797 20.16 18.8402 20.1226 18.9C19.496 19.8867 19.0026 20.324 17.8333 20.936C17.3078 21.2065 16.7269 21.352 16.136 21.3614C14.416 21.3614 13.416 19.8387 13.0826 18.5347C12.496 16.2254 13.4693 13.352 14.736 11.708C15.4546 10.7734 16.2573 10.2347 16.9386 10.232C17.1224 10.2379 17.3021 10.2874 17.463 10.3765C17.6239 10.4655 17.7613 10.5915 17.864 10.744C18.2213 11.3187 18.3373 11.8027 17.9306 12.712C17.8729 12.8495 17.8671 13.0032 17.9145 13.1446C17.9618 13.2859 18.0591 13.4052 18.188 13.48C18.528 13.6614 18.9466 13.4574 19.4013 12.8054C19.8813 12.1187 19.912 11.04 19.472 10.3494C18.9293 9.50005 17.8786 8.97205 16.7093 8.97205C15.893 8.97931 15.0946 9.21236 14.4026 9.64538C11.5226 11.4654 9.87196 15.668 10.724 19.012C11.028 20.2054 11.6973 21.284 12.5586 21.9747C12.8973 22.2414 14.112 23.112 15.5853 23.112H15.6026C17.088 23.1054 18.216 22.4747 18.9386 21.9987C19.728 21.4734 20.416 20.7507 21.0453 19.7894C21.0973 19.7107 21.148 19.6294 21.1973 19.5467L21.336 19.3214C21.4063 19.2219 21.4552 19.1089 21.4795 18.9896C21.5038 18.8702 21.5031 18.7471 21.4773 18.628ZM15.5853 22.8067V22.808V22.8067Z' fill='white'/%3E%3C/g%3E%3C/svg%3E%0A");
+}
+
+.canva-btn-theme-dark:active .canva-btn-i,
+.canva-btn-theme-light:active .canva-btn-i {
+  background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cmask id='mask0' mask-type='alpha' maskUnits='userSpaceOnUse' x='2' y='2' width='28' height='28'%3E%3Cpath d='M16 29.3334C23.3638 29.3334 29.3333 23.3638 29.3333 16C29.3333 8.63622 23.3638 2.66669 16 2.66669C8.63619 2.66669 2.66666 8.63622 2.66666 16C2.66666 23.3638 8.63619 29.3334 16 29.3334Z' fill='white'/%3E%3C/mask%3E%3Cg mask='url(%23mask0)'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M1.33331 1.33337H30.6666V30.6667H1.33331V1.33337Z' fill='%2300AFB5'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M21.4773 18.628C21.4479 18.498 21.3762 18.3814 21.2734 18.2965C21.1706 18.2115 21.0426 18.1631 20.9093 18.1587C20.8021 18.1551 20.696 18.182 20.6035 18.2363C20.511 18.2906 20.4358 18.37 20.3866 18.4654C20.3306 18.5507 20.28 18.6374 20.232 18.7187C20.1965 18.7797 20.16 18.8402 20.1226 18.9C19.496 19.8867 19.0026 20.324 17.8333 20.936C17.3078 21.2065 16.7269 21.352 16.136 21.3614C14.416 21.3614 13.416 19.8387 13.0826 18.5347C12.496 16.2254 13.4693 13.352 14.736 11.708C15.4546 10.7734 16.2573 10.2347 16.9386 10.232C17.1224 10.2379 17.3021 10.2874 17.463 10.3765C17.6239 10.4655 17.7613 10.5915 17.864 10.744C18.2213 11.3187 18.3373 11.8027 17.9306 12.712C17.8729 12.8495 17.8671 13.0032 17.9145 13.1446C17.9618 13.2859 18.0591 13.4052 18.188 13.48C18.528 13.6614 18.9466 13.4574 19.4013 12.8054C19.8813 12.1187 19.912 11.04 19.472 10.3494C18.9293 9.50005 17.8786 8.97205 16.7093 8.97205C15.893 8.97931 15.0946 9.21236 14.4026 9.64538C11.5226 11.4654 9.87196 15.668 10.724 19.012C11.028 20.2054 11.6973 21.284 12.5586 21.9747C12.8973 22.2414 14.112 23.112 15.5853 23.112H15.6026C17.088 23.1054 18.216 22.4747 18.9386 21.9987C19.728 21.4734 20.416 20.7507 21.0453 19.7894C21.0973 19.7107 21.148 19.6294 21.1973 19.5467L21.336 19.3214C21.4063 19.2219 21.4552 19.1089 21.4795 18.9896C21.5038 18.8702 21.5031 18.7471 21.4773 18.628ZM15.5853 22.8067V22.808V22.8067Z' fill='white'/%3E%3C/g%3E%3C/svg%3E%0A");
+}
+.view-group p:empty{
+  display: none;
+}
+
+.find-content .mat-form-field-infix{
+  border-top: 0;
+}
+.find-content .mat-form-field-underline{
+  display: none;
+}
+.find-content .mat-form-field-wrapper{
+  padding-bottom: 0;
+}
+.find-content .mat-form-field-appearance-fill .mat-form-field-infix {
+  padding: 0.25em 0 0.375rem 0;
+}
+
+.find-content .mat-form-field-appearance-fill .mat-form-field-flex {
+  padding: .375rem .75rem;
+}
+.find-content .mat-form-field-appearance-fill .mat-select-arrow-wrapper {
+  transform: translateY(0);
+}
+.find-content .mat-form-field-appearance-fill .mat-form-field-flex{
+  background-color: transparent;
+  border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+
+.item.list-group-item .list-group-image img{
+  height: 150px;
+  width: 100%;
+  object-fit: cover;
+  margin: 0;
+  border-radius: 5px;
+}
+.item.grid-group-item .list-group-image img{
+  height: 125px;
+  width: 100%;
+  object-fit: cover;
+  margin: 0;
+}
+.cdk-overlay-pane {
+  margin-top: 45px;
+}
+.item:empty{
+  display: none;
+}
+.searchResult ul{
+  padding: 0;
+}
+.searchResult ul li{
+  list-style: none;
+  padding-bottom: 20px;
+}
+.searchResult ul li > i{
+  font-size: 25px;
+  color: rgba(70, 70, 70, 0.75);
+}
+.searchResult ul li > .inContent{
+  max-width: 60%;
+    padding-left: 10px;
+}
+.searchResult ul li > .inContent p{
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-bottom: 0;
+    color: #464646;
+    font-weight: 600;
+}
+.searchResult ul li > .inContent small{
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(70, 70, 70, 0.75);
+}
+.searchResult ul li > button{
+  margin-left: auto;
+  border: 1px solid #ced4da;
+}
+.multiselect-dropdown .dropdown-btn{
+  background: #f2f6f8;
+  border: 0 !important;
+}
+
+.showTime:empty{
+  display: none;
+}
+
+.fixedContainer{
+  height: calc(100vh - 262px);
+    display: flex;
+    align-items: center;
+}
+
+.fixedContainer:empty{
+  display: none;
+}
+
+.cal-month-view .cal-day-number {
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.tui-image-editor-canvas-container canvas{
+  height: auto !important;
+  top: 50% !important;
+  transform: translateY(-50%);
+}
+
+.multiselect-dropdown .dropdown-btn .selected-item{
+  align-items: center;
+  color: #337ab7 !important;
+  border-radius: 4px !important;
+}
+
+.multiselect-dropdown .dropdown-btn .selected-item a {
+  padding-left: 0 !important;
+    padding-right: 0;
+    color: #337ab7 !important;
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    line-height: 16px;
+    font-size: 16px;
+    text-align: center;
+}
+.mat-drawer-content{
+  overflow-x: hidden !important;
+}
+.innerEditor .multiselect-dropdown .dropdown-btn .selected-item{
+  border: 1px solid #337ab7 !important;
+  background: #fff !important;
+}
+
+.cal-week-view .cal-day-headers{
+  padding-left: 0 !important;
+}
+.cal-week-view .cal-time-label-column{
+  display: none !important;
+}
+.cal-week-view .cal-all-day-events .cal-events-row{
+  margin-left: 0 !important;
+}
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';

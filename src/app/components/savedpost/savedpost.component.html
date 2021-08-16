@@ -1,0 +1,155 @@
+<div class="container-fluid white" *ngIf='!!publishedPost && publishedPost.length == 0'>
+  <img src="../../../assets/img/Draft.png" class="emptyLibraryImage">
+  <p>Oops! You have not saved any content.</p>
+  <div class="center">
+    <a routerLink='/socialmedia/publishing/newpost'>Create a draft</a>
+  </div>
+</div>
+<div class="container-fluid" *ngIf='!!publishedPost && publishedPost.length > 0'>
+  <div class="row">
+    <div class="col-sm-4">
+      <span style="font-size: large; font-weight: 700;">
+        Draft
+      </span>
+
+    </div>
+    <div class="col-sm-8">
+
+      <ng-multiselect-dropdown style="width: 12rem; float: right;" [placeholder]="'Profiles'"
+        [settings]="dropdownSettings" [data]="dropdownList" [(ngModel)]="selectedFilterSocailProfile"
+        (onSelect)="applyFilter()" (onDeSelect)="applyFilter()">
+        <ng-template #optionsTemplate let-item let-option="option" let-id="id" let-isSelected="isSelected">
+          <div style="right:2px;top:-2px">
+            <label style="color: #333;min-width: 130px;"
+              [ngStyle]="{ 'color': getItems[id].isDisabled? 'lightgrey':''}">
+              <img class="dropdownimage"
+                [src]="(!!getItems[id].socialImage)?getItems[id].socialImage:'https://graph.facebook.com/'+getItems[id].pageId+'/picture'" />
+              <i class="fab fa-{{getItems[id].socialId.split('-')[0]}} fa-sm circle-icon"
+                [ngClass]="{'logoImageWhite': getItems[id].socialId.split('-')[0]=='facebook','logoImage': getItems[id].socialId.split('-')[0]!='facebook'}"></i>
+              {{getItems[id].socialName}}
+            </label>
+          </div>
+        </ng-template>
+        <ng-template #optionSelectedTemplate let-option="option" let-id="id">
+          <div>
+            <i style="color: rgb(118, 175, 202);"
+              class="fab fa-{{getItems[id].socialId.split('-')[0]}} fa-lg circle-icon"></i>
+            {{option}}
+          </div>
+        </ng-template>
+      </ng-multiselect-dropdown>
+    </div>
+
+
+  </div>
+
+  <hr>
+
+
+  <div class="row" style="overflow: auto; height: 750px; border: 1px solid rgb(207, 207, 207);">
+    <table mat-table [dataSource]="mediaDatasource" matSort class="mat-elevation-z1 matTable">
+
+      <!--Checkbox Column-->
+      <ng-container matColumnDef="checkbox">
+        <th class="tableHeader" mat-header-cell *matHeaderCellDef>
+          <div id="checkboxHover" class="pretty p-default p-thick">
+            <input (change)='selectAll()' [(ngModel)]='selectAllModel' type="checkbox">
+            <div class="state p-primary-o">
+              <label></label>
+            </div>
+          </div>
+
+
+        </th>
+        <td mat-cell *matCellDef="let media">
+
+          <div id="checkboxHover" class="pretty p-default p-thick">
+            <input type="checkbox" (change)="enable()" [(ngModel)]='media.checked' />
+            <div class="state p-primary-o">
+              <label></label>
+            </div>
+          </div>
+
+        </td>
+      </ng-container>
+
+      <!--Date Column-->
+      <ng-container matColumnDef="createdTime">
+        <th class="tableHeader" mat-header-cell *matHeaderCellDef mat-sort-header> Created on </th>
+        <td mat-cell *matCellDef="let media"> {{media.createdTime}} </td>
+      </ng-container>
+
+      <!-- Data Column -->
+      <ng-container matColumnDef="postData">
+        <th class="tableHeader" mat-header-cell *matHeaderCellDef> Post Content </th>
+        <td mat-cell *matCellDef="let pubPost">
+          <span *ngIf='pubPost.mediaData && pubPost.mediaData.length > 0'>
+            <span>
+              <div>
+                <i class="fa fa-image fa-lg iconRight"></i>
+                <span *ngIf='pubPost.mediaData'
+                  [ngClass]="{'imageShow' :pubPost.mediaData.length == 1, 'blurImage':  pubPost.mediaData.length > 1}">
+                  <img [src]='pubPost.mediaData[0].fileUrl' alt="{{pubPost.mediaData[0].fileDisplayName}}"
+                    class="publishedImage">
+                </span>
+                <span *ngIf='pubPost.mediaData.length > 1' class="lengthPosition">
+                  <span class="textBg">+{{pubPost.mediaData.length-1}}</span>
+                </span>
+                {{(pubPost.postData.length>30)? (pubPost.postData | slice:0:20)+' ......':(pubPost.postData)}}
+              </div>
+            </span>
+          </span>
+          <span *ngIf='pubPost.mediaData && pubPost.mediaData.length == 0'>
+            <i class="fa fa-comment-alt iconRight"></i>
+            {{(pubPost.postData.length>20)? (pubPost.postData | slice:0:20)+' ......':(pubPost.postData)}}
+          </span>
+
+        </td>
+      </ng-container>
+
+      <!--Created For Column-->
+      <ng-container matColumnDef="createdFor">
+        <th class="tableHeader" mat-header-cell *matHeaderCellDef> Created For </th>
+        <td mat-cell *matCellDef="let pubPost">
+          <span *ngFor='let scData of pubPost.socialData'>
+            <span *ngFor='let data of dropdownList'>
+              <img *ngIf="data.socialType!='facebook' && data.userId === scData.userId" [src]="data.socialImage"
+                class="socialImage">
+              <img *ngIf="data.socialType=='facebook'&& data.pageId === scData.pageId"
+                [src]="'https://graph.facebook.com/'+data.pageId+'/picture'" class="socialImage" />
+              <i style="color: rgb(99, 179, 211);" class="fab fa-{{scData.socialName}} circle-icon iconPosition"
+                *ngIf="data.socialType!='facebook' && data.userId === scData.userId"></i>
+              <i style="color: rgb(132, 118, 209);" class="fab fa-facebook fa-sm circle-icon iconPosition"
+                *ngIf="data.socialType=='facebook' && data.pageId === scData.pageId"></i>
+            </span>
+          </span>
+        </td>
+      </ng-container>
+
+      <!--Options Column-->
+      <ng-container matColumnDef="options">
+        <th class="tableHeader" mat-header-cell *matHeaderCellDef="let pubPost">
+          <span *ngIf='delete'>
+            <i style="cursor: pointer;" title="Delete" class="fa fa-trash-alt"></i>
+          </span>
+        </th>
+        <td mat-cell *matCellDef="let pubPost">
+          <i title="Edit post" style="cursor: pointer;" (click)="navigatePost(pubPost.id)"
+            class="fa fa-edit  fa-sm deleteButton"></i> &nbsp;
+          <i title="Delete post" style="cursor: pointer;" (click)="deletePost(pubPost.id)"
+            class="fa fa-trash fa-sm deleteButton"></i> &nbsp;
+
+        </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+  </div>
+  <div class="footer-container">
+    <p class="footer-content"><mat-paginator [length]="100"
+      [pageSize]="10"  showFirstLastButtons="true" aria-label="Select page"></mat-paginator></p>
+    </div>
+</div>

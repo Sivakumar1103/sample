@@ -1,0 +1,24 @@
+.space
+{
+    padding: 20px;
+}
+.blue
+{
+    background: #3282c9;
+    color: white;
+}
+.blue:focus
+{
+    background-color:red;
+}
+.card-subtitle
+{
+    span
+    {
+        background: #3282c9;
+        border: 1px solid white;
+        border-radius: 200px;
+        color: white;
+        padding: 5px;
+    }
+}

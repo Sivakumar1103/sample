@@ -1,0 +1,98 @@
+<div class="container-fluid">
+    <div class="row my-5">
+
+
+        <div class="col-sm-12">
+
+          <table mat-table [dataSource]="notificationArr" matSort  class="mat-elevation-z8">
+
+            <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+
+            <!-- CHeckbox Column -->
+            <ng-container matColumnDef="checkbox">
+              <th mat-header-cell *matHeaderCellDef>
+                <div id="checkboxHover" class="pretty p-default p-thick">
+                  <input (change)='selectAll()' [(ngModel)]='selectAllModel' type="checkbox">
+                  <div class="state p-primary-o">
+                      <label></label>
+                  </div>
+                </div>
+              </th>
+              <td mat-cell *matCellDef="let notif">
+
+
+                <div  id="checkboxHover" class="pretty p-default p-thick">
+                  <input (change)="enable()" [(ngModel)]='notif.checked' type="checkbox">
+                  <div class="state p-primary-o">
+                      <label></label>
+                  </div>
+                </div>
+              </td>
+            </ng-container>
+
+            <!-- Notification Column -->
+            <ng-container matColumnDef="notification">
+              <th mat-header-cell *matHeaderCellDef class="notification">
+
+                Notifications ({{notificationArr.length}})
+              </th>
+              <td mat-cell *matCellDef="let notif" (click)="markAsread(notif._id)">
+
+                  <i class="fal fa-comment-alt-lines"></i> {{notif.notificationText}}
+
+              </td>
+            </ng-container>
+
+             <!-- Date Column -->
+             <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="notification">
+                Date
+              </th>
+              <td mat-cell *matCellDef="let notif" (click)="markAsread(notif._id)">
+
+                  {{notif.createdDate | date: 'mediumDate'}} {{notif.createdDate | date: 'shortTime'}}
+
+              </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="symbol">
+              <th mat-header-cell *matHeaderCellDef>
+                <i mat-raised-button  matTooltip="Mark all as read" (click)="markAllAsread()" class="far fa-envelope-open fa-lg allRead"></i>
+                <i *ngIf='!delete' mat-raised-button  matTooltip="Delete all" class="fa fa-times fa-lg allRead" (click)="deleteAll()" ></i>
+                <i *ngIf='delete' mat-raised-button  matTooltip="Delete selected" class="fa fa-times fa-lg allRead" (click)="deleteSelected()"></i>
+              </th>
+              <td mat-cell *matCellDef="let notif" (click)="markAsread(notif._id)">
+                <i style="color: #3282C9;" *ngIf='notif.status == "unread"'   title="{{notif.status}}" class="fas fa-circle fa-sm envPosition"></i>
+                <i style="color: rgb(212, 212, 212);" *ngIf='notif.status == "read"' title="{{notif.status}}" class="fas fa-circle fa-sm envPosition"></i>
+                <i class="fa fa-times envPosition delete"  title="Delete Notification" (click)="removeNotify(notif._id)"></i>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+
+
+
+            <!--<div *ngFor='let notif of notificationArr'>
+              <div class="card card-body">
+                <p>
+                  <i class="fal fa-comment-alt-lines"></i>
+                  {{notif.notificationText}} <i style="color: red;" *ngIf='notif.status == "unread"' title="unread" class="fas fa-circle fa-sm"></i>
+                  <i *ngIf='notif.status == "unread"' (click)="markAsread(notif._id)" title=" {{notif.status}}" class="far fa-envelope fa-lg envPosition"></i>
+                  <i *ngIf='notif.status == "read"' title=" {{notif.status}}" class="far fa-envelope-open fa-lg envPosition"></i>
+                  <i class="fal fa-trash-alt fa-lg envPosition" title="Delete Notification" (click)="removeNotify(notif._id)"></i>
+                </p>
+                <div class="timeMargin">
+                  <small>
+                    StoreFries &bull; {{notif.createdDate | date: 'mediumDate'}} {{notif.createdDate | date: 'shortTime'}}
+                  </small>
+                </div>
+              </div>
+            </div>-->
+        </div>
+    </div>
+</div>

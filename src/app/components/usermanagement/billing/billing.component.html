@@ -1,0 +1,247 @@
+<div class="continer-fluid" style="padding: 10px;">
+        <div class="card">
+            <span style="float: left;padding: 10px;">Plan</span>
+        </div>
+
+        <div class="row" style="padding: 10px;">
+            <div class="col-sm-3">
+                <p style="font-weight: 600;">Base Plan</p>
+            </div>
+        </div>
+    
+    <div class="row space">
+        <!--Standard-->
+        <div class="col-sm-3" href="#standard">
+            <div (click)="toggle()" class="card blue shadow p-3 mb-5 rounded" style="width: 18rem; cursor: pointer;">
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted"><span>Current</span></h6>
+                    <span>
+                        <h5 class="card-title">Standard</h5>
+                        <p class="card-text"><b style="font-size:xx-large;">$99</b>/month <br/>
+                            <small>Essential tools for social<br/> media management.</small>
+                        </p>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!--Professional-->
+        <div class="col-sm-3">
+            <div (click)="toggle2()" class="card blue shadow p-3 mb-5 rounded" style="width: 18rem; cursor: pointer;">
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted"><span>Recommended</span></h6>
+                    <span>
+                        <h5 class="card-title">Professional</h5>
+                        <p class="card-text"><b style="font-size:xx-large;">$149</b>/month <br/>
+                            <small>Essential tools for social<br/>media management.</small>
+                        </p>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!--Advanced-->
+        <div class="col-sm-3">
+            <div  (click)="toggle3()" class="card blue shadow p-3 mb-5 rounded" style="width: 18rem; cursor: pointer;">
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">&nbsp;</h6>
+                    <span>
+                        <h5 class="card-title">Advanced</h5>
+                        <p class="card-text"><b style="font-size:xx-large;">$249</b>/month <br/>
+                            <small>Advanced tool for social<br/>business at scale.</small>
+                        </p>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3" >
+            <span style="padding: 5px; font-weight: 600;">Summary</span>
+
+           <div class="card" style="padding: 10px;">
+                <div class="card-title">
+                    Billing cycle 
+                        <select style="float: right;">
+                            <option selected>Monthly</option>        
+                        </select>
+                </div>
+                <div>
+                    <input disabled style="float: left;" value="Base Plan">
+                </div>
+
+                <div  *ngIf="showtext">
+                    Standard <div>Includes: 1 user and 5 profiles <span style="float: right;">$99</span> </div>
+                </div>
+
+                <div *ngIf="showtext2">
+                    Professional <div>Includes: 1 user and 10 profiles <span style="float: right;">$149</span> </div>
+                </div>
+
+                <div *ngIf="showtext3">
+                    Advanced <div>Includes: 1 user and 10 profiles <span style="float: right;">$249</span> </div>
+                </div>
+                <hr>
+
+                <div  *ngIf="showtext">
+                    Monthly total <span style="float: right;">$99</span>
+                </div>
+
+                <div *ngIf="showtext2">
+                    Monthly total <span style="float: right;">$149</span>
+                </div>
+
+                <div *ngIf="showtext3">
+                    Monthly total <span style="float: right;">$249</span>
+                </div>
+              
+                <div>
+                    <p style="background-color:#f3f9ff;">You have 16 days remaining in your free trial.Your paid subscription will not begin until the end of your trial"</p>
+                </div>
+                <button *ngIf="showbutton" class="btn btn-primary">Try Plan for Free</button> <br/>
+                <button class="btn btn-primary">Proceed to Payment</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    
+
+    <span style="font-weight: 500;">Your plan includes</span> 
+    <!--Standard-->
+    <div #standard *ngIf="show">
+        <div class="row space">
+            <div class="col-sm-9"  style="border: 1px solid black;">
+                <p>
+                    <a style="float: right;" data-toggle="collapse" href="#collapseExample" data-target="#demo6" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <i class="far fa-chevron-circle-down"></i>
+                    </a>
+                </p>
+                
+                <div class="collapse show" id="demo6">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <h1>Std</h1>
+                            <ul>
+                                <li>All-in-one social inbox to monitor and engage with messages across all your networks.</li>
+                                <li>Cross-network publishing to efficiently plan, schedule and post messages.</li>
+                                <li>Profile and post-level reporting to measure and share the impact of your social efforts.</li>
+                            </ul>
+                        </div>
+        
+                        <div class="col-sm-4">
+                            <ul>
+                                <li>Message Tasking.</li>
+                                <li>Real-Time Brand Monitoring.</li>
+                                <li>Paid Promotion Tools.</li>
+                                <li>Review Management.</li>
+                                <li>Sprout Queue.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Professional-->
+    <div #standard *ngIf="show2">
+        <div class="row space">
+            <div class="col-sm-9"  style="border: 1px solid black;">
+                <p>
+                    <a style="float: right;" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" data-target="#demo7" aria-controls="collapseExample">
+                        <i class="far fa-chevron-circle-down"></i>
+                    </a>
+                </p>
+                
+                <div class="collapse show" id="demo7">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <h1>Pro</h1>
+                            <ul>
+                                <li>All-in-one social inbox to monitor and engage with messages across all your networks.</li>
+                                <li>Cross-network publishing to efficiently plan, schedule and post messages.</li>
+                                <li>Profile and post-level reporting to measure and share the impact of your social efforts.</li>
+                            </ul>
+                        </div>
+        
+                        <div class="col-sm-4">
+                            <ul>
+                                <li>Message Tasking.</li>
+                                <li>Real-Time Brand Monitoring.</li>
+                                <li>Paid Promotion Tools.</li>
+                                <li>Review Management.</li>
+                                <li>Sprout Queue.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Advanced-->
+    <div #standard *ngIf="show3">
+        <div class="row space">
+            <div class="col-sm-9"  style="border: 1px solid black;">
+                <p>
+                    <a style="float: right;" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" data-target="#demo8" aria-controls="collapseExample">
+                        <i class="far fa-chevron-circle-down"></i>
+                    </a>
+                </p>
+                
+                <div class="collapse show" id="demo8">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <h1>Adv</h1>
+                            <ul>
+                                <li>All-in-one social inbox to monitor and engage with messages across all your networks.</li>
+                                <li>Cross-network publishing to efficiently plan, schedule and post messages.</li>
+                                <li>Profile and post-level reporting to measure and share the impact of your social efforts.</li>
+                            </ul>
+                        </div>
+        
+                        <div class="col-sm-4">
+                            <ul>
+                                <li>Message Tasking.</li>
+                                <li>Real-Time Brand Monitoring.</li>
+                                <li>Paid Promotion Tools.</li>
+                                <li>Review Management.</li>
+                                <li>Sprout Queue.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row space">
+        <div class="col-sm-9"  style="border: 1px solid black; padding: 20px;">
+            <div class="row">
+                <div class="col-sm-2">
+                    Users
+                </div>
+                <div class="col-sm-5 text-center">
+                    1 user included with plan <div>Additional users at $99/user/month</div>
+                </div>
+                <div class="col-sm-5 text-center">
+                    <button class="btn btn-primary">Manage Users</button>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-2">
+                    Social Profiles
+                </div>
+                <div class="col-sm-5 text-center">
+                    5 social profiles included with plan <div>Additional users at $25/profile/month</div>
+                </div>
+                <div class="col-sm-5 text-center">
+                    <button class="btn btn-primary">Manage Social Profiles</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

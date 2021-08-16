@@ -1,0 +1,66 @@
+.card
+{
+    background: #f3f9ff;
+    margin-bottom: 15px;
+}
+.notification
+{
+    text-transform: none;
+    font-weight: bold;
+    font-size: 17px;
+    color: black;
+}
+.delete
+{
+    opacity: 0;
+}
+table
+{
+    th
+    {
+        background: white !important;
+    }
+    td
+    {
+        background: white;
+    }
+    cursor: pointer;
+    tr:hover
+    {   
+        td
+        {
+            background: rgb(232, 250, 255);
+        }
+        .delete
+        {
+            opacity: 1;
+        }
+    }
+}
+p
+{
+    font-size: 16px;
+    font-weight: 500;
+}
+.timeMargin
+{
+    margin-left: 20px;
+}
+.envPosition
+{
+    float: right;
+    padding: 10px;
+    cursor: pointer;
+}
+.allRead
+{
+    float: right;
+    margin-right: 0.5rem;
+    margin-left: 0.8rem;
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+  }
+  

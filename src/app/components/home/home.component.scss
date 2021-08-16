@@ -1,0 +1,22 @@
+img
+{
+  width: 100%;
+}
+.border
+{
+  margin-left: 20px;
+  border: 1px solid black;
+  border-radius: 10px;
+  text-align: center;
+}
+figcaption
+{
+  font-weight: 500;
+}
+
+@media (max-width:768px){
+  .response{
+    margin-top: 20px;
+    margin-left: 0px;
+  }
+}

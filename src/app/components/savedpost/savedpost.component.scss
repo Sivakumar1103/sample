@@ -1,0 +1,44 @@
+.lengthPosition
+{
+  position: relative;
+  top: 0;
+  left: -17%;
+  margin-top: -1px;
+  font-size: 17px;
+  height: auto;
+  width: 10px;
+}
+
+.footer-container {
+  position: fixed;
+  margin-left: 50px;
+  bottom: 0;
+  width: 100%; 
+  
+}
+.footer-content {
+  margin-right: 1000px
+}
+.matTable
+{
+  td
+  {
+    text-align: left;
+  }
+}
+.deleteButton
+{
+  opacity: 0;
+  padding-left: 15px;
+  color: rgb(134, 134, 134);
+}
+.matTable
+{
+  tr:hover
+  {
+    .deleteButton
+    {
+      opacity: 1;
+    }
+  }
+}

@@ -1,0 +1,81 @@
+.content-library {
+
+  h3 {
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 0.5rem;
+  }
+
+  img {
+    height: 140px;
+    width: 88%;
+    object-fit: cover;
+  }
+
+  .mediaRow {
+    text-align:center;
+    word-wrap: break-word;
+
+    .mediaColumn p{
+      font-size: 12px;
+      font-weight: 400;
+      margin-top: 6px
+    }
+
+    @media (min-width: 576px) {
+      .mediaColumn {
+        font-size: 12px;
+        font-weight: 400;
+        margin-top: 6px
+    }
+    }
+  }
+ 
+
+}
+button
+{
+  margin-left: 10px;
+  margin-bottom: 10px;
+  border: 1px solid rgb(110, 110, 110);
+}
+.btn:focus
+{
+  outline: none;
+  box-shadow: none;
+}
+button:hover
+{
+  background: #DCDFE5;
+}
+.checkbox {
+  position: absolute;
+  left: 158px;
+  z-index: 1;
+  bottom: 10px;
+}
+@media only screen and (max-width: 992px) {
+  .checkbox {
+    margin-left: -10rem;
+  }
+}
+@media only screen and (min-width: 1199px) {
+  .checkbox {
+    margin-left: -10rem;
+  }
+}
+@media only screen and (max-width: 1100px) {
+  .checkbox {
+    position: absolute;
+    left: 5px;
+    z-index: 1;
+    bottom: 10px;
+  }
+}
+.mediaColumn label {
+  padding: 10px;
+  border: 1px solid lightgray;
+  position: relative;
+  border-radius: 3px;
+  display: block;
+  margin: 6px;
+}

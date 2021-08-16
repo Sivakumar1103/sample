@@ -1,0 +1,30 @@
+<div class="d-flex" id="wrapper">
+  <div id="page-content-wrapper">
+    <ng-container *ngIf="isAuthenticated(); else fullPageLogin">
+      <!--Header nav-->
+      <div>
+        <app-header></app-header>
+      </div>
+      <div class="row no-gutters" style="padding:0;margin:0;">
+        <!--Sidebar nav-->
+        <div class="col-sm-2">
+          <app-sidebar></app-sidebar>
+        </div>
+        <!--Main content-->
+        <div class="col-sm-10">
+          <div class="container-fluid">
+            <router-outlet></router-outlet>
+            <ngx-spinner></ngx-spinner>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #fullPageLogin>
+        <div class="container-fluid p-0">
+          <router-outlet></router-outlet>
+          <ngx-spinner></ngx-spinner>
+        </div>
+    </ng-template>
+
+  </div>
+</div>

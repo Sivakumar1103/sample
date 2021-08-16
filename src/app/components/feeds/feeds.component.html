@@ -1,0 +1,462 @@
+<div class="container w-100 ml-0 px-0 py-0">
+  <h2 class="" style="margin-bottom: 0 ; font-weight: bold;line-height: 1;padding-bottom: 0.75rem;"> Feeds </h2>
+    <!-- <div class=" col-sm-2 bordercolor" style="background-color: white;">
+
+      <div style="font-weight: bold;">Feeds</div> <br />
+      <div><i class="fas fa-plus-circle"></i> New Board</div>
+      <div><i class="fas fa-search"></i> Twitter quick search</div>
+      <div>&nbsp;</div>
+
+      <div style="border-top: 1px solid grey;">
+        <span style="font-weight: bold;"> My Boards </span>
+        <div *ngFor="let data of socialProfiles" style="padding: 10px;">
+          <span (click)="retrieveTwitterTimeline(data.socialId)">
+            {{data.socialName}} <i style="float: right;" class="fas fa-times"></i>
+          </span>
+        </div>
+      </div>
+    </div> -->
+
+    
+      <div class="btnWrap">
+        <!-- <h2>Twitter:AikyneDev <i class="fas fa-sort-down"></i>|</h2> -->
+        <button class="btn py-1">Add stream </button> &nbsp;
+        <button class="btn py-1">+ Add Feeds</button> &nbsp;
+        <button class="btn py-1">+ Add Social Network</button> &nbsp;
+        <button class="btn py-1">Reload</button> |
+        <button class="btn py-1">View as: Standard</button>
+      </div>     
+    
+</div>
+<div class="container-fluid px-0 py-0">
+  <div class="scroll position-relative" id="scroll-height">
+    <div class="navigation">
+      <div class="leftNav navarrows" (click)="scrollLeft(list)">
+        <i class="fa fa-angle-left"></i>
+      </div>
+      <div class="rightNav navarrows"  (click)="scrollRight(list)">
+        <i class="fa fa-angle-right"></i>
+      </div>
+    </div>
+
+    
+
+    <div cdkDropList cdkDropListOrientation="horizontal"  (cdkDropListDropped)="drop($event)" class="d-flex" id="scrollContainer" #list style="overflow-x: hidden;" >
+       <div *ngFor="let item of timeline" cdkDrag class="xyz" style=" border-right: 2px solid #d5cdcd;">
+        <div class="box p-2">
+          <span class="heading"><i class="fab fa-twitter mr-1"></i>{{item.heading}} <span class="gray"> AikyeneDev</span> </span>
+          <ul>
+            <li class="mr-2"><i class="fas fa-edit round"></i></li>
+            <li class="mr-2"><i class="fas fa-redo round"></i></li>
+            <li class="mr-0"><i class="fas fa-ellipsis-h round"></i></li>
+          </ul>
+        </div>
+        <div class="tweets p-2 mt-3">
+          <div class="zoho-social">
+            <img src="https://picsum.photos/100.jpg" alt="" height="22px">
+            <div class="ml-2">
+              <h5 >Dev_Aikyne <a href="#">@AlkyneDev</a> </h5>
+              <div class="date">
+                <div class="dot">
+                </div>
+                <p class="ml-1 mb-0">4days ago</p>
+              </div>
+            </div>
+          </div>
+         
+          <div>
+            <p style="font-size: 14px;">Testing the photos</p>
+            <img src="https://picsum.photos/100.jpg" alt="" width="100%" style="border-radius: 0%; border-radius: 5px;">
+          </div>
+          <ul class="mt-2 pl-0 justify-content-end">
+            <li class="mr-3"><i class="fas fa-share " style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-retweet" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-caret-down" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-heart" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="far fa-calendar-plus" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-caret-down" style="color: gray;"></i></li>
+            <li class="mr-0"><i class="fas fa-ellipsis-h" style="color: gray;"></i></li>
+          </ul>
+          <div class="show-conversation">
+            <i class="fas fa-comment-alt" style="color: #007eff;"></i><span class="ml-1"> Show Conversation</span>
+          </div>
+        </div>
+
+        <div class="tweets mt-3 p-2">
+          <div class="zoho-social">
+            <img src="https://picsum.photos/100.jpg" alt="" height="22px">
+            <div class="ml-2">
+              <h5 >Dev_Aikyne <a href="#">@AlkyneDev</a> </h5>
+              <div class="date">
+                <div class="dot">
+                </div>
+                <p class="ml-1 mb-0">4days ago</p>
+              </div>
+            </div>
+           
+          </div>
+          
+          <p style="font-size: 14px;">Testing the comments</p>
+          <ul class="mt-2 pl-0 justify-content-end">
+            <li class="mr-3"><i class="fas fa-share " style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-retweet" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-caret-down" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-heart" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="far fa-calendar-plus" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-caret-down" style="color: gray;"></i></li>
+            <li class="mr-0"><i class="fas fa-ellipsis-h" style="color: gray;"></i></li>
+          </ul>
+          <div class="show-conversation">
+            <i class="fas fa-comment-alt" style="color: #007eff;"></i><span class="ml-1"> Show Conversation</span>
+          </div>
+        </div>
+
+
+        <div class="tweets p-2 mt-3">
+          <div class="zoho-social">
+            <img src="https://picsum.photos/100.jpg" alt="" height="22px">
+            <div class="ml-2">
+              <h5 >Dev_Aikyne <a href="#">@AlkyneDev</a> </h5>
+              <div class="date">
+                <div class="dot">
+                </div>
+                <p class="ml-1 mb-0">4days ago</p>
+              </div>
+            </div>
+          </div>
+
+        
+
+          <p style="font-size: 14px;">Testing and Stickers</p>
+
+
+          <ul class="mt-2 pl-0 justify-content-end">
+            <li class="mr-3"><i class="fas fa-share " style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-retweet" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-caret-down" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-heart" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="far fa-calendar-plus" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-caret-down" style="color: gray;"></i></li>
+            <li class="mr-0"><i class="fas fa-ellipsis-h" style="color: gray;"></i></li>
+          </ul>
+          <div class="show-conversation">
+            <i class="fas fa-comment-alt" style="color: #007eff;"></i><span class="ml-1"> Show Conversation</span>
+          </div>
+        </div>
+
+
+      </div> 
+
+      <!-- <div cdkDrag class="xyz px-1"style=" border-right: 2px solid #d5cdcd">
+        <div class="box">
+          <span class="heading"><i class="fab fa-twitter"></i>Home<span class="gray">AikyeneDev</span></span>
+          <ul>
+            <li class="mr-2"><i class="fas fa-redo round"></i></li>
+            <li class="mr-2"><i class="fas fa-search round"></i></li>
+            <li class="mr-0"><i class="fas fa-ellipsis-h round"></i></li>
+          </ul>
+        </div>
+        <br>
+
+        <div class="tweets mt-3">
+          <div class="zoho-social">
+            <img src="https://picsum.photos/100.jpg" alt="" height="22px">
+            <h5 class="ml-2">IndiaTodayTech <a href="#">@IndiaTodayTech</a> </h5>
+          </div>
+          <div class="date">
+            <div class="dot">
+            </div>
+            <p class="ml-1">4 mins ago</p>
+          </div>
+          <p>Iphone User can get their Wi-Fi disabled if they join this Wi-Fi network </p>
+          <a href="#">indiatoday.in/technology/new...</a>
+          <ul class="mt-2">
+            <li class="mr-3"><i class="fas fa-share " style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-retweet" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-sort-down" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-heart" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="far fa-calendar-plus" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-sort-down" style="color: gray;"></i></li>
+            <li class="mr-0"><i class="fas fa-ellipsis-h" style="color: gray;"></i></li>
+          </ul>
+          <br>
+        </div>
+
+        <div class="tweets mt-3">
+          <div class="zoho-social">
+            <img src="https://picsum.photos/100.jpg" alt="" height="22px">
+            <h5 class="ml-2">Indiatoday <a href="#">@Indiatoday</a> </h5>
+          </div>
+          <div class="date">
+            <div class="dot">
+            </div>
+            <p class="ml-1">4 mins ago</p>
+          </div>
+          <p>Atmospheric Dynamo, this earth sized'electric generator' has been running forever</p>
+          <a href="#">indiatoday.in/technology/new...</a>
+          <ul class="mt-2">
+            <li class="mr-3"><i class="fas fa-share " style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-retweet" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-sort-down" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-heart" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="far fa-calendar-plus" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-sort-down" style="color: gray;"></i></li>
+            <li class="mr-0"><i class="fas fa-ellipsis-h" style="color: gray;"></i></li>
+          </ul>
+          <br>
+        </div>
+
+        <div class="tweets mt-3">
+
+          <div class="zoho-social">
+            <img src="https://picsum.photos/100.jpg" alt="" height="22px">
+            <h5 class="ml-2">The Indian Express <a href="#">@IndianExpress</a> </h5>
+          </div>
+          <div class="date">
+            <div class="dot">
+            </div>
+            <p class="ml-1">4 mins ago</p>
+          </div>
+          <p>peaceful protest outside St.Peters chruch on hill road in Bandra. </p>
+          <p>A meorial mass is held for father <a href="">#StanSwamy</a> at SaintPeters church this
+            evening.A statement
+            put on by Father Mascarenhas said that only 20 people are allowed for the mass.</p>
+          <img src="https://picsum.photos/100.jpg" alt="" width="50%" style="border-radius: 0%;">
+          <img src="https://picsum.photos/100.jpg" alt="" width="50%" style="border-radius: 0%;">
+          <ul class="mt-2">
+            <li class="mr-3"><i class="fas fa-share"></i></li>
+            <li class="mr-3"><i class="fas fa-retweet"></i></li>
+            <li class="mr-3"><i class="fas fa-sort-down"></i></li>
+            <li class="mr-3"><i class="fas fa-heart"></i></li>
+            <li class="mr-3"><i class="far fa-calendar-plus"></i></li>
+            <li class="mr-3"><i class="fas fa-sort-down"></i></li>
+            <li class="mr-0"><i class="fas fa-ellipsis-h"></i></li>
+          </ul>
+          <a class="data" href="#">indiatoday.in/science/story...</a>
+          <br>
+        </div>
+
+      </div>
+
+      <div cdkDrag class="xyz px-1" style=" border-right: 2px solid #d5cdcd; ">
+        <div class="box">
+          <span class="heading"> <i class="fab fa-twitter"></i>Scheduled <span class="gray"> AikyeneDev</span> </span>
+          <ul>
+            <li class="mr-2"><i class="fas fa-redo round"></i></li>
+            <li class="mr-0"><i class="fas fa-ellipsis-h round"></i></li>
+
+          </ul>
+        </div>
+        <br>
+        <div class="schedule text-center mt-5 mb-5">
+          <img src="https://picsum.photos/100.jpg" alt="" height="30%">
+        </div>
+        <div class="text-center">
+          <p class="font-bold" style="font-weight: bold;">No scheduled post yet... </p>
+          <p>Scheduling a few post a week is a great way to keep your following engaged. </p>
+          <button class="btn text-center">Start Scheduling</button>
+        </div>
+
+
+      </div>
+
+      <div cdkDrag class="xyz px-1"  style=" border-right: 2px solid #d5cdcd">
+        <div class="box">
+          <span class="heading"> <i class="fab fa-twitter"></i>Mentions <span class="gray"> AikyeneDev</span> </span>
+          <ul>
+            <li class="mr-2"><i cla ss="fas fa-redo round"></i></li>
+            <li class="mr-2"><i class="fas fa-search round"></i></li>
+            <li class="mr-0"><i class="fas fa-ellipsis-h round"></i></li>
+
+          </ul>
+        </div>
+
+        <br>
+        <div class="tweets mt-3">
+          <div class="in-reply py-2">
+            <i class="fas fa-comment-alt"></i>
+            <p class="ml-2">In reply to <a href="#">AlkyneDev</a> </p>
+          </div>
+          <div class="zoho-social">
+            <img src="https://picsum.photos/100.jpg" alt="" height="22px">
+            <h5 class="ml-2">Zoho Social <a href="#">@ZohoSocial</a> </h5>
+          </div>
+          <div class="date">
+            <div class="dot">
+            </div>
+            <p class="ml-1">Jun 7</p>
+          </div>
+
+          <p style="font-size: 14px;">Thanks for the shoutout</p>
+          <ul>
+            <li class="mr-3"><i class="fas fa-share " style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-retweet" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-sort-down" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-heart" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="far fa-calendar-plus" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-sort-down" style="color: gray;"></i></li>
+            <li class="mr-0"><i class="fas fa-ellipsis-h" style="color: gray;"></i></li>
+          </ul>
+          <div class="show-conversation">
+            <i class="fas fa-comment-alt" style="color: #007eff;"></i>
+            <span class="ml-1"> Show Conversation</span>
+
+          </div>
+          <br>
+
+          <div>
+            <div class="in-reply py-2">
+              <i class="fas fa-comment-alt"></i>
+              <p class="ml-2">In reply to <a href="#">AlkyneDev</a> </p>
+            </div>
+          </div>
+          <div class="zoho-social">
+            <img src="https://picsum.photos/100.jpg" alt="" height="22px">
+            <h5 class="ml-2">Arun Venkat <a href="#">@ArunAlkyne</a> </h5>
+          </div>
+
+          <div class="date">
+            <div class="dot">
+            </div>
+            <p class="ml-1">May 13</p>
+          </div>
+          <p style="font-size: 14px;">Cool</p>
+          <ul>
+            <li class="mr-3"><i class="fas fa-share " style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-retweet" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-sort-down" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-heart" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="far fa-calendar-plus" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-sort-down" style="color: gray;"></i></li>
+            <li class="mr-0"><i class="fas fa-ellipsis-h" style="color: gray;"></i></li>
+          </ul>
+          <div class="show-conversation">
+            <i class="fas fa-comment-alt" style="color: #007eff;"></i>
+            <span class="ml-1"> Show Conversation</span>
+          </div>
+          <br>
+
+          <div>
+            <div class="in-reply py-2">
+              <i class="fas fa-comment-alt"></i>
+              <p class="ml-2">In reply to <a href="#">AlkyneDev</a> </p>
+            </div>
+          </div>
+          <div class="zoho-social">
+            <img src="https://picsum.photos/100.jpg" alt="" height="22px">
+            <h5 class="ml-2">Arun Venkat <a href="#">@ArunAlkyne</a> </h5>
+          </div>
+          <div class="date">
+            <div class="dot">
+            </div>
+            <p class="ml-1">Mar 3</p>
+          </div>
+          <p style="font-size: 14px;">Cool</p>
+          <ul>
+            <li class="mr-3"><i class="fas fa-share " style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-retweet" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-sort-down" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-heart" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="far fa-calendar-plus" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-sort-down" style="color: gray;"></i></li>
+            <li class="mr-0"><i class="fas fa-ellipsis-h" style="color: gray;"></i></li>
+          </ul>
+          <div class="show-conversation">
+            <i class="fas fa-comment-alt" style="color: #007eff;"></i>
+            <span class="ml-1"> Show Conversation</span>
+          </div>
+        </div>
+      </div>
+      <div cdkDrag class="xyz px-1"  style=" border-right: 2px solid #d5cdcd">
+        <div class="box">
+          <span class="heading"><i class="fab fa-twitter"></i>Home<span class="gray">AikyeneDev</span></span>
+          <ul>
+            <li class="mr-2"><i class="fas fa-redo round"></i></li>
+            <li class="mr-2"><i class="fas fa-search round"></i></li>
+            <li class="mr-0"><i class="fas fa-ellipsis-h round"></i></li>
+          </ul>
+        </div>
+        <br>
+
+        <div class="tweets mt-3">
+          <div class="zoho-social">
+            <img src="https://picsum.photos/100.jpg" alt="" height="22px">
+            <h5 class="ml-2">IndiaTodayTech <a href="#">@IndiaTodayTech</a> </h5>
+          </div>
+          <div class="date">
+            <div class="dot">
+            </div>
+            <p class="ml-1">4 mins ago</p>
+          </div>
+          <p>Iphone User can get their Wi-Fi disabled if they join this Wi-Fi network </p>
+          <a href="#">indiatoday.in/technology/new...</a>
+          <ul class="mt-2">
+            <li class="mr-3"><i class="fas fa-share " style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-retweet" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-sort-down" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-heart" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="far fa-calendar-plus" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-sort-down" style="color: gray;"></i></li>
+            <li class="mr-0"><i class="fas fa-ellipsis-h" style="color: gray;"></i></li>
+          </ul>
+          <br>
+        </div>
+
+        <div class="tweets mt-3">
+          <div class="zoho-social">
+            <img src="https://picsum.photos/100.jpg" alt="" height="22px">
+            <h5 class="ml-2">Indiatoday <a href="#">@Indiatoday</a> </h5>
+          </div>
+          <div class="date">
+            <div class="dot">
+            </div>
+            <p class="ml-1">4 mins ago</p>
+          </div>
+          <p>Atmospheric Dynamo, this earth sized'electric generator' has been running forever</p>
+          <a href="#">indiatoday.in/technology/new...</a>
+          <ul class="mt-2">
+            <li class="mr-3"><i class="fas fa-share " style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-retweet" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-sort-down" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-heart" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="far fa-calendar-plus" style="color: gray;"></i></li>
+            <li class="mr-3"><i class="fas fa-sort-down" style="color: gray;"></i></li>
+            <li class="mr-0"><i class="fas fa-ellipsis-h" style="color: gray;"></i></li>
+          </ul>
+          <br>
+        </div>
+
+        <div class="tweets mt-3">
+
+          <div class="zoho-social">
+            <img src="https://picsum.photos/100.jpg" alt="" height="22px">
+            <h5 class="ml-2">The Indian Express <a href="#">@IndianExpress</a> </h5>
+          </div>
+          <div class="date">
+            <div class="dot">
+            </div>
+            <p class="ml-1">4 mins ago</p>
+          </div>
+          <p>peaceful protest outside St.Peters chruch on hill road in Bandra. </p>
+          <p>A meorial mass is held for father <a href="">#StanSwamy</a> at SaintPeters church this
+            evening.A statement
+            put on by Father Mascarenhas said that only 20 people are allowed for the mass.</p>
+          <img src="https://picsum.photos/100.jpg" alt="" width="50%" style="border-radius: 0%;">
+          <img src="https://picsum.photos/100.jpg" alt="" width="50%" style="border-radius: 0%;">
+          <ul class="mt-2">
+            <li class="mr-3"><i class="fas fa-share"></i></li>
+            <li class="mr-3"><i class="fas fa-retweet"></i></li>
+            <li class="mr-3"><i class="fas fa-sort-down"></i></li>
+            <li class="mr-3"><i class="fas fa-heart"></i></li>
+            <li class="mr-3"><i class="far fa-calendar-plus"></i></li>
+            <li class="mr-3"><i class="fas fa-sort-down"></i></li>
+            <li class="mr-0"><i class="fas fa-ellipsis-h"></i></li>
+          </ul>
+          <a class="data" href="#">indiatoday.in/science/story...</a>
+          <br>
+        </div>
+
+      </div> -->
+    </div>
+  </div>
+</div>

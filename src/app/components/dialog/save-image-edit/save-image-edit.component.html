@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>Edit File</h1>
+    </div>
+    <div class="col-sm-12 rowGap">
+      <label>Name</label>
+      <input type="text" class="form-control" name="editFileName" [(ngModel)]="messageData.fileName"/>
+    </div>
+    <div class="col-sm-12 rowGap">
+      <label>File Extension</label>
+      <input type="radio" value="jpeg" name="fileExt" [(ngModel)]="messageData.fileExt"> JPG
+      <input type="radio" value="png" name="fileExt" [(ngModel)]="messageData.fileExt"> PNG
+    </div>
+  </div>
+  <div class="row rowGap">
+    <button style="float: right;" class="btn btn-color" (click)="modal.close()">Close</button>
+    <button style="float: right;" class="btn btn-primary " (click)="modal.close(messageData)">Save</button>
+  </div>
+</div>
+

@@ -1,0 +1,212 @@
+<div class="">
+  <div class="row">
+    <div class="col-sm-3 col-md-3 pr-1">
+      <div class="card" style="height: calc(100vh - 87px)">
+        <div class="card-header padding cardTitleHeader">
+          <div>
+            <div class="cardTitle">Images</div>
+            <div class="uploadButton">
+              <input hidden type="file" #uploader multiple (change)="uploadImage($event)" accept=".jpeg,.jpg,.png" />
+              <button class="btn btn-primary " (click)="uploader.click()"><i title="upload image" class="fas fa-upload"
+                  aria-hidden="true"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-body scroll">
+          <div class="col-12 px-0 imgCard" *ngFor="let media of mediaList; let i = index">
+            <div class="custom-control custom-checkbox image-checkbox">
+              <input type="checkbox" class="custom-control-input" [(ngModel)]="media.checked" />
+              <label class="custom-control-label">
+                <img (click)="loadImageIntoEditor(media.Key, media.Key,i)"
+                  src="{{'https://aikyne-mediafiles.s3.ap-south-1.amazonaws.com/'+media.Key}}" class="img-fluid" />
+                <p class="col-sm-12">{{media.Key.split('/')[2]}}</p>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-md-6 px-1">
+      <div class="card">
+        <div class="card-header padding cardTitleHeader">
+          <div class="cardTitle">Canvas</div>
+          <div class="uploadButton">
+            <button class="btn btn-primary margin-right-10" (click)="undo()" [disabled]="!enableUndo"><i title="Undo"
+                class="fa fa-undo margin-right-10"></i>Undo</button>
+            <button class="btn btn-primary" (click)="redo()" [disabled]="!enableRedo"><i title="Redo"
+                class="fa fa-redo margin-right-10"></i>Redo</button>
+          </div>
+        </div>
+        <div class="card-body border-0 text-center height" #tuiImageEditor>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-3 pl-1" id="scrollDown">
+      <div class="card-body scroll scrolltop px-0 pt-0">
+        <div class="card">
+          <div class="card-header padding cardTitleHeader">
+            <div class="cardTitle">Sizes</div>
+          </div>
+          <div class="card-body text-center">
+            <div>
+              <span (click)="cropInsta()" class="fb-border">
+                <i class="fab fa-instagram fa-1x"></i>
+              </span> &nbsp;
+              <span class="fb-border" (click)="cropFacebook()">
+                <i class="fab fa-facebook padding "></i>
+                <i class="fab fa-twitter padding "></i>
+              </span>
+            </div>
+            <div *ngIf="showCropApply" style="margin-top: 1rem;">
+              <button (click)="applyCrop()" class="btn btn-primary">Crop</button>
+              <button (click)="cancelCrop()" class="btn btn-secondary" style="margin-left:1rem;">Cancel</button>
+            </div>
+          </div>
+        </div>
+        &nbsp;
+        <div class="card">
+          <div class="card-header padding cardTitleHeader">
+            <div class="cardTitle">Filters &nbsp;<i class="fas fa-paint-brush"></i></div>
+            <div class="uploadButton">
+              <button class="btn margin-right-5" (click)="resetfilter()"><i title="reset"
+                  class="far fa-refresh margin-right-10"></i>Reset</button>
+            </div>
+          </div>
+          <div class="card-body text-center">
+            <button class="btn btn-info dropdown-toggle filterBtn" aria-haspopup="true" aria-expanded="false"
+              data-toggle="dropdown">
+              <img [class]="selectedImageClass" [src]="src" alt="">&nbsp; {{selectedImageName}}
+            </button>
+
+            <div class="dropdown-menu dmenu" id="scrollDown">
+              <li class="dropdown-item li1"> <button class="dropdown-item" name="None" type="button"
+                  (click)="resetfilter();">
+                  <img class="circleFilter" [src]="src" alt="">&nbsp; None</button> </li>
+
+              <li class="dropdown-item li1"> <button class="dropdown-item" type="button"
+                  (click)="applyFilter('circleFilter grayscaleFilter', 'Grayscale')">
+                  <img class="circleFilter grayscaleFilter" [src]="src" alt="">&nbsp; Grayscale</button></li>
+
+              <li class="dropdown-item li1"> <button value="Invert" class="dropdown-item" type="button"
+                  (click)="applyFilter('circleFilter invert', 'Invert')">
+                  <img class="circleFilter invert" [src]="src" alt="">&nbsp; Invert</button></li>
+
+              <li class="dropdown-item li1"> <button class="dropdown-item" type="button"
+                  (click)="applyFilter('circleFilter sepia', 'Sepia')">
+                  <img class="circleFilter sepia" [src]="src" alt="">&nbsp; Sepia</button></li>
+
+              <li class="dropdown-item li1"> <button class="dropdown-item" type="button"
+                  (click)="applyFilter('circleFilter saturate', 'vintage')">
+                  <img class="circleFilter saturate" [src]="src" alt="">&nbsp; Vintage</button> </li>
+
+              <li class="dropdown-item li1"> <button class="dropdown-item" type="button"
+                  (click)="applyFilter('circleFilter blur', 'Blur')">
+                  <img class="circleFilter blur" [src]="src" alt="">&nbsp; Blur</button></li>
+
+              <li class="dropdown-item li1"> <button class="dropdown-item" type="button"
+                  (click)="applyFilter('circleFilter hueRotate', 'Sharpen')">
+                  <img class="circleFilter hueRotate" [src]="src" alt="">&nbsp; Sharpen</button></li>
+              <li class="dropdown-item li1"> <button class="dropdown-item" type="button"
+                  (click)="applyFilter('circleFilter contrast', 'Emboss')">
+                  <img class="circleFilter contrast" [src]="src" alt="">&nbsp; Emboss</button></li>
+            </div>
+
+          </div>
+        </div>
+        &nbsp;
+        <div class="card">
+          <div class="card-header padding cardTitleHeader">
+            <div class="cardTitle">Brightness &nbsp;<i class="fas fa-adjust"></i></div>
+            <div class="uploadButton">
+              <button class="btn margin-right-5" (click)="resetBrightness()"><i title="Reset"
+                  class="far fa-refresh margin-right-10"></i>Reset</button>
+            </div>
+          </div>
+          <div class="card-body text-center">
+            <mv-slider style="width: 180px;" [(value)]="brightnessSliderValue" [min]="-255" [max]="255"
+              (change)="applyBrightness()"></mv-slider>
+          </div>
+        </div>
+        &nbsp;
+        <div class="card">
+          <div class="card-header padding cardTitleHeader">
+            <div class="cardTitle">Text &nbsp;<i class="fas fa-text"></i></div>
+          </div>
+          <div class="text-center padding position-relative d-flex justify-content-between">
+            <button type="button" class="btn btn-primary" (click)="addText()" style="flex: 1;"><i
+                class="fas fa-plus"></i>&nbsp;Add Text</button>
+
+
+            <div *ngIf="activatedObjectId && openText" class="textStyleContainer">
+              <div class="d-flex justify-content-between">
+                <label style="font-size: 14px; font-weight: 500">Text Color: </label>
+                <button class="btn cls" (click)='closeText()' *ngIf='activatedObjectId && openText'>&times;</button>
+              </div>
+
+
+              <div [(colorPicker)]="textColor" [style.background]="textColor" [cpToggle]="true"
+                [cpDialogDisplay]="'inline'" [cpWidth]="'180px'" (colorPickerChange)="changeTextColor();"></div>
+
+              <div class="d-flex justify-content-between align-items-center mt-2">
+                <label style="float: left;margin-bottom:0;font-size: 14px; font-weight: 500;;">Font size:</label>
+                <select [(ngModel)]="textFontSize" name="textFontSize" (change)="changeFontSize();" class="form-control"
+                  style="width:50%;">
+                  <option value="12">12</option>
+                  <option value="14">14</option>
+                  <option value="18">18</option>
+                  <option value="24">24</option>
+                  <option value="28">28</option>
+                  <option value="32">32</option>
+                  <option value="36">36</option>
+                  <option value="40">40</option>
+                  <option value="42">42</option>
+                  <option value="48">48</option>
+                  <option value="54">54</option>
+                </select>
+              </div>
+
+            </div>
+          </div>
+
+
+        </div>
+        &nbsp;
+        <div class="card">
+          <div class="card-header padding cardTitleHeader">
+            <div class="cardTitle">Logo</div>
+          </div>
+          <div class="padding text-center">
+            <div>
+              <button type="button" class="btn btn-primary w-100" (click)="logoinsert.click()">Insert Logo
+                Image</button>
+                <input hidden #logoinsert (change)="addlogo($event)" accept="image/*" type="file">
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <div class="text-center mt-3">
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Save
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <button class="btn btn-primary rounded-pill dropdown-item" (click)="downloadLocal()">Download to Local
+              &nbsp;</button>
+
+            <button class="btn btn-primary rounded-pill dropdown-item" (click)="saveLibrary()">Save to Library</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
