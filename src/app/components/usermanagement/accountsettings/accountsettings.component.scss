@@ -12,6 +12,13 @@ ul{
     border: 0;
 }
 
+#logout_sidebar_button {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding-left: 5%;
+}
+
 .list-group-item{
     border-radius: 0px;
     background-color: #ffffff;
@@ -36,8 +43,6 @@ ul{
 }
 
 .cancel{
-    margin-top: 400px;
-    margin-left: 10%;
     padding: 5px 25px 5px 25px;
 }
 

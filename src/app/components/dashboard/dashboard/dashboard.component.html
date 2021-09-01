@@ -11,8 +11,9 @@
             <div style="right:2px;top:-2px">
               <label style="color: #333;min-width: 130px;"
                 [ngStyle]="{ 'color': getItems[id].isDisabled? 'lightgrey':''}">
-                <img class="dropdownimage"
-                  [src]="(!!getItems[id].socialImage)?getItems[id].socialImage:'https://graph.facebook.com/'+getItems[id].pageId+'/picture'" />
+                <img class="dropdownimage" [src]="(!!getItems[id].socialImage)?getItems[id].socialImage:'https://graph.facebook.com/'+getItems[id].pageId+'/picture'" />
+                <!-- <img class="dropdownimage" *ngIf="getItems[id].socialImage" [src]="(!!getItems[id].socialImage)?getItems[id].socialImage:'../../../../assets/img/Linkedin.svg'" />
+                <img class="dropdownimage" *ngIf="!getItems[id].socialImage || getItems[id].socialImage == null" [src]="'../../../../assets/img/Linkedin.svg'" /> -->
                 <i style="color: rgb(52, 140, 190); position: relative; left: -12px; top: 14px;"
                   class="fab fa-{{getItems[id].socialId.split('-')[0]}} fa-sm circle-icon"></i>
                 {{getItems[id].socialName}}

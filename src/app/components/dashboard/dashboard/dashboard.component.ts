@@ -33,14 +33,14 @@ import { SocialProfileUtil } from 'src/app/utility/socialprofile';
 })
 
 export class DashboardComponent implements OnInit {
-  bitlyUrlEdit:boolean=true;
-  preBitlyUrl:any="";
-  showBtn:any="postNow";
+  bitlyUrlEdit: boolean = true;
+  preBitlyUrl: any = "";
+  showBtn: any = "postNow";
   showBtnMenu = false
   faSmileBeam = faSmileBeam;
   faDesktop = faDesktop;
   faImage = faImage;
-  selected_icon:any="";
+  selected_icon: any = "";
 
   public now: Date = new Date();
   scheduleTime = '';
@@ -145,7 +145,7 @@ export class DashboardComponent implements OnInit {
       this.spinner.show();
       this.linkedinService.retrieveLinkedProfile({ 'authCode': code }).subscribe(res => {
 
-        console.log("res.pro.............................file",res.profile)
+        console.log("res.pro.............................file", res.profile)
         this.spinner.hide();
         const modalRef = this.modalService.open(LinkedInPageComponent, { backdropClass: 'in', windowClass: 'in' });
         modalRef.componentInstance.messageData = {
@@ -176,7 +176,7 @@ export class DashboardComponent implements OnInit {
 
           })
         //this.router.navigate(['/'])
-     });
+      });
     }
 
     if (this.postId != '' && this.postStatus != '') {
@@ -407,11 +407,50 @@ export class DashboardComponent implements OnInit {
         });
       } else if (scMedia.name == 'twitter') {
         this.dropdownList.push({ socialId: `twitter-${scMedia.userId}`, socialName: `${scMedia.screenName}`, socialImage: scMedia.userProfileImage });
-      } else if (scMedia.name == 'linkedin') {
-        this.dropdownList.push({ socialId: `linkedin-${scMedia.userId}`, socialName: `${scMedia.screenName}`, socialImage: scMedia.userProfileImage });
+      }
+      // else if (scMedia.name == 'linkedin') {
+      // this.dropdownList.push({ socialId: `linkedin-${scMedia.userId}`, socialName: `${scMedia.screenName}`, socialImage: scMedia.userProfileImage });
+      else if (scMedia.name == 'linkedin') {
+        if (scMedia.linkedinProfile) {
+          this.dropdownList.push({ socialId: `linkedin-${scMedia.userId}`, socialName: `${scMedia.screenName}`, socialImage: scMedia.userProfileImage });
+        }
+        if (scMedia.linkedinPages) {
+          scMedia.linkedinPages?.forEach(lnPage => {
+            this.dropdownList.push({ socialId: `linkedin-${lnPage.pageId}`, pageId: lnPage.pageId, socialName: lnPage.pageName, socialImage: `${lnPage.pageImage}` })
+
+            // this.dropdownList.push({ socialId: `linkedin-${scMedia.pageId}`, socialName: `${lnPage.pageName || lnPage.userName}`, socialImage: scMedia.lnPage.pageImage || lnPage.userImage })
+          })
+        }
+        console.log("this.dropdownList",this.dropdownList);
+        
+      } else {
+        this.dropdownList.push({ socialType: scMedia.name, userId: scMedia.userId, socialName: scMedia.screenName, socialImage: scMedia.userProfileImage });
       }
     })
   }
+
+  // processSocialDropdowns() {
+  //   this.dropdownList = [];
+  //   this.userSocialProfile?.socialMedia?.forEach(scMedia => {
+  //     if (scMedia.name == 'facebook') {
+  //       scMedia.fbpages?.forEach(fbpage => {
+  //         this.dropdownList.push({ socialType: 'facebook', userId: scMedia.userId, pageId: fbpage.id, socialName: fbpage.name, socialImage: fbpage.userProfileImage });
+  //       });
+  //     } else if (scMedia.name == 'linkedin') {
+  //       if (scMedia.linkedinProfile) {
+  //         this.dropdownList.push({ socialType: scMedia.name, userId: scMedia.userId, socialName: scMedia.linkedinProfile.userName, socialImage: scMedia.linkedinProfile.userImage });
+  //       }
+  //       if (scMedia.linkedinPages) {
+  //         scMedia.linkedinPages?.forEach(lnPage => {
+  //           this.dropdownList.push({ socialType: scMedia.name, pageId: lnPage.pageId || lnPage.userId, socialImage: lnPage.pageImage || lnPage.userImage })
+  //         })
+  //       }
+  //     } else {
+  //       this.dropdownList.push({ socialType: scMedia.name, userId: scMedia.userId, socialName: scMedia.screenName, socialImage: scMedia.userProfileImage });
+  //     }
+  //   })
+  //   this.spinner.hide();
+  // }
 
   get getItems() {
     return this.dropdownList.reduce((acc: any, curr: any) => {
@@ -511,11 +550,14 @@ export class DashboardComponent implements OnInit {
       } else if (socialProfile.socialId?.startsWith('twitter')) {
         twitterProfile.push({ name: 'twitter', userId: socialProfile.socialId.split('-')[1] });
       } else if (socialProfile.socialId?.startsWith('linkedin')) {
+        
+        console.log("socialProfile.socialId", socialProfile.socialId);
         if (socialProfile.socialId.includes('linkedin-')) {
           //id = socialProfile.socialId.split('linkedin-')[1]
           linkedInProfile.push({ name: 'linkedin', userId: socialProfile.socialId.split('linkedin-')[1] });
-        }else{
+        } else {
           linkedInProfile.push({ name: 'linkedin', userId: socialProfile.socialId.split('-')[1] });
+          //linkedInProfile.push({ name: 'linkedin', pageId: socialProfile.socialId.split('-')[1] });
         }
       }
     })
@@ -553,9 +595,20 @@ export class DashboardComponent implements OnInit {
         let respArrCnt = 0;
         if (twitterProfile.length > 0) {
           console.log(respData[respArrCnt]);
+
           twitterProfile.forEach(profile => {
-            profile['mediaUrl'] = respData[respArrCnt].mediaId;
+            console.log("respData[respArrCnt]...........", respData[respArrCnt]);
+            console.log("profile...........", profile);
+            profile['mediaUrl'] = respData[respArrCnt].mediaIdArr.flatMap((fileUrl: any) => {
+              if (fileUrl.userId == profile.userId) {
+                return fileUrl.mediaIds;
+              } else {
+                return [];
+              }
+            })
+            //profile['mediaUrl'] = respData[respArrCnt].mediaId;
           })
+          console.log("twitterProfile", twitterProfile);
           respArrCnt = respArrCnt + 1;
         }
 
@@ -565,6 +618,9 @@ export class DashboardComponent implements OnInit {
             respArrCnt = respArrCnt + 1;
           })
         }
+
+        console.log("postData", postData);
+
 
         this.twitterService.postSocial(postData).subscribe(res => {
           this.spinner.hide();
@@ -576,6 +632,7 @@ export class DashboardComponent implements OnInit {
 
       });
     } else {
+      console.log("postData jgvfygvgv......", postData);
       this.twitterService.postSocial(postData).subscribe(res => {
         this.spinner.hide();
         console.log(res)
@@ -597,7 +654,7 @@ export class DashboardComponent implements OnInit {
                 'progressStatus': 'Done',
                 'fileKey': selectedImage.Key,
                 //'fileUrl': `https://dhuhkrmpnuqm.cloudfront.net/${selectedImage.Key}`,
-                 'fileUrl': `https://aikyne-mediafiles.s3.ap-south-1.amazonaws.com/${selectedImage.Key}`,
+                'fileUrl': `https://aikyne-mediafiles.s3.ap-south-1.amazonaws.com/${selectedImage.Key}`,
               });
           })
         }
@@ -737,7 +794,14 @@ export class DashboardComponent implements OnInit {
           let respArrCnt = 0;
           if (twitterProfile.length > 0) {
             twitterProfile.forEach(profile => {
-              profile['mediaUrl'] = respData[respArrCnt].mediaId;
+              profile['mediaUrl'] = respData[respArrCnt].mediaIdArr.flatMap((fileUrl: any) => {
+                if (fileUrl.userId == profile.userId) {
+                  return fileUrl.mediaIds;
+                } else {
+                  return [];
+                }
+              })
+              //profile['mediaUrl'] = respData[respArrCnt].mediaId;
             })
             respArrCnt = respArrCnt + 1;
           }
@@ -767,11 +831,11 @@ export class DashboardComponent implements OnInit {
       }
     }
   }
-  editBitlyUrl(url:any){
+  editBitlyUrl(url: any) {
     if (!this.bitlyUrlEdit) {
       this.postingData = this.postingData.replace(this.preBitlyUrl, url);
       this.bitlyUrlEdit = !this.bitlyUrlEdit;
-    }else{
+    } else {
       this.preBitlyUrl = url;
       this.bitlyUrlEdit = !this.bitlyUrlEdit;
     }

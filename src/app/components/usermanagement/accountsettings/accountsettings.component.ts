@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/model/user';
 import { Router } from '@angular/router';
 import { ManageaccountService } from 'src/app/services/manageaccount.service';
+import { SocialAuthService} from 'angularx-social-login';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class AccountsettingsComponent implements OnInit {
   loginForm!: FormGroup;
   submitted = false;
   loginUserData = { username: '', password: '' }
+  username = String;
   public errormessage: boolean = false;
 
   public clicked: boolean = false;
@@ -40,19 +42,21 @@ export class AccountsettingsComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private spinner: NgxSpinnerService,
+    private socialAuthService: SocialAuthService
     )
     
     { 
       this.deleteForm = new FormGroup
       ({
         email: new FormControl('', Validators.required),
+        password: new FormControl('', Validators.required),
       });
       this.deleteForm.controls['email'].disable();
       token: String; }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      username: [null, [Validators.required]],
+      //username: [null, [Validators.required]],
       password: [null, [Validators.required]],
     });
 
@@ -68,23 +72,31 @@ export class AccountsettingsComponent implements OnInit {
   get f() { return this.loginForm.controls; }
   clickMethod() {
     this.submitted = true;
-    if ((this.loginUserData.username == '' && this.loginUserData.password == '') || (this.loginUserData.username == '') || (this.loginUserData.password == '')) {
+         
+    console.log("this.profileService.userData.email",this.profileService.userData.email);
+    console.log("this.loginUserData.password",this.loginUserData.password);
+    
+    if ((this.profileService.userData.email == '' && this.loginUserData.password == '') || (this.profileService.userData.email == '') || (this.loginUserData.password == '')) {
       console.log("empty string");
       return;
     }
+    
     this.spinner.show();
     this.profileService.retrieveUserProfile().subscribe(res => {
       this.profileService.userData = res.data;
       this.spinner.hide();
     });
     this.spinner.show();
-    this._auth.loginUser(this.loginUserData).subscribe(res => {
+    console.log("this.loginUserData", this.loginUserData)
+
+    this._auth.loginUser({username: this.profileService.userData.email, password: this.loginUserData.password}).subscribe(res => {
       this.spinner.show();
       this.DeleteService.functionName(this.deleteData).subscribe(res => {
         localStorage.removeItem('token');
         localStorage.removeItem('userToken');
         localStorage.removeItem('userRefToken');
-        this.router.navigate(['/message'])
+        this.socialAuthService.signOut();
+        this.router.navigate(['/deletusermessage'])
         this.spinner.hide();
       }, err => {
         this.toastr.error('User Deleted Failed');

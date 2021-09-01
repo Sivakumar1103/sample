@@ -38,13 +38,17 @@ export class TwitterService {
   socialMediaUpdate(socialMedia: string, action: string, postId: string, userId: string) {
     return this.http.post<ApiResponse>(`${environment.socialMedia}/socialMediaStatusUpdate`, { socialMedia, action, postId, userId });
   }
+  socialMediaReply(socialMedia: string, action: string, postId: string, userId: string) {
+    return this.http.post<any>(`${environment.socialMedia}/postSocial`, { socialMedia, action, postId, userId  });
+  }
 
   retrieveAllPublishedPost(showdraft = false, showPublished = false, showScheduled = false) {
     return this.http.get<ApiResponse>(`${environment.socialMedia}/retrieveUserTimeline?draft=${showdraft}&publised=${showPublished}&scheduled=${showScheduled}`);            
   }
 
   retrieveAllSocialPost(showdraft = false, showPublished = false, showScheduled = false) {
-    return this.http.get<ApiResponse>(`${environment.socialMedia}/retrieveUserTimeline?draft=${showdraft}&publised=${showPublished}&scheduled=${showScheduled}`);
+    //return this.http.get<ApiResponse>(`${environment.socialMedia}/retrieveUserTimeline?draft=${showdraft}&publised=${showPublished}&scheduled=${showScheduled}`);
+    return this.http.get<ApiResponse>(`${environment.socialMedia}/retrieveAllPost?draft=${showdraft}&publised=${showPublished}&scheduled=${showScheduled}`);
   }
 
   retrieveSavedPost(postId: string, postStatus: string) {

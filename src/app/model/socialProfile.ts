@@ -8,6 +8,9 @@ export class linkedinProfile {
   userId?: String;
   userName?: String;
   userImage?: String;
+  pageId!: String;
+  pageName!: String;
+  pageImage!: String;
 }
 export class SocialMediDetails {
   name?: string;
@@ -17,6 +20,12 @@ export class SocialMediDetails {
   screenName?: String;
   userProfileImage?: String;
   userId?: String;
+  pageId: any;
+  lnPage: any;
+  pageName: any;
+  userName: any;
+  pageImage: any;
+  userImage: any;
 }
 export class FBPageDetails {
   name?: String;

@@ -58,13 +58,14 @@
                     </div>
                     <div class="col-sm-5">
                         <button class="btn border btnHover" (click)="uploader.click()"
-                            style="color: black;height: 2.7rem;width: 10rem;"><i class="fa fa-upload"></i>&nbsp;Upload
+                            style="color: black;height: 2.7rem;width: 15rem;"><i class="fa fa-upload"></i>&nbsp;Upload
                             image</button>&nbsp;
                         <input hidden type="file" #uploader multiple (change)="uploadImage($event)"
                             accept=".jpeg,.jpg,.png" />
-                        <button class="btn border btnHover" style="color: white;height: 2.7rem;width: 10rem;"><a
-                                class="imageEditorA" routerLink='/socialmedia/creative/imageeditor'><i
-                                    class="fas fa-magic"></i> Image editor</a></button>
+                        <button class="btn border btnHover" style="color: white;height: 2.7rem;width: 10rem;">
+                            <a class="imageEditorA" routerLink='/socialmedia/creative/imageeditor'><i class="fas fa-magic"></i> Image editor
+                            </a>
+                                </button>
 
                     </div>
                     <div class="col-sm-3">
@@ -89,16 +90,10 @@
                             </span>
                         </span>
                     </div>
-
                 </div>
             </div>
         </div>
-
-
         <hr>
-
-
-
         <div class="row" *ngIf='clickmedia'>
             <div class="col-sm-12 ">
                 <span style="float: right;cursor: pointer;">
@@ -115,9 +110,9 @@
                 {{(mediaList | fileExtFilter: mediaTypeFilter).length}} Media items
 
                 <span class="text-left ml-auto">
-                    <button class="btn btn-primary" *ngIf='newpost' (click)="createPost()">Publish</button> &nbsp;
-                    <button class="btn btn-primary" *ngIf='delete' (click)="deleteSelected()">Delete</button> &nbsp;
-                    <button (click)="selectAll()" class="btn btn-primary"
+                    <button class="btn" *ngIf='newpost' (click)="createPost()" style="background-color: #4CAF50; color: white;">Publish</button> &nbsp;
+                    <button class="btn" *ngIf='delete' (click)="deleteSelected()" style="background-color: #c82333; color: white;">Delete</button> &nbsp;
+                    <button (click)="selectAll()" class="btn btn-outline" style="background-color: #3283C9; color: white;"
                         *ngIf="(mediaList | fileExtFilter: mediaTypeFilter).length > 0">{{buttonName}} All</button>
                     &nbsp;
                     <i *ngIf="displayType==='grid'" title="List view" class="fa fa-list fa-lg"
@@ -135,26 +130,39 @@
                 <ul>
                     <li *ngFor="let media of mediaList | fileExtFilter: mediaTypeFilter; let i=index">
                         <label>
-                            <figure class="uploadedImage shadow  mb-5 bg-white rounded">
+                            <figure class="uploadedImage shadow  mb-5 bg-white rounded" id="checkboxHover">
                                 <img class="cardsize" (click)="open(i)" [src]="media.src"
                                     title="{{media.Key.split('/')[2]}}" />
                                 <caption class="caption" title="{{media.Key.split('/')[2]}}">
                                     {{(media.Key.split('/')[2].length>20)? (media.Key.split('/')[2] |
                                     slice:0:20)+'..':(media.Key.split('/')[2])}}
                                     <br />
+                                    <table style="width: 100%; background-color: transparent;">
+                                        <tr>
+                                            <td id="checkboxHover" class="pretty p-default p-thick">
+                                                <input type="checkbox" (change)="enable()" [(ngModel)]='media.checked' />
+                                                
+                                            </td>
+                                            <td style="float: right;">
+                                                <i class="fas fa-edit" (click)="editInLibrary(media.Key)"
+                                                title="Edit with image editor" style="cursor:pointer;"></i> &nbsp;
+                                            <i class="fas fa-trash" (click)="removeMedia([media.Key])"
+                                                style="cursor:pointer;" title="Remove Media"></i>
+                                            </td>
+                                        </tr>
 
-                                    <div id="checkboxHover" class="pretty p-default p-thick">
+                                    </table>
+
+                                    <!-- <div id="checkboxHover" class="pretty p-default p-thick">
                                         <input type="checkbox" (change)="enable()" [(ngModel)]='media.checked' />
-                                        <div class="state p-primary-o">
-                                            <label></label>
-                                        </div>
+                                        
                                     </div>
                                     <span style="float: right;">
                                         <i class="fas fa-edit" (click)="editInLibrary(media.Key)"
                                             title="Edit with image editor" style="cursor:pointer;"></i> &nbsp;
                                         <i class="fas fa-trash" (click)="removeMedia([media.Key])"
                                             style="cursor:pointer;" title="Remove Media"></i>
-                                    </span>
+                                    </span> -->
                                 </caption>
                             </figure>
                         </label>

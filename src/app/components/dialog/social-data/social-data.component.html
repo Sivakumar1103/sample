@@ -1,4 +1,4 @@
-<div class="fluid-container">
+<div class="fluid-container" *ngIf="condition">
   <div class="modal-header">
     Post Details
     <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.dismiss()">
@@ -121,14 +121,15 @@
 
                 <div class="postData">
                   <div>
-                    <div *ngIf='postData.socialData.postInfo.linkObj' class="postedData">{{postData.socialData.postData}} <span
-                        *ngIf='postData.socialData.postInfo.linkObj.length > 0'>
+                    <div *ngIf='postData.socialData.postInfo.linkObj' class="postedData">
+                      {{postData.socialData.postData}} <span *ngIf='postData.socialData.postInfo.linkObj.length > 0'>
                         <span class="px-0  col-sm-6 no-padding"
                           *ngFor='let url of postData.socialData.postInfo.linkObj; let i=index'>
                           <a href="{{url.url}}" style="text-decoration: none;" target="_blank"
                             title="{{url.expanded_url}}">{{url.display_url}}</a>
                         </span>
-                      </span></div>
+                      </span>
+                    </div>
                     <span *ngIf='postData.socialData.postInfo.mediaUrl.length == 1' class="row">
                       <span class="px-0  col-sm-12 no-padding"
                         *ngFor='let image of postData.socialData.postInfo.mediaUrl; let i=index'
@@ -204,18 +205,19 @@
 
                   <div class="row topMargin">
                     <div class="col col1">
-                      <i class="far fa-comment fa-lg"></i> {{postData.socialData.public_metrics.reply_count}}
+                      <i class="far fa-comment fa-lg"  style="cursor: pointer;" (click)="visible()"></i>
+                      {{postData.socialData.public_metrics.reply_count}}
                     </div>
                     <div class="col">
-                      <i class="fa fa-retweet fa-lg"></i> {{postData.socialData.public_metrics.retweet_count}}
+                      <i class="fa fa-retweet fa-lg" style="cursor: pointer;"></i> {{postData.socialData.public_metrics.retweet_count}}
                     </div>
                     <div *ngIf='postData.socialData.favorited == true' class="col col2">
-                      <i class="fa fa-heart fa-lg" style="color: crimson;"
+                      <i class="fa fa-heart fa-lg" style="color: crimson; cursor: pointer;"
                         (click)="twitterLike('twitter','unlike',postData.socialData.postInfo.postId,postData.socialData.postInfo.userId)"></i>
                       {{postData.socialData.public_metrics.like_count}}
                     </div>
                     <div *ngIf='postData.socialData.favorited == false' class="col col2">
-                      <i class="fa fa-heart fa-lg" style="color: rgb(240, 233, 235);"
+                      <i class="fa fa-heart fa-lg" style="color: rgb(240, 233, 235); cursor: pointer;"
                         (click)="twitterLike('twitter','like',postData.socialData.postInfo.postId,postData.socialData.postInfo.userId)"></i>
                       {{postData.socialData.public_metrics.like_count}}
                     </div>
@@ -244,18 +246,40 @@
                   </div>
                 </div>
               </span>
-
-              <div id="1423238316577546248_pub_det_text_box_container" class="inputContainer _active col-sm-12"
-                style="margin-top: 2%; margin-left: 10%;">
+              <!-- <ng-template> -->
+              <div *ngIf="show" id="1423238316577546248_pub_det_text_box_container"
+                class="inputContainer _active col-sm-12" style="margin-top: 2%; margin-left: 10%;">
+                <div class="col-sm-2" style="padding-left: 4%;">
+                  <img [src]='item.userProfileImage' class="profileImage">
+                </div>
+                <div class="profileName">{{item.screenName}}</div>
+                <div class="time">{{postData.socialData.postInfo.postDate | date:'h:mm a'}} &bull;
+                  {{postData.socialData.postInfo.postDate | date:'MMMM dd, yyyy'}} &bull;
+                  StoreFries
+                </div>
+                <div>
+                  <div *ngIf='postData.socialData.postInfo.linkObj' class="postedData" style="padding-left: 18%;">
+                    <span>
+                      {{postData.socialData.postData}}
+                    </span>
+                  </div>
+                </div>
                 <div>
                   <div class="col-sm-2">
                     <img [src]='item.userProfileImage' class="profileImage"
                       style="width: 40px;height: 80%;margin-top: 8px;">
                   </div>
                 </div>
-                <textarea id="1423238316577546248_pub_det_text_box" class="inputBox"
-                  style="margin-top: 2%;margin-left: 2%;" mention_array_str="null"> @{{item.screenName}} </textarea>
+                <span>
+
+                  <textarea id="1423238316577546248_pub_det_text_box" class="inputBox"
+                    style="margin-top: 2%;margin-left: 2%;" [(ngModel)]="postingData" mention_array_str="null">
+                    @{{item.screenName}}</textarea>
+                  <button class="btn btn-primary mr-3 mb-3" style="float: right;"
+                    (click)="CommentReply(postData.socialData.postInfo)">Post</button>
+                </span>
               </div>
+              <!-- </ng-template> -->
             </div>
 
           </span>

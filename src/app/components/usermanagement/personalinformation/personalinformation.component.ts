@@ -8,6 +8,8 @@ import { User } from 'src/app/model/user';
 import { ManageaccountService } from 'src/app/services/manageaccount.service';
 import { AuthService } from 'src/app/services/usermanagement/auth.service';
 import { ProfileService } from 'src/app/services/usermanagement/profile.service';
+import {MatFormFieldModule} from '@angular/material/form-field';
+
 
 @Component({
   selector: 'app-personalinformation',

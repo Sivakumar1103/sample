@@ -87,9 +87,8 @@ export class LoginComponent implements OnInit {
           },
           err => {
             this.spinner.hide();
-            console.log(err);
             this.buttonname = 'LOGIN'
-            this.toastr.error('Login Attempt Failed', 'Incorrect UserName or Password');
+            this.toastr.error('Login Attempt Failed', err.error.status);
             this.login.controls['username'].enable();
             this.login.controls['password'].enable();
             this.clicked = false;

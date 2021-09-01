@@ -14,9 +14,12 @@ export class LinkedInPageComponent implements OnInit {
   } | undefined;
 
   constructor(public modal: NgbActiveModal) { }
-
+  
   ngOnInit(): void {
 
+    console.log("messageData",this.messageData);
   }
+
+  
 
 }
