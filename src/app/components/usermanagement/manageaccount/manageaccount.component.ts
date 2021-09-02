@@ -69,19 +69,19 @@ export class ManageaccountComponent implements OnInit {
     this.userSocialProfile?.socialMedia?.forEach(scMedia => {
       if (scMedia.name == 'facebook') {
         scMedia.fbpages?.forEach(fbpage => {
-          this.dropdownList.push({ socialType: 'facebook', userId: scMedia.userId, pageId: fbpage.id, socialName: fbpage.name, socialImage: fbpage.userProfileImage });
+          this.dropdownList.push({ socialType: 'facebook', userId: scMedia.userId, pageId: fbpage.id, socialName: fbpage.name, socialImage: fbpage.userProfileImage, tagIcon:'facebook' });
         });
       } else if (scMedia.name == 'linkedin') {
         if (scMedia.linkedinProfile) {
-          this.dropdownList.push({ socialType: scMedia.name, userId: scMedia.userId, socialName: scMedia.linkedinProfile.userName, socialImage: scMedia.linkedinProfile.userImage });
+          this.dropdownList.push({ socialType: scMedia.name, userId: scMedia.userId, socialName: scMedia.linkedinProfile.userName, socialImage: scMedia.linkedinProfile.userImage, tagIcon:'linkedin' });
         }
         if (scMedia.linkedinPages) {
           scMedia.linkedinPages?.forEach(lnPage => {
-            this.dropdownList.push({ socialType: scMedia.name, pageId: lnPage.pageId || lnPage.userId, socialName: lnPage.pageName || lnPage.userName, socialImage: lnPage.pageImage || lnPage.userImage })
+            this.dropdownList.push({ socialType: scMedia.name, pageId: lnPage.pageId || lnPage.userId, socialName: lnPage.pageName || lnPage.userName, socialImage:lnPage.pageImage?lnPage.pageImage:'../../../../assets/img/Linkedin.svg', tagIcon:'building' })
           })
         }
       } else {
-        this.dropdownList.push({ socialType: scMedia.name, userId: scMedia.userId, socialName: scMedia.screenName, socialImage: scMedia.userProfileImage });
+        this.dropdownList.push({ socialType: scMedia.name, userId: scMedia.userId, socialName: scMedia.screenName, socialImage: scMedia.userProfileImage, tagIcon:'twitter' });
       }
     })
     this.spinner.hide();
@@ -156,8 +156,6 @@ export class ManageaccountComponent implements OnInit {
           fields=name,access_token&
           access_token=${accessToken}`)
       .then(res => {
-        console.log("res.data.......",res.data);
-        
         const modalRef = this.modalService.open(PagesComponent, { backdropClass: 'in', windowClass: 'in' });
         const newRes = res.data.map((item: any) => {
           return {
@@ -166,8 +164,6 @@ export class ManageaccountComponent implements OnInit {
             id: item.id
           }
         });
-        console.log("newRes.......",newRes);
-        
         modalRef.componentInstance.messageData = {
           facebookPages: newRes
         };
@@ -185,7 +181,7 @@ export class ManageaccountComponent implements OnInit {
             this.modalService.dismissAll();
           });
       })
-      .catch(e => console.log("error...............",e));
+      .catch(e => console.log(e));
   }
 
 }

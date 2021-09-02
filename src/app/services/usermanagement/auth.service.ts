@@ -45,6 +45,10 @@ export class AuthService {
     return !!(localStorage.getItem('token') && localStorage.getItem('userToken'))
   }
 
+  canupdate() {
+    return !!(localStorage.getItem('canupdate'))
+  }
+
   getToken() {
     return localStorage.getItem('token')
   }
@@ -56,6 +60,7 @@ export class AuthService {
   removeUserToken() {
     localStorage.removeItem('token');
     localStorage.removeItem('userToken');
+    localStorage.removeItem('canupdate');
     this.socialAuthService.signOut();
   }
 

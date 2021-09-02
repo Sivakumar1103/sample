@@ -62,6 +62,8 @@ export class PublishedpostComponent implements OnInit {
   public max = new Date();
 
   public dateFilter: any | undefined;
+  public matStartDate: any | undefined;
+  public matEndDate: any | undefined;
 
   constructor(private twitterService: TwitterService,
     private manageaccountService: ManageaccountService,
@@ -188,9 +190,9 @@ export class PublishedpostComponent implements OnInit {
   }
 
   filterDate() {
-    if (!!this.dateFilter) {
+    if (!!this.matEndDate && !!this.matStartDate) {
       const test = this.publishedPost.filter((item: any) => {
-        return new Date(item.postDate).toLocaleDateString() === new Date('' + this.dateFilter).toLocaleDateString();
+        return new Date(item.postDate).toLocaleDateString() <= new Date('' + this.matEndDate).toLocaleDateString() && new Date(item.postDate).toLocaleDateString() >= new Date('' + this.matStartDate).toLocaleDateString();
       });
       this.mediaDatasource = new MatTableDataSource(test);
     } else {
@@ -203,8 +205,9 @@ export class PublishedpostComponent implements OnInit {
   }
 
   resetDate() {
-    if (this.dateFilter != '') {
-      this.dateFilter = '';
+    if (this.matStartDate != '') {
+      this.matStartDate = '';
+      this.matEndDate = '';
       this.spinner.show();
       this.retrievePublishedData();
     }
@@ -223,6 +226,7 @@ export class PublishedpostComponent implements OnInit {
         this.spinner.hide();
       });
     }
+    console.log(this.dropdownList)
   }
 
 
@@ -255,7 +259,7 @@ export class PublishedpostComponent implements OnInit {
         }
         if (scMedia.linkedinPages) {
           scMedia.linkedinPages?.forEach(lkPage => {
-            this.dropdownList.push({ socialType: 'linkedin', socialId: `${scMedia.name}-${lkPage.userId}`, userId: lkPage.userId, socialName: lkPage.userName, socialImage: lkPage.userImage });
+            this.dropdownList.push({ socialType: 'linkedin', socialId: `${scMedia.name}-${lkPage.userId}`, userId: lkPage.userId, socialName: lkPage.userName, socialImage: lkPage.pageImage?lkPage.pageImage:'../../../../assets/img/Linkedin.svg' });
           });
         }
       } else {
@@ -285,6 +289,8 @@ export class PublishedpostComponent implements OnInit {
       }else if (socialName === 'linkedin') {
         socialProfile = this.userSocialProfile?.socialMedia?.filter((profile: any) => (profile.userId == res.data.postInfo.userId && profile.name == socialName));
       }
+      console.log(socialProfile);
+      
       modalRef.componentInstance.postData =
       {
         socialData: res.data,

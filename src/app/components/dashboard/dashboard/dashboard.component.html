@@ -11,11 +11,12 @@
             <div style="right:2px;top:-2px">
               <label style="color: #333;min-width: 130px;"
                 [ngStyle]="{ 'color': getItems[id].isDisabled? 'lightgrey':''}">
+                <!-- <img class="dropdownimage" [src]="(!!getItems[id].socialImage)?getItems[id].socialImage:getdefaultImg(id)" /> -->
                 <img class="dropdownimage" [src]="(!!getItems[id].socialImage)?getItems[id].socialImage:'https://graph.facebook.com/'+getItems[id].pageId+'/picture'" />
                 <!-- <img class="dropdownimage" *ngIf="getItems[id].socialImage" [src]="(!!getItems[id].socialImage)?getItems[id].socialImage:'../../../../assets/img/Linkedin.svg'" />
                 <img class="dropdownimage" *ngIf="!getItems[id].socialImage || getItems[id].socialImage == null" [src]="'../../../../assets/img/Linkedin.svg'" /> -->
                 <i style="color: rgb(52, 140, 190); position: relative; left: -12px; top: 14px;"
-                  class="fab fa-{{getItems[id].socialId.split('-')[0]}} fa-sm circle-icon"></i>
+                  class="fa{{getItems[id].tagIcon != 'building'?'b':'' }} fa-{{getItems[id].tagIcon}} fa-sm circle-icon"></i>
                 {{getItems[id].socialName}}
               </label>
             </div>
@@ -30,7 +31,7 @@
         </ng-multiselect-dropdown>
         <!-- <div placeholder="What's happening?"(blur)="getContent($event.target.innerHTML)" contenteditable [innerHTML]="content"></div> -->
         <div id="contentTagDiv" class="p-3" placeholder="What's happening?"
-          style="resize:none; outline: none; height: 6rem !important;" contenteditable="true" name="postingData"
+          style="resize:none; outline: none; height: 6rem !important;overflow: auto;" contenteditable="true" name="postingData"
           [(ngModel)]="postingData" #ctrl="ngModel"></div>
 
         <!-- <textarea [(ngModel)]="postingData" style="resize:none; outline: none; height: 6rem !important;" rows="4"
@@ -277,7 +278,7 @@
       <div class="mb-2" style="border-bottom: 1px solid grey;">
         <div class="d-flex">
           <b class="mt-2">Preview Post</b>
-          <ul class="nav nav-tabs" style="font-size: 23px;">
+          <ul class="nav nav-tabs ml-3" style="font-size: 23px;">
             <li (click)="selected_icon='facebook'" class="nav-item">
               <button class="nav-link"
                 [ngClass]="{'facebook' : showFacebookPreview, 'grey': !showFacebookPreview,'selected-facebook':(displayTabName == 'facebook')}"
@@ -317,18 +318,18 @@
       <div class="my-3 " [ngClass]="{fixedContainer: (mediaData.length == 1 && selectedSocailProfile.length == 1)}">
         <ng-container
           *ngIf="showFacebookPreview && displayTabName==='facebook' && (postingData!='' || mediaData.length != 0) &&  (data.socialId.startsWith('facebook')) ">
-          <div class="textpreview" [ngClass]="{'col-7': (mediaData.length == 1),'col-8':(mediaData.length > 1)}">
-            <div style="font-family: 'Poppins'; ">
+          <div class="textpreview" [ngClass]="{'col-6':mediaData.length >= 3,'col-8':mediaData.length <= 2}">
+            <div style="font-family:arial;">
               <span *ngFor='let drop of dropdownList'>
                 <img [src]="'https://graph.facebook.com/'+drop.pageId+'/picture'" class="socialProfile"
                   *ngIf="drop.socialId.startsWith('facebook') && drop.pageId === data.socialId.split('-')[2]" />
               </span>
-              <span class="accountName">{{data.socialName}} <br />
-                <small>1m</small></span> <i style="float: right;margin-top: 10px;" class="fas fa-ellipsis-h"></i> <br />
+              <span style="font-size: 14px; position: absolute; color: black;top: 10px;">{{data.socialName}}
+                &bull; <span style="color: grey;"> 1s </span>
+              </span>  <i style="float: right;margin-top: 10px;" class="fas fa-ellipsis-h"></i> 
 
               <div>
-                <div class="line-clamp my-2" readonly
-                  style="resize: none; border: none;word-break: break-all;font-size: 12px;line-height: 1.3;">
+                <div class="line-clamp my-2" readonly style="border: none; resize: none;word-break: break-all;">
                   {{postingData}}
                 </div>
 

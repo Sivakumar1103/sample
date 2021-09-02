@@ -1,194 +1,194 @@
 <div class="fluid-container" *ngIf="condition">
   <div class="modal-header">
     Post Details
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.dismiss()">
+    <button #closebtn type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.dismiss()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
 
-    <div class="card">
 
 
-      <!--Facebook Preview starts-->
-      <div class="card-body" *ngIf='postData && postData.profileData'>
 
-        <div *ngFor='let item of postData.profileData'>
-          <span *ngIf='item.name == "facebook"'>
+    <!--Facebook Preview starts-->
+    <div *ngIf='postData && postData.profileData'>
 
-            <div class="col-sm-12">
-              <span *ngIf='postData && postData.socialData'>
-                <span *ngFor='let data of dropdownList'>
-                  <img *ngIf="data.socialType=='facebook'&& data.pageId === postData.socialData.postInfo.pageId"
-                    [src]="'https://graph.facebook.com/'+data.pageId+'/picture'" class="socialImage" />
-                </span>
+      <div *ngFor='let item of postData.profileData'>
+        <span *ngIf='item.name == "facebook"'>
+
+          <div class="col-sm-12">
+            <span *ngIf='postData && postData.socialData'>
+              <span *ngFor='let data of dropdownList'>
+                <img *ngIf="data.socialType=='facebook'&& data.pageId === postData.socialData.postInfo.pageId"
+                  [src]="'https://graph.facebook.com/'+data.pageId+'/picture'" class="socialImage" />
               </span>
+            </span>
 
-              <span *ngIf='postData && postData.socialData'>
-                <span class="profileNameFacebook">{{postData.socialData.postInfo.userName}} </span> <small>via
-                  StoreFries</small>
+            <span *ngIf='postData && postData.socialData'>
+              <span class="profileNameFacebook">{{postData.socialData.postInfo.userName}} </span> <small>via
+                StoreFries</small>
 
-                <div class="fbTime">
-                  {{postData.socialData.postInfo.postDate | date:'longDate'}}
-                  {{postData.socialData.postInfo.postDate | date:'shortTime'}}
-                </div>
+              <div class="fbTime">
+                {{postData.socialData.postInfo.postDate | date:'longDate'}}
+                {{postData.socialData.postInfo.postDate | date:'shortTime'}}
+              </div>
 
-                <div>
-                  <div class="postDataFacebook">{{postData.socialData.postData}}</div>
-                  <span
-                    *ngIf='postData.socialData.postInfo.mediaUrl && postData.socialData.postInfo.mediaUrl.length > 0'>
-                    <span *ngFor='let img of postData.socialData.postInfo.mediaUrl;let i=index'
-                      [ngClass]="{'no-padding-right':i==0,'padding-left':i==1}">
-                      <img [src]="img" class="publishedImageFacebook">
-                    </span>
+              <div>
+                <div class="postDataFacebook">{{postData.socialData.postData}}</div>
+                <span *ngIf='postData.socialData.postInfo.mediaUrl && postData.socialData.postInfo.mediaUrl.length > 0'>
+                  <span *ngFor='let img of postData.socialData.postInfo.mediaUrl;let i=index'
+                    [ngClass]="{'no-padding-right':i==0,'padding-left':i==1}">
+                    <img [src]="img" class="publishedImageFacebook">
                   </span>
-                  <br />
-                  <span class="likeSection">
-                    <span class="paddingLikeIcons"><i class="fa fa-thumbs-up"></i> Unlike</span>
-                    <span class="paddingLikeIcons"><i class="fa fa-comment-alt"></i> Comment</span>
-                    <span class="paddingLikeIcons"><i class="fa fa-thumbs-up"></i>
-                      {{postData.socialData.public_metrics.likes}}</span>
-                    <span class="paddingLikeIcons"><i class="fa fa-comment-alt"></i>
+                </span>
+                <br />
+                <span class="likeSection">
+                  <span class="paddingLikeIcons"><i class="fa fa-thumbs-up"></i> Unlike</span>
+                  <span class="paddingLikeIcons"><i class="fa fa-comment-alt"></i> Comment</span>
+                  <span class="paddingLikeIcons"><i class="fa fa-thumbs-up"></i>
+                    {{postData.socialData.public_metrics.likes}}</span>
+                  <span class="paddingLikeIcons"><i class="fa fa-comment-alt"></i>
 
-                      <span *ngIf='!postData.socialData.conversations'>
-                        0
-                      </span>
-                      <span
-                        *ngIf='postData.socialData.conversations && postData.socialData.conversations.data.length > 0'>
-                        {{postData.socialData.conversations.data.length}}
-                      </span>
+                    <span *ngIf='!postData.socialData.conversations'>
+                      0
                     </span>
-
-
-
-
-
-                  </span>
-                  <div>
-                    <div class="commentSectionFacebook">
-                      <span *ngIf='postData && postData.socialData'>
-                        <span *ngFor='let data of dropdownList'>
-                          <img *ngIf="data.socialType=='facebook'&& data.pageId === postData.socialData.postInfo.pageId"
-                            [src]="'https://graph.facebook.com/'+data.pageId+'/picture'" class="socialImage" />
-                        </span>
-                      </span>
-                      <span>Comment as {{postData.socialData.postInfo.userName}}</span>
-                    </div>
-                    <div class="commentSectionFacebook"
+                    <span
                       *ngIf='postData.socialData.conversations && postData.socialData.conversations.data.length > 0'>
-                      <div *ngFor='let data of postData.socialData.conversations.data'>
+                      {{postData.socialData.conversations.data.length}}
+                    </span>
+                  </span>
 
-                        <div class=" commentBG">
-                          <img [src]="'https://graph.facebook.com/'+data.from.id+'/picture'"
-                            class="profileImageComment">
-                          <div>
-                            <div class="commentLeftMargin" style="font-weight: bold;">{{data.from.name}}</div>
-                            <div class="commentLeftMargin">{{data.message}} </div>
 
-                          </div>
+
+
+
+                </span>
+                <div>
+                  <div class="commentSectionFacebook">
+                    <span *ngIf='postData && postData.socialData'>
+                      <span *ngFor='let data of dropdownList'>
+                        <img *ngIf="data.socialType=='facebook'&& data.pageId === postData.socialData.postInfo.pageId"
+                          [src]="'https://graph.facebook.com/'+data.pageId+'/picture'" class="socialImage" />
+                      </span>
+                    </span>
+                    <span>Comment as {{postData.socialData.postInfo.userName}}</span>
+                  </div>
+                  <div class="commentSectionFacebook"
+                    *ngIf='postData.socialData.conversations && postData.socialData.conversations.data.length > 0'>
+                    <div *ngFor='let data of postData.socialData.conversations.data'>
+
+                      <div class=" commentBG">
+                        <img [src]="'https://graph.facebook.com/'+data.from.id+'/picture'" class="profileImageComment">
+                        <div>
+                          <div class="commentLeftMargin" style="font-weight: bold;">{{data.from.name}}</div>
+                          <div class="commentLeftMargin">{{data.message}} </div>
 
                         </div>
-                        <div class="commentLikes">Like &bull; Reply {{data.created_time | date: 'medium'}}</div>
+
                       </div>
+                      <div class="commentLikes">Like &bull; Reply {{data.created_time | date: 'medium'}}</div>
                     </div>
                   </div>
                 </div>
-              </span>
-            </div>
-          </span>
-        </div>
+              </div>
+            </span>
+          </div>
+        </span>
       </div>
+    </div>
 
-      <!--Facebook Preview ends-->
+    <!--Facebook Preview ends-->
 
-      <!--Twitter Preview starts-->
+    <!--Twitter Preview starts-->
 
-      <div class="card-body" *ngIf='postData && postData.profileData'>
-        <div *ngFor='let item of postData.profileData'>
-          <span *ngIf='item.name == "twitter"'>
-            <div class="col-sm-2" style="padding-left: 20%;">
-              <img [src]='item.userProfileImage' class="profileImage">
-            </div>
-            <div class="col-sm-10" style="padding-left: 20%;">
-              <span *ngIf='postData && postData.socialData'>
-                <div class="profileName">{{item.screenName}} <span class="offset-8"><i
-                      class="fa fa-ellipsis-h "></i></span></div>
+    <div *ngIf='postData && postData.profileData'>
+      <div *ngFor='let item of postData.profileData'>
+        <div class="d-flex" *ngIf='item.name == "twitter"'>
+          <div class="pr-2">
+            <img [src]='item.userProfileImage' class="profileImage">
+          </div>
+          <div class="flex-fill">
+            <div *ngIf='postData && postData.socialData'>
+              <div class="profileName d-flex align-items-end">
+                {{item.screenName}} <i class="username">@{{item.screenName}}</i>
+                <!-- <span class="ml-auto">
+                  <i class="fa fa-ellipsis-h "></i>
+                </span> -->
+              </div>
+              <div class="time">{{postData.socialData.postInfo.postDate | date:'h:mm a'}} &bull;
+                {{postData.socialData.postInfo.postDate | date:'MMMM dd, yyyy'}}</div>
 
-
-                <div class="time">{{postData.socialData.postInfo.postDate | date:'h:mm a'}} &bull;
-                  {{postData.socialData.postInfo.postDate | date:'MMMM dd, yyyy'}} &bull;
-                  StoreFries</div>
-
-                <div class="postData">
-                  <div>
-                    <div *ngIf='postData.socialData.postInfo.linkObj' class="postedData">
-                      {{postData.socialData.postData}} <span *ngIf='postData.socialData.postInfo.linkObj.length > 0'>
-                        <span class="px-0  col-sm-6 no-padding"
-                          *ngFor='let url of postData.socialData.postInfo.linkObj; let i=index'>
-                          <a href="{{url.url}}" style="text-decoration: none;" target="_blank"
-                            title="{{url.expanded_url}}">{{url.display_url}}</a>
-                        </span>
-                      </span>
+              <div class="postData">
+                <div>
+                  <div *ngIf='postData.socialData.postInfo.linkObj' class="postedData" [ngStyle]="{'min-height': postData.socialData.postInfo.mediaUrl.length > 0 ?'4opx':'100px'}" >
+                    {{postData.socialData.postData}}
+                    <div class="row" *ngIf='postData.socialData.postInfo.linkObj.length > 0'>
+                      <div class="px-0  col-sm-6 no-padding"
+                        *ngFor='let url of postData.socialData.postInfo.linkObj; let i=index'>
+                        <a href="{{url.url}}" style="text-decoration: none;" target="_blank"
+                          title="{{url.expanded_url}}">{{url.display_url}}</a>
+                      </div>
                     </div>
-                    <span *ngIf='postData.socialData.postInfo.mediaUrl.length == 1' class="row">
-                      <span class="px-0  col-sm-12 no-padding"
-                        *ngFor='let image of postData.socialData.postInfo.mediaUrl; let i=index'
-                        [ngClass]="{'no-padding-right':i==0,'padding-left':i==1}">
-                        <img [src]="image" alt="{{image}}" class="publishedImage" />
-                      </span>
-                    </span>
-                    <span *ngIf='postData.socialData.postInfo.mediaUrl.length == 2' class="row">
-                      <span class="px-0  col-sm-6 no-padding"
-                        *ngFor='let image of postData.socialData.postInfo.mediaUrl; let i=index'
-                        [ngClass]="{'no-padding-right':i==0,'padding-left':i==1}">
-                        <img [src]="image" alt="{{image}}" class="publishedImage" />
-                      </span>
-                    </span>
-                    <span *ngIf='postData.socialData.postInfo.mediaUrl.length == 3' class="row">
-                      <!-- <span *ngFor='let image of postData.socialData.postInfo.mediaUrl; let i=index' [ngClass]="{'no-padding-right':i==0,'padding-left':i==1}"> -->
-                      <div class="px-0  col-sm-6 no-padding">
+                  </div>
+                  <div *ngIf='postData.socialData.postInfo.mediaUrl.length == 1' class="row px-3">
+                    <div class="px-0  col-sm-12 no-padding"
+                      *ngFor='let image of postData.socialData.postInfo.mediaUrl; let i=index'
+                      [ngClass]="{'no-padding-right':i==0,'padding-left':i==1}">
+                      <img [src]="image" alt="{{image}}" class="img-fluid" />
+                    </div>
+                  </div>
+                  <div *ngIf='postData.socialData.postInfo.mediaUrl.length == 2' class="row px-3">
+                    <div class="px-0  col-sm-6 no-padding"
+                      *ngFor='let image of postData.socialData.postInfo.mediaUrl; let i=index'
+                      [ngClass]="{'no-padding-right':i==0,'padding-left':i==1}">
+                      <img [src]="image" alt="{{image}}" class="img-fluid" />
+                    </div>
+                  </div>
+                  <div *ngIf='postData.socialData.postInfo.mediaUrl.length == 3' class="row px-3">
+                    <!-- <span *ngFor='let image of postData.socialData.postInfo.mediaUrl; let i=index' [ngClass]="{'no-padding-right':i==0,'padding-left':i==1}"> -->
+                    <div class="px-0  col-sm-6 no-padding">
+                      <img [src]="postData.socialData.postInfo.mediaUrl[0]"
+                        alt="{{postData.socialData.postInfo.mediaUrl[0]}}" class="img-fluid" />
+                    </div>
+                    <div class="col-sm-6 no-padding">
+                      <div class="px-0  col-sm-12 no-padding">
+                        <img [src]="postData.socialData.postInfo.mediaUrl[1]"
+                          alt="{{postData.socialData.postInfo.mediaUrl[1]}}" class="img-fluid" />
+                      </div>
+                      <div class="px-0  col-sm-12 no-padding">
+                        <img [src]="postData.socialData.postInfo.mediaUrl[2]"
+                          alt="{{postData.socialData.postInfo.mediaUrl[2]}}" class="img-fluid" />
+                      </div>
+                    </div>
+                    <!-- </span> -->
+                  </div>
+
+                  <div *ngIf='postData.socialData.postInfo.mediaUrl.length == 4' class="row px-3">
+                    <!-- <span *ngFor='let image of postData.socialData.postInfo.mediaUrl; let i=index' [ngClass]="{'no-padding-right':i==0,'padding-left':i==1}"> -->
+                    <div class="col-sm-6 no-padding">
+                      <div class="px-0  col-sm-12 no-padding">
                         <img [src]="postData.socialData.postInfo.mediaUrl[0]"
-                          alt="{{postData.socialData.postInfo.mediaUrl[0]}}" class="publishedImage" />
+                          alt="{{postData.socialData.postInfo.mediaUrl[0]}}" class="img-fluid" />
                       </div>
-                      <div class="col-sm-6 no-padding">
-                        <div class="px-0  col-sm-12 no-padding">
-                          <img [src]="postData.socialData.postInfo.mediaUrl[1]"
-                            alt="{{postData.socialData.postInfo.mediaUrl[1]}}" class="publishedImage" />
-                        </div>
-                        <div class="px-0  col-sm-12 no-padding">
-                          <img [src]="postData.socialData.postInfo.mediaUrl[2]"
-                            alt="{{postData.socialData.postInfo.mediaUrl[2]}}" class="publishedImage" />
-                        </div>
+                      <div class="px-0  col-sm-12 no-padding">
+                        <img [src]="postData.socialData.postInfo.mediaUrl[2]"
+                          alt="{{postData.socialData.postInfo.mediaUrl[2]}}" class="img-fluid" />
                       </div>
-                      <!-- </span> -->
-                    </span>
+                    </div>
+                    <div class="col-sm-6 no-padding">
+                      <div class="px-0  col-sm-12 no-padding">
+                        <img [src]="postData.socialData.postInfo.mediaUrl[1]"
+                          alt="{{postData.socialData.postInfo.mediaUrl[1]}}" class="img-fluid" />
+                      </div>
+                      <div class="px-0  col-sm-12 no-padding">
+                        <img [src]="postData.socialData.postInfo.mediaUrl[3]"
+                          alt="{{postData.socialData.postInfo.mediaUrl[3]}}" class="img-fluid" />
+                      </div>
+                    </div>
+                    <!-- </span> -->
+                  </div>
 
-                    <span *ngIf='postData.socialData.postInfo.mediaUrl.length == 4' class="row">
-                      <!-- <span *ngFor='let image of postData.socialData.postInfo.mediaUrl; let i=index' [ngClass]="{'no-padding-right':i==0,'padding-left':i==1}"> -->
-                      <div class="col-sm-6 no-padding">
-                        <div class="px-0  col-sm-12 no-padding">
-                          <img [src]="postData.socialData.postInfo.mediaUrl[0]"
-                            alt="{{postData.socialData.postInfo.mediaUrl[0]}}" class="publishedImage" />
-                        </div>
-                        <div class="px-0  col-sm-12 no-padding">
-                          <img [src]="postData.socialData.postInfo.mediaUrl[2]"
-                            alt="{{postData.socialData.postInfo.mediaUrl[2]}}" class="publishedImage" />
-                        </div>
-                      </div>
-                      <div class="col-sm-6 no-padding">
-                        <div class="px-0  col-sm-12 no-padding">
-                          <img [src]="postData.socialData.postInfo.mediaUrl[1]"
-                            alt="{{postData.socialData.postInfo.mediaUrl[1]}}" class="publishedImage" />
-                        </div>
-                        <div class="px-0  col-sm-12 no-padding">
-                          <img [src]="postData.socialData.postInfo.mediaUrl[3]"
-                            alt="{{postData.socialData.postInfo.mediaUrl[3]}}" class="publishedImage" />
-                        </div>
-                      </div>
-                      <!-- </span> -->
-                    </span>
-
-                    <!-- <span *ngIf='postData.socialData.postInfo.mediaUrl.length == 4' class="row">
+                  <!-- <span *ngIf='postData.socialData.postInfo.mediaUrl.length == 4' class="row">
                         <span *ngFor="let image of postData.socialData.postInfo.mediaUrl; let i=index">
                           <div *ngIf='i!=2 && i!=3' class="col-sm-6"
                             [ngClass]="{'no-padding-right':i==0,'no-padding-left':i==1}">
@@ -201,96 +201,453 @@
                           </div>
                         </span>
                       </span> -->
-                  </div>
+                </div>
 
-                  <div class="row topMargin">
-                    <div class="col col1">
-                      <i class="far fa-comment fa-lg"  style="cursor: pointer;" (click)="visible()"></i>
+                <div class="row topMargin">
+                  <div class="col-2">
+                    <div class="smallbtns cmnt-btn" (click)="visible()">
+                      <svg viewBox="0 0 24 24" aria-hidden="true" class="">
+                        <g>
+                          <path
+                            d="M14.046 2.242l-4.148-.01h-.002c-4.374 0-7.8 3.427-7.8 7.802 0 4.098 3.186 7.206 7.465 7.37v3.828c0 .108.044.286.12.403.142.225.384.347.632.347.138 0 .277-.038.402-.118.264-.168 6.473-4.14 8.088-5.506 1.902-1.61 3.04-3.97 3.043-6.312v-.017c-.006-4.367-3.43-7.787-7.8-7.788zm3.787 12.972c-1.134.96-4.862 3.405-6.772 4.643V16.67c0-.414-.335-.75-.75-.75h-.396c-3.66 0-6.318-2.476-6.318-5.886 0-3.534 2.768-6.302 6.3-6.302l4.147.01h.002c3.532 0 6.3 2.766 6.302 6.296-.003 1.91-.942 3.844-2.514 5.176z">
+                          </path>
+                        </g>
+                      </svg>
                       {{postData.socialData.public_metrics.reply_count}}
                     </div>
-                    <div class="col">
-                      <i class="fa fa-retweet fa-lg" style="cursor: pointer;"></i> {{postData.socialData.public_metrics.retweet_count}}
+                  </div>
+                  <div class="col-2">
+                    <div class="smallbtns retwt-btn">
+                      <svg viewBox="0 0 24 24" aria-hidden="true" class="">
+                        <g>
+                          <path
+                            d="M23.77 15.67c-.292-.293-.767-.293-1.06 0l-2.22 2.22V7.65c0-2.068-1.683-3.75-3.75-3.75h-5.85c-.414 0-.75.336-.75.75s.336.75.75.75h5.85c1.24 0 2.25 1.01 2.25 2.25v10.24l-2.22-2.22c-.293-.293-.768-.293-1.06 0s-.294.768 0 1.06l3.5 3.5c.145.147.337.22.53.22s.383-.072.53-.22l3.5-3.5c.294-.292.294-.767 0-1.06zm-10.66 3.28H7.26c-1.24 0-2.25-1.01-2.25-2.25V6.46l2.22 2.22c.148.147.34.22.532.22s.384-.073.53-.22c.293-.293.293-.768 0-1.06l-3.5-3.5c-.293-.294-.768-.294-1.06 0l-3.5 3.5c-.294.292-.294.767 0 1.06s.767.293 1.06 0l2.22-2.22V16.7c0 2.068 1.683 3.75 3.75 3.75h5.85c.414 0 .75-.336.75-.75s-.337-.75-.75-.75z">
+                          </path>
+                        </g>
+                      </svg>
+
+                      {{postData.socialData.public_metrics.retweet_count}}
                     </div>
-                    <div *ngIf='postData.socialData.favorited == true' class="col col2">
-                      <i class="fa fa-heart fa-lg" style="color: crimson; cursor: pointer;"
-                        (click)="twitterLike('twitter','unlike',postData.socialData.postInfo.postId,postData.socialData.postInfo.userId)"></i>
-                      {{postData.socialData.public_metrics.like_count}}
-                    </div>
-                    <div *ngIf='postData.socialData.favorited == false' class="col col2">
-                      <i class="fa fa-heart fa-lg" style="color: rgb(240, 233, 235); cursor: pointer;"
-                        (click)="twitterLike('twitter','like',postData.socialData.postInfo.postId,postData.socialData.postInfo.userId)"></i>
+                  </div>
+                  <div *ngIf='postData.socialData.favorited == true' class="col-2">
+                    <div class="smallbtns like-btn" style="color: #f91880;"
+                      (click)="twitterLike('twitter','unlike',postData.socialData.postInfo.postId,postData.socialData.postInfo.userId)">
+                      <svg viewBox="0 0 24 24" aria-hidden="true" class="" style="fill: currentcolor;">
+                        <g>
+                          <path
+                            d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.814-1.148 2.354-2.73 4.645-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.376-7.454 13.11-10.037 13.157H12z">
+                          </path>
+                        </g>
+                      </svg>
+
                       {{postData.socialData.public_metrics.like_count}}
                     </div>
                   </div>
+                  <div *ngIf='postData.socialData.favorited == false' class="col-2">
+                    <div class="smallbtns like-btn"
+                      (click)="twitterLike('twitter','like',postData.socialData.postInfo.postId,postData.socialData.postInfo.userId)">
+                      <svg viewBox="0 0 24 24" aria-hidden="true" class="">
+                        <g>
+                          <path
+                            d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.814-1.148 2.354-2.73 4.645-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.376-7.454 13.11-10.037 13.157H12zM7.354 4.225c-2.08 0-3.903 1.988-3.903 4.255 0 5.74 7.034 11.596 8.55 11.658 1.518-.062 8.55-5.917 8.55-11.658 0-2.267-1.823-4.255-3.903-4.255-2.528 0-3.94 2.936-3.952 2.965-.23.562-1.156.562-1.387 0-.014-.03-1.425-2.965-3.954-2.965z">
+                          </path>
+                        </g>
+                      </svg>
 
-                  <div class="commentSection" *ngFor='let data of postData.socialData.conversations.data'>
-                    <div class="col-sm-2">
-                      <img [src]="data.userProfImage" class="profileImage">
+                      {{postData.socialData.public_metrics.like_count}}
                     </div>
-                    <div class="col-sm-10">
-                      {{postData.socialData.postInfo.userName}} <small>{{data.created_at | date: 'medium'}}</small>
-                      <div>{{data.userDetailName}}</div>
-                      <div class="commentText">{{data.text}} </div>
-                      <div class="row commentColumn">
-                        <div class="col">
-                          <i class="fa fa-comment"></i> 0
-                        </div>
-                        <div class="col">
-                          <i class="fa fa-retweet"></i> 0
-                        </div>
-                        <div class="col">
-                          <i class="fa fa-heart"></i> 0
-                        </div>
+                  </div>
+                  <div class="col-2">
+                    <div class="smallbtns del-btn">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"
+                        class="r-9l7dzd r-4qtqp9 r-yyyyoo r-1q142lx r-1xvli5t r-1b7u577 r-dnmrzs r-bnwqim r-1plcrui r-lrvibr">
+                        <g>
+                          <path
+                            d="M20.746 5.236h-3.75V4.25c0-1.24-1.01-2.25-2.25-2.25h-5.5c-1.24 0-2.25 1.01-2.25 2.25v.986h-3.75c-.414 0-.75.336-.75.75s.336.75.75.75h.368l1.583 13.262c.216 1.193 1.31 2.027 2.658 2.027h8.282c1.35 0 2.442-.834 2.664-2.072l1.577-13.217h.368c.414 0 .75-.336.75-.75s-.335-.75-.75-.75zM8.496 4.25c0-.413.337-.75.75-.75h5.5c.413 0 .75.337.75.75v.986h-7V4.25zm8.822 15.48c-.1.55-.664.795-1.18.795H7.854c-.517 0-1.083-.246-1.175-.75L5.126 6.735h13.74L17.32 19.732z">
+                          </path>
+                          <path
+                            d="M10 17.75c.414 0 .75-.336.75-.75v-7c0-.414-.336-.75-.75-.75s-.75.336-.75.75v7c0 .414.336.75.75.75zm4 0c.414 0 .75-.336.75-.75v-7c0-.414-.336-.75-.75-.75s-.75.336-.75.75v7c0 .414.336.75.75.75z">
+                          </path>
+                        </g>
+                      </svg>
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="commentSection" *ngFor='let data of postData.socialData.conversations.data'>
+                  <div class="col-sm-2">
+                    <img [src]="data.userProfImage" class="profileImage">
+                  </div>
+                  <div class="col-sm-10">
+                    {{postData.socialData.postInfo.userName}} <small>{{data.created_at | date: 'medium'}}</small>
+                    <div>{{data.userDetailName}}</div>
+                    <div class="commentText">{{data.text}} </div>
+                    <div class="row commentColumn">
+                      <div class="col">
+                        <i class="fa fa-comment"></i> 0
+                      </div>
+                      <div class="col">
+                        <i class="fa fa-retweet"></i> 0
+                      </div>
+                      <div class="col">
+                        <i class="fa fa-heart"></i> 0
                       </div>
                     </div>
                   </div>
                 </div>
-              </span>
-              <!-- <ng-template> -->
-              <div *ngIf="show" id="1423238316577546248_pub_det_text_box_container"
-                class="inputContainer _active col-sm-12" style="margin-top: 2%; margin-left: 10%;">
-                <div class="col-sm-2" style="padding-left: 4%;">
-                  <img [src]='item.userProfileImage' class="profileImage">
-                </div>
-                <div class="profileName">{{item.screenName}}</div>
-                <div class="time">{{postData.socialData.postInfo.postDate | date:'h:mm a'}} &bull;
-                  {{postData.socialData.postInfo.postDate | date:'MMMM dd, yyyy'}} &bull;
-                  StoreFries
-                </div>
-                <div>
-                  <div *ngIf='postData.socialData.postInfo.linkObj' class="postedData" style="padding-left: 18%;">
-                    <span>
-                      {{postData.socialData.postData}}
-                    </span>
-                  </div>
-                </div>
-                <div>
-                  <div class="col-sm-2">
-                    <img [src]='item.userProfileImage' class="profileImage"
-                      style="width: 40px;height: 80%;margin-top: 8px;">
-                  </div>
-                </div>
-                <span>
-
-                  <textarea id="1423238316577546248_pub_det_text_box" class="inputBox"
-                    style="margin-top: 2%;margin-left: 2%;" [(ngModel)]="postingData" mention_array_str="null">
-                    @{{item.screenName}}</textarea>
-                  <button class="btn btn-primary mr-3 mb-3" style="float: right;"
-                    (click)="CommentReply(postData.socialData.postInfo)">Post</button>
-                </span>
               </div>
-              <!-- </ng-template> -->
+
+              <!-- <div class="commentbox d-flex align-items-center mt-3">
+                <div class="inputboxWrap d-flex align-items-center flex-fill p-2">
+                  <img [src]='item.userProfileImage' class="img-fluid mr-3">
+                  <div class="position-relative bg-white flex-fill">
+                    <input type="text" placeholder="Typos are costly. Read before you comment!" />
+                    <div class="position-absolute" style="right: 0;top: 0;padding: 5px;">
+                      <i class="far fa-smile"></i>
+                      <i class="far fa-image ml-2"></i>
+                    </div>
+
+                  </div>
+                </div>
+              </div> -->
+
             </div>
 
-          </span>
+            <!-- <div class="inputContainer mt-2 _active d-flex">
+              <div class="pr-2">
+                <img [src]='item.userProfileImage' class="profileImage">
+              </div>
+              <div class="flex-fill">
+                <div class="profileName d-flex align-items-end">{{item.screenName}} <i
+                    class="username">@{{item.screenName}}</i></div>
+
+                <div *ngIf='postData.socialData.postInfo.linkObj' class="postedData">
+                  <span>
+                    {{postData.socialData.postData}}
+                  </span>
+                </div>
+
+                <div class="time d-flex align-items-center">{{postData.socialData.postInfo.postDate | date:'h:mm a'}}
+                  &bull;
+                  {{postData.socialData.postInfo.postDate | date:'MMMM dd, yyyy'}}
+
+                  <div class="d-flex ml-3">
+                    <div class="smallbtns cmnt-btn">
+                      <svg viewBox="0 0 24 24" aria-hidden="true" class="">
+                        <g>
+                          <path
+                            d="M14.046 2.242l-4.148-.01h-.002c-4.374 0-7.8 3.427-7.8 7.802 0 4.098 3.186 7.206 7.465 7.37v3.828c0 .108.044.286.12.403.142.225.384.347.632.347.138 0 .277-.038.402-.118.264-.168 6.473-4.14 8.088-5.506 1.902-1.61 3.04-3.97 3.043-6.312v-.017c-.006-4.367-3.43-7.787-7.8-7.788zm3.787 12.972c-1.134.96-4.862 3.405-6.772 4.643V16.67c0-.414-.335-.75-.75-.75h-.396c-3.66 0-6.318-2.476-6.318-5.886 0-3.534 2.768-6.302 6.3-6.302l4.147.01h.002c3.532 0 6.3 2.766 6.302 6.296-.003 1.91-.942 3.844-2.514 5.176z">
+                          </path>
+                        </g>
+                      </svg>
+                    </div>
+
+                    <div class="smallbtns retwt-btn">
+                      <svg viewBox="0 0 24 24" aria-hidden="true" class="">
+                        <g>
+                          <path
+                            d="M23.77 15.67c-.292-.293-.767-.293-1.06 0l-2.22 2.22V7.65c0-2.068-1.683-3.75-3.75-3.75h-5.85c-.414 0-.75.336-.75.75s.336.75.75.75h5.85c1.24 0 2.25 1.01 2.25 2.25v10.24l-2.22-2.22c-.293-.293-.768-.293-1.06 0s-.294.768 0 1.06l3.5 3.5c.145.147.337.22.53.22s.383-.072.53-.22l3.5-3.5c.294-.292.294-.767 0-1.06zm-10.66 3.28H7.26c-1.24 0-2.25-1.01-2.25-2.25V6.46l2.22 2.22c.148.147.34.22.532.22s.384-.073.53-.22c.293-.293.293-.768 0-1.06l-3.5-3.5c-.293-.294-.768-.294-1.06 0l-3.5 3.5c-.294.292-.294.767 0 1.06s.767.293 1.06 0l2.22-2.22V16.7c0 2.068 1.683 3.75 3.75 3.75h5.85c.414 0 .75-.336.75-.75s-.337-.75-.75-.75z">
+                          </path>
+                        </g>
+                      </svg>
+                    </div>
+
+                    <div class="smallbtns like-btn">
+                      <svg viewBox="0 0 24 24" aria-hidden="true" class="">
+                        <g>
+                          <path
+                            d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.814-1.148 2.354-2.73 4.645-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.376-7.454 13.11-10.037 13.157H12zM7.354 4.225c-2.08 0-3.903 1.988-3.903 4.255 0 5.74 7.034 11.596 8.55 11.658 1.518-.062 8.55-5.917 8.55-11.658 0-2.267-1.823-4.255-3.903-4.255-2.528 0-3.94 2.936-3.952 2.965-.23.562-1.156.562-1.387 0-.014-.03-1.425-2.965-3.954-2.965z">
+                          </path>
+                        </g>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div> -->
+
+
+            <!-- <ng-template> -->
+            <div *ngIf="show" id="1423238316577546248_pub_det_text_box_container" class="inputContainer _active d-flex">
+              <div class="flex-fill">
+                <div class="inputboxWrap bg-tranpsarent d-flex">
+                  <img [src]='item.userProfileImage' class="img-fluid mr-2" />
+                  <textarea id="1423238316577546248_pub_det_text_box" class="inputBox flex-fill"
+                    [(ngModel)]="postingData" mention_array_str="null"
+                    placeholder="Typos are costly. Read before you comment!">
+                    @{{item.screenName}}</textarea>
+                </div>
+                <div class="d-flex justify-content-end pt-2">
+                  <button class="btn btn-primary px-5" (click)="CommentReply(postData.socialData.postInfo,'twitter')"
+                    style="font-size: 12px;">Post</button>
+                </div>
+              </div>
+            </div>
+            <!-- </ng-template> -->
+          </div>
 
         </div>
+
       </div>
-
-      <!--Twitter Preview ends-->
-
-
     </div>
+
+    <!--Twitter Preview ends-->
+
+    <!--linkedin Preview starts-->
+
+
+    <div *ngIf='postData && postData.profileData'>
+      <div *ngFor='let item of postData.profileData'>
+        <div class="d-flex" *ngIf='item.name == "linkedin"'>
+          <div class="pr-2">
+
+            <ng-container *ngFor='let data of postData.profileData[0].linkedinPages'>
+             
+                <img *ngIf="data.pageId ===  postData.socialData.postInfo.pageId"  [src]="data.pageImage?data.pageImage:'../../../../assets/img/Linkedin.svg'" class="profileImage" />
+                
+                
+              </ng-container>
+              <i style="color: rgb(99, 179, 211);top: 15px;
+              left: -4px;" class="fa fa-building fa-sm circle-icon iconPosition"
+             ></i>
+          </div>
+          <div class="flex-fill">
+            <div *ngIf='postData && postData.socialData'>
+              <div class="profileName d-flex align-items-end">
+                {{item.linkedinProfile.userName}} 
+                <!-- Dev_Aikyne <i class="username">@AikyneDev</i> -->
+                <!-- <span class="ml-auto">
+                  <i class="fa fa-ellipsis-h "></i>
+                </span> -->
+              </div>
+              <div class="time">{{postData.socialData.postInfo.postDate | date:'h:mm a'}} &bull;
+                {{postData.socialData.postInfo.postDate | date:'MMMM dd, yyyy'}}</div>
+
+              <div class="postData">
+                <div>
+                  <div  *ngIf='postData.socialData.postData'  class="postedData" [ngStyle]="{'min-height': postData.socialData.postInfo.mediaUrl.length > 0 ?'4opx':'100px'}" >
+                   {{postData.socialData.postData}}
+                  </div>
+                  <div  *ngIf='postData.socialData.postInfo.mediaUrl.length == 1' class="row px-3">
+                    <div *ngFor='let image of postData.socialData.postInfo.mediaUrl; let i=index' class="px-0  col-sm-12 no-padding" [ngClass]="{'no-padding-right':i==0,'padding-left':i==1}">
+                      <img [src]="image" alt="{{image}}" class="img-fluid" />
+
+                      <!-- <img src="https://picsum.photos/id/1/300/200" alt="image" class="img-fluid" /> -->
+                    </div>
+                    
+                  </div>
+                  <div *ngIf='postData.socialData.postInfo.mediaUrl.length == 2' class="row px-3">
+                    <div class="px-0  col-sm-6 no-padding"
+                      *ngFor='let image of postData.socialData.postInfo.mediaUrl; let i=index'
+                      [ngClass]="{'no-padding-right':i==0,'padding-left':i==1}">
+                      <img [src]="image" alt="{{image}}" class="img-fluid" />
+                    </div>
+                  </div>
+                  <div *ngIf='postData.socialData.postInfo.mediaUrl.length == 3' class="row px-3">
+                    <!-- <span *ngFor='let image of postData.socialData.postInfo.mediaUrl; let i=index' [ngClass]="{'no-padding-right':i==0,'padding-left':i==1}"> -->
+                    <div class="px-0  col-sm-6 no-padding">
+                      <img [src]="postData.socialData.postInfo.mediaUrl[0]"
+                        alt="{{postData.socialData.postInfo.mediaUrl[0]}}" class="img-fluid" />
+                    </div>
+                    <div class="col-sm-6 no-padding">
+                      <div class="px-0  col-sm-12 no-padding">
+                        <img [src]="postData.socialData.postInfo.mediaUrl[1]"
+                          alt="{{postData.socialData.postInfo.mediaUrl[1]}}" class="img-fluid" />
+                      </div>
+                      <div class="px-0  col-sm-12 no-padding">
+                        <img [src]="postData.socialData.postInfo.mediaUrl[2]"
+                          alt="{{postData.socialData.postInfo.mediaUrl[2]}}" class="img-fluid" />
+                      </div>
+                    </div>
+                    <!-- </span> -->
+                  </div>
+
+                  <div *ngIf='postData.socialData.postInfo.mediaUrl.length == 4' class="row px-3">
+                    <!-- <span *ngFor='let image of postData.socialData.postInfo.mediaUrl; let i=index' [ngClass]="{'no-padding-right':i==0,'padding-left':i==1}"> -->
+                    <div class="col-sm-6 no-padding">
+                      <div class="px-0  col-sm-12 no-padding">
+                        <img [src]="postData.socialData.postInfo.mediaUrl[0]"
+                          alt="{{postData.socialData.postInfo.mediaUrl[0]}}" class="img-fluid" />
+                      </div>
+                      <div class="px-0  col-sm-12 no-padding">
+                        <img [src]="postData.socialData.postInfo.mediaUrl[2]"
+                          alt="{{postData.socialData.postInfo.mediaUrl[2]}}" class="img-fluid" />
+                      </div>
+                    </div>
+                    <div class="col-sm-6 no-padding">
+                      <div class="px-0  col-sm-12 no-padding">
+                        <img [src]="postData.socialData.postInfo.mediaUrl[1]"
+                          alt="{{postData.socialData.postInfo.mediaUrl[1]}}" class="img-fluid" />
+                      </div>
+                      <div class="px-0  col-sm-12 no-padding">
+                        <img [src]="postData.socialData.postInfo.mediaUrl[3]"
+                          alt="{{postData.socialData.postInfo.mediaUrl[3]}}" class="img-fluid" />
+                      </div>
+                    </div>
+                    <!-- </span> -->
+                  </div>
+
+
+                  <!-- <span *ngIf='postData.socialData.postInfo.mediaUrl.length == 4' class="row">
+                        <span *ngFor="let image of postData.socialData.postInfo.mediaUrl; let i=index">
+                          <div *ngIf='i!=2 && i!=3' class="col-sm-6"
+                            [ngClass]="{'no-padding-right':i==0,'no-padding-left':i==1}">
+                            <img [src]="image" alt="{{image}}" />
+                          </div>
+        
+                          <div *ngIf='i!=0 && i!= 1' class="col-sm-6"
+                            [ngClass]="{'no-padding-right':i==2,'no-padding-left':i==3}">
+                            <img [src]="image" alt="{{image}}" />
+                          </div>
+                        </span>
+                      </span> -->
+                </div>
+
+                <div class="row topMargin">
+                  <div class="col-2" *ngIf="!postData.socialData.linkedinData.likesSummary.likedByCurrentUser">
+                    <div class="smallbtns like-btn" (click)="twitterLike('linkedin','like',postData.socialData.postInfo.postId,postData.socialData.postInfo.userId)">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false">
+                        <path d="M19.46 11l-3.91-3.91a7 7 0 01-1.69-2.74l-.49-1.47A2.76 2.76 0 0010.76 1 2.75 2.75 0 008 3.74v1.12a9.19 9.19 0 00.46 2.85L8.89 9H4.12A2.12 2.12 0 002 11.12a2.16 2.16 0 00.92 1.76A2.11 2.11 0 002 14.62a2.14 2.14 0 001.28 2 2 2 0 00-.28 1 2.12 2.12 0 002 2.12v.14A2.12 2.12 0 007.12 22h7.49a8.08 8.08 0 003.58-.84l.31-.16H21V11zM19 19h-1l-.73.37a6.14 6.14 0 01-2.69.63H7.72a1 1 0 01-1-.72l-.25-.87-.85-.41A1 1 0 015 17l.17-1-.76-.74A1 1 0 014.27 14l.66-1.09-.73-1.1a.49.49 0 01.08-.7.48.48 0 01.34-.11h7.05l-1.31-3.92A7 7 0 0110 4.86V3.75a.77.77 0 01.75-.75.75.75 0 01.71.51L12 5a9 9 0 002.13 3.5l4.5 4.5H19z"></path>
+                      </svg>
+
+                      {{postData.socialData.linkedinData.likesSummary.totalLikes}}
+                    </div>
+                  </div>
+                  <div class="col-2" *ngIf="postData.socialData.linkedinData.likesSummary.likedByCurrentUser">
+                    <div class="smallbtns like-btn" (click)="twitterLike('linkedin','unlike',postData.socialData.postInfo.postId,postData.socialData.postInfo.userId)">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false">
+                        <path d="M19.46 11l-3.91-3.91a7 7 0 01-1.69-2.74l-.49-1.47A2.76 2.76 0 0010.76 1 2.75 2.75 0 008 3.74v1.12a9.19 9.19 0 00.46 2.85L8.89 9H4.12A2.12 2.12 0 002 11.12a2.16 2.16 0 00.92 1.76A2.11 2.11 0 002 14.62a2.14 2.14 0 001.28 2 2 2 0 00-.28 1 2.12 2.12 0 002 2.12v.14A2.12 2.12 0 007.12 22h7.49a8.08 8.08 0 003.58-.84l.31-.16H21V11zM19 19h-1l-.73.37a6.14 6.14 0 01-2.69.63H7.72a1 1 0 01-1-.72l-.25-.87-.85-.41A1 1 0 015 17l.17-1-.76-.74A1 1 0 014.27 14l.66-1.09-.73-1.1a.49.49 0 01.08-.7.48.48 0 01.34-.11h7.05l-1.31-3.92A7 7 0 0110 4.86V3.75a.77.77 0 01.75-.75.75.75 0 01.71.51L12 5a9 9 0 002.13 3.5l4.5 4.5H19z"></path>
+                      </svg>
+
+                      {{postData.socialData.linkedinData.likesSummary.totalLikes}}
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="smallbtns cmnt-btn" (click)="visible()">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false">
+                        <path d="M7 9h10v1H7zm0 4h7v-1H7zm16-2a6.78 6.78 0 01-2.84 5.61L12 22v-4H8A7 7 0 018 4h8a7 7 0 017 7zm-2 0a5 5 0 00-5-5H8a5 5 0 000 10h6v2.28L19 15a4.79 4.79 0 002-4z"></path>
+                      </svg>
+                      Comment
+                    </div>
+                  </div>
+                 
+                  <div class="col-2">
+                    <div (click)="deletePostWeb(postData.socialData.postInfo.postId,'linkedin', postData.socialData.postInfo.userId, postData.socialData.postInfo.pageId)" class="smallbtns del-btn">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"
+                        class="r-9l7dzd r-4qtqp9 r-yyyyoo r-1q142lx r-1xvli5t r-1b7u577 r-dnmrzs r-bnwqim r-1plcrui r-lrvibr">
+                        <g>
+                          <path
+                            d="M20.746 5.236h-3.75V4.25c0-1.24-1.01-2.25-2.25-2.25h-5.5c-1.24 0-2.25 1.01-2.25 2.25v.986h-3.75c-.414 0-.75.336-.75.75s.336.75.75.75h.368l1.583 13.262c.216 1.193 1.31 2.027 2.658 2.027h8.282c1.35 0 2.442-.834 2.664-2.072l1.577-13.217h.368c.414 0 .75-.336.75-.75s-.335-.75-.75-.75zM8.496 4.25c0-.413.337-.75.75-.75h5.5c.413 0 .75.337.75.75v.986h-7V4.25zm8.822 15.48c-.1.55-.664.795-1.18.795H7.854c-.517 0-1.083-.246-1.175-.75L5.126 6.735h13.74L17.32 19.732z">
+                          </path>
+                          <path
+                            d="M10 17.75c.414 0 .75-.336.75-.75v-7c0-.414-.336-.75-.75-.75s-.75.336-.75.75v7c0 .414.336.75.75.75zm4 0c.414 0 .75-.336.75-.75v-7c0-.414-.336-.75-.75-.75s-.75.336-.75.75v7c0 .414.336.75.75.75z">
+                          </path>
+                        </g>
+                      </svg>
+
+                    </div>
+                  </div>
+                </div>
+
+               
+              </div>
+
+              <!-- <div class="commentbox d-flex align-items-center mt-3">
+                <div class="inputboxWrap d-flex align-items-center flex-fill p-2">
+                  <img [src]='item.userProfileImage' class="img-fluid mr-3">
+                  <div class="position-relative bg-white flex-fill">
+                    <input type="text" placeholder="Typos are costly. Read before you comment!" />
+                    <div class="position-absolute" style="right: 0;top: 0;padding: 5px;">
+                      <i class="far fa-smile"></i>
+                      <i class="far fa-image ml-2"></i>
+                    </div>
+
+                  </div>
+                </div>
+              </div> -->
+
+            </div>
+
+            <!-- <div class="inputContainer mt-2 _active d-flex">
+              <div class="pr-2">
+                <img [src]='item.userProfileImage' class="profileImage">
+              </div>
+              <div class="flex-fill">
+                <div class="profileName d-flex align-items-end">{{item.screenName}} <i
+                    class="username">@{{item.screenName}}</i></div>
+
+                <div *ngIf='postData.socialData.postInfo.linkObj' class="postedData">
+                  <span>
+                    {{postData.socialData.postData}}
+                  </span>
+                </div>
+
+                <div class="time d-flex align-items-center">{{postData.socialData.postInfo.postDate | date:'h:mm a'}}
+                  &bull;
+                  {{postData.socialData.postInfo.postDate | date:'MMMM dd, yyyy'}}
+
+                  <div class="d-flex ml-3">
+                    <div class="smallbtns cmnt-btn">
+                      <svg viewBox="0 0 24 24" aria-hidden="true" class="">
+                        <g>
+                          <path
+                            d="M14.046 2.242l-4.148-.01h-.002c-4.374 0-7.8 3.427-7.8 7.802 0 4.098 3.186 7.206 7.465 7.37v3.828c0 .108.044.286.12.403.142.225.384.347.632.347.138 0 .277-.038.402-.118.264-.168 6.473-4.14 8.088-5.506 1.902-1.61 3.04-3.97 3.043-6.312v-.017c-.006-4.367-3.43-7.787-7.8-7.788zm3.787 12.972c-1.134.96-4.862 3.405-6.772 4.643V16.67c0-.414-.335-.75-.75-.75h-.396c-3.66 0-6.318-2.476-6.318-5.886 0-3.534 2.768-6.302 6.3-6.302l4.147.01h.002c3.532 0 6.3 2.766 6.302 6.296-.003 1.91-.942 3.844-2.514 5.176z">
+                          </path>
+                        </g>
+                      </svg>
+                    </div>
+
+                    <div class="smallbtns retwt-btn">
+                      <svg viewBox="0 0 24 24" aria-hidden="true" class="">
+                        <g>
+                          <path
+                            d="M23.77 15.67c-.292-.293-.767-.293-1.06 0l-2.22 2.22V7.65c0-2.068-1.683-3.75-3.75-3.75h-5.85c-.414 0-.75.336-.75.75s.336.75.75.75h5.85c1.24 0 2.25 1.01 2.25 2.25v10.24l-2.22-2.22c-.293-.293-.768-.293-1.06 0s-.294.768 0 1.06l3.5 3.5c.145.147.337.22.53.22s.383-.072.53-.22l3.5-3.5c.294-.292.294-.767 0-1.06zm-10.66 3.28H7.26c-1.24 0-2.25-1.01-2.25-2.25V6.46l2.22 2.22c.148.147.34.22.532.22s.384-.073.53-.22c.293-.293.293-.768 0-1.06l-3.5-3.5c-.293-.294-.768-.294-1.06 0l-3.5 3.5c-.294.292-.294.767 0 1.06s.767.293 1.06 0l2.22-2.22V16.7c0 2.068 1.683 3.75 3.75 3.75h5.85c.414 0 .75-.336.75-.75s-.337-.75-.75-.75z">
+                          </path>
+                        </g>
+                      </svg>
+                    </div>
+
+                    <div class="smallbtns like-btn">
+                      <svg viewBox="0 0 24 24" aria-hidden="true" class="">
+                        <g>
+                          <path
+                            d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.814-1.148 2.354-2.73 4.645-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.376-7.454 13.11-10.037 13.157H12zM7.354 4.225c-2.08 0-3.903 1.988-3.903 4.255 0 5.74 7.034 11.596 8.55 11.658 1.518-.062 8.55-5.917 8.55-11.658 0-2.267-1.823-4.255-3.903-4.255-2.528 0-3.94 2.936-3.952 2.965-.23.562-1.156.562-1.387 0-.014-.03-1.425-2.965-3.954-2.965z">
+                          </path>
+                        </g>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div> -->
+
+
+            <!-- <ng-template> -->
+            <div *ngIf="show" class="inputContainer _active d-flex">
+              <div class="flex-fill">
+                <div class="inputboxWrap bg-tranpsarent d-flex">
+                  <img src='https://picsum.photos/200' class="img-fluid mr-2">
+                  <textarea class="inputBox flex-fill"  [(ngModel)]="postingData"  placeholder="Typos are costly. Read before you comment!">
+                   </textarea>
+                </div>
+                <div class="d-flex justify-content-end pt-2">
+                  <button class="btn btn-primary px-5" style="font-size: 12px;" (click)="CommentReply(postData.socialData.postInfo,'linkedin')">Post</button>
+                </div>
+              </div>
+            </div>
+            <!-- </ng-template> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--linkedin Preview end-->
+
+
+
+
 
   </div>
 </div>

@@ -47,7 +47,6 @@ export class TwitterService {
   }
 
   retrieveAllSocialPost(showdraft = false, showPublished = false, showScheduled = false) {
-    //return this.http.get<ApiResponse>(`${environment.socialMedia}/retrieveUserTimeline?draft=${showdraft}&publised=${showPublished}&scheduled=${showScheduled}`);
     return this.http.get<ApiResponse>(`${environment.socialMedia}/retrieveAllPost?draft=${showdraft}&publised=${showPublished}&scheduled=${showScheduled}`);
   }
 

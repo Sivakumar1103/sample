@@ -161,7 +161,8 @@ export class SavedpostComponent implements OnInit {
           this.publishedPost.push(draftData)
         });
       }
-
+      console.log(this.publishedPost);
+      
       this.mediaDatasource = new MatTableDataSource(this.publishedPost);
       setTimeout(() => {
         this.mediaDatasource.sort = this.sort;

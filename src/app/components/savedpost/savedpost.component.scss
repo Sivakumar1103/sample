@@ -29,8 +29,9 @@
 .deleteButton
 {
   opacity: 0;
+  font-size: 16px;
   padding-left: 15px;
-  color: rgb(134, 134, 134);
+  // color: rgb(134, 134, 134);
 }
 .matTable
 {
@@ -41,4 +42,10 @@
       opacity: 1;
     }
   }
+}
+
+.horizontal-bar{
+  width: 100%;
+  margin-top: 0rem;
+  margin-bottom: 1rem;
 }

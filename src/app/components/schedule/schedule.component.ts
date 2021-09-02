@@ -113,10 +113,10 @@ export class ScheduleComponent {
   public dateFilter: any | undefined;
 
   postData:
-  {
-    socialData: any;
-    profileData: any;
-  } | undefined;
+    {
+      socialData: any;
+      profileData: any;
+    } | undefined;
 
   constructor(private modal: NgbModal,
     private toastr: ToastrService,
@@ -388,87 +388,186 @@ export class ScheduleComponent {
   }
 
   openMonthViewModal(day: any, socialMedia: string) {
-
+    this.modelData = [];
     console.log("..............................................",);
-    console.log("day socialMedia", day, socialMedia);
+    console.log("day socialMedia", day);
+    console.log(socialMedia);
+    let postData
+    if (socialMedia.includes('scheduled')) {
+      console.log('scheduled')
+      this.twitterService.retrieveAllSocialPost(false, false, true).subscribe(res => {
+        //process Posts
+        this.publishedPost = [];
+        if (res.data && res.data.scheduled) {
+          res.data.scheduled.forEach((postedPost: any) => {
+            if(socialMedia.includes('twitter'))
+            postedPost.scheduledPost.tweetData?.forEach((tweet: PostData) => {
+              if (this.checkAccountLinked('twitter', tweet.userId)) {
+                this.publishedPost.push({
+                  userName: tweet.userName,
+                  userId: tweet.userId,
+                  pageId:'',
+                  postStatus: postedPost.scheduledPost.postStatus,
+                  postId: postedPost.scheduledPost._id,
+                  postDate: (!!postedPost.scheduledPost.scheduleTime) ? new Date(postedPost.scheduledPost.scheduleTime).toISOString() : '',
+                  postData: postedPost.scheduledPost.postData,
+                  socialName: 'twitter',
+                  mediaUrl: postedPost.scheduledPost.mediaData,
+                  type: 'scheduled'
+                })
+              }
+            });
+            if(socialMedia.includes('linkedin'))
+            postedPost.scheduledPost.linkedInData?.forEach((linkedIn: PostData) => {
+              if (this.checkAccountLinked('linkedIn', linkedIn.userId)) {
+                this.publishedPost.push({
+                  userName: linkedIn.userName,
+                  userId: linkedIn.userId,
+                  postStatus: postedPost.scheduledPost.postStatus,
+                  postId: postedPost.scheduledPost._id,
+                  pageId: linkedIn.pageId?linkedIn.pageId:'',
+                  postDate: (!!postedPost.scheduledPost.scheduleTime) ? new Date(postedPost.scheduledPost.scheduleTime).toISOString() : '',
+                  postData: postedPost.scheduledPost.postData,
+                  socialName: 'linkedin',
+                  mediaUrl: postedPost.scheduledPost.mediaData,
+                  type: 'scheduled'
+                })
+              }
+            });
+            if(socialMedia.includes('facebook'))
+            postedPost.scheduledPost.fbpost?.forEach((post: PostData) => {
+              if (this.checkAccountLinked('facebook', post.pageId)) {
+                this.publishedPost.push({
+                  userName: post.userName,
+                  userId: post.userId,
+                  pageId: post.pageId,
+                  postStatus: postedPost.scheduledPost.postStatus,
+                  postId: postedPost.scheduledPost._id,
+                  postDate: (!!postedPost.scheduledPost.scheduleTime) ? new Date(postedPost.scheduledPost.scheduleTime).toISOString() : '',
+                  postData: postedPost.scheduledPost.postData,
+                  socialName: 'facebook',
+                  mediaUrl: postedPost.scheduledPost.mediaData,
+                  type: 'scheduled'
+                })
+              }
+            });
+          });
+          // if (socialMedia.split("-")[0] == 'published') {
+          //   this.dataTransferService.socialMedia = socialMedia.split("-")[1];
+          //   this.dataTransferService.scheduleDate = day;
+          //   //this.router.navigate([`socialmedia/publishing/publishedpost`]);
 
-    this.twitterService.retrieveAllSocialPost(false, true, false).subscribe(res => {
-      //process Posts
-      this.publishedPost = [];
-      if (res.data && res.data.posts) {
-        res.data.posts.forEach((postedPost: any) => {
-          postedPost.postData.tweetData?.forEach((tweet: PostData) => {
-            if (this.checkAccountLinked('twitter', tweet.userId)) {
-              this.publishedPost.push({
-                userName: tweet.userName,
-                userId: tweet.userId,
-                postStatus: tweet.postStatus,
-                postId: tweet.postId,
-                postDate: (!!tweet.postDate) ? new Date(tweet.postDate).toISOString() : '',
-                postData: postedPost.postData.postData,
-                socialName: 'twitter',
-                mediaUrl: tweet.mediaUrl,
+          // }
+          // if (socialMedia.split("-")[0] == 'scheduled') {
+          //   this.dataTransferService.socialMedia = socialMedia.split("-")[1];
+          //   this.dataTransferService.scheduleDate = day;
+          //   this.view = CalendarView.Day;
+          //   console.log(this.viewDate)
+          //   console.log(day)
+          //   console.log(new Date(day))
+          //   this.viewDate = new Date(day.date);
+          //   this.viewName = 'Scheduled';
+          // }
+        }
+        this.spinner.hide();
+        this.dateFilter = new Date(day.date).toDateString();
 
-              })
-            }
-          });
-          postedPost.postData.linkedInData?.forEach((linkedIn: PostData) => {
-            if (this.checkAccountLinked('linkedIn', linkedIn.userId)) {
-              this.publishedPost.push({
-                userName: linkedIn.userName,
-                userId: linkedIn.userId,
-                postStatus: linkedIn.postStatus,
-                postId: linkedIn.postId,
-                pageId: linkedIn.pageId,
-                postDate: (!!linkedIn.postDate) ? new Date(linkedIn.postDate).toISOString() : '',
-                postData: postedPost.postData.postData,
-                socialName: 'linkedin',
-                mediaUrl: linkedIn.mediaUrl,
-              })
-            }
-          });
-          postedPost.postData.fbpost?.forEach((post: PostData) => {
-            if (this.checkAccountLinked('facebook', post.pageId)) {
-              this.publishedPost.push({
-                userName: post.userName,
-                userId: post.userId,
-                pageId: post.pageId,
-                postStatus: post.postStatus,
-                postId: post.postId,
-                postDate: (!!post.postDate) ? new Date(post.postDate).toISOString() : '',
-                postData: postedPost.postData.postData,
-                socialName: 'facebook',
-                mediaUrl: post.mediaUrl,
-              })
-            }
-          });
+        this.dateFilter = this.datePipe.transform(new Date(this.dateFilter), 'yyyy-MM-dd');
+        console.log(this.publishedPost);
+
+        this.modelData = this.publishedPost.filter((item: any) => {
+          return new Date(item.postDate).toLocaleDateString() === new Date('' + this.dateFilter).toLocaleDateString();
         });
-        // if (socialMedia.split("-")[0] == 'published') {
-        //   this.dataTransferService.socialMedia = socialMedia.split("-")[1];
-        //   this.dataTransferService.scheduleDate = day;
-        //   //this.router.navigate([`socialmedia/publishing/publishedpost`]);
+        console.log("modelData", this.modelData);
+      })
+    } else {
+      console.log('published')
 
-        // }
-        // if (socialMedia.split("-")[0] == 'scheduled') {
-        //   this.dataTransferService.socialMedia = socialMedia.split("-")[1];
-        //   this.dataTransferService.scheduleDate = day;
-        //   this.view = CalendarView.Day;
-        //   console.log(this.viewDate)
-        //   console.log(day)
-        //   console.log(new Date(day))
-        //   this.viewDate = new Date(day.date);
-        //   this.viewName = 'Scheduled';
-        // }
-      }
-      this.spinner.hide();
-      this.dateFilter = new Date(day.date).toDateString();
-  
-      this.dateFilter = this.datePipe.transform(new Date(this.dateFilter), 'yyyy-MM-dd');
-      this.modelData = this.publishedPost.filter((item: any) => {
-        return new Date(item.postDate).toLocaleDateString() === new Date('' + this.dateFilter).toLocaleDateString();
-      });
-      console.log("modelData", this.modelData);
-    })
+      this.twitterService.retrieveAllPublishedPost(false, true, false).subscribe(res => {
+        //process Posts
+        this.publishedPost = [];
+        if (res.data && res.data.posts) {
+          res.data.posts.forEach((postedPost: any) => {
+            if(socialMedia.includes('twitter'))
+            postedPost.postData.tweetData?.forEach((tweet: PostData) => {
+              if (this.checkAccountLinked('twitter', tweet.userId)) {
+                this.publishedPost.push({
+                  userName: tweet.userName,
+                  userId: tweet.userId,
+                  pageId:'',
+                  postStatus: tweet.postStatus,
+                  postId: tweet.postId,
+                  postDate: (!!tweet.postDate) ? new Date(tweet.postDate).toISOString() : '',
+                  postData: postedPost.postData.postData,
+                  socialName: 'twitter',
+                  mediaUrl: tweet.mediaUrl,
+                  type: 'published'
+                })
+              }
+            });
+            if(socialMedia.includes('linkedin'))
+            postedPost.postData.linkedInData?.forEach((linkedIn: PostData) => {
+              if (this.checkAccountLinked('linkedIn', linkedIn.userId)) {
+                this.publishedPost.push({
+                  userName: linkedIn.userName,
+                  userId: linkedIn.userId,
+                  postStatus: linkedIn.postStatus,
+                  postId: linkedIn.postId,
+                  pageId: linkedIn.pageId,
+                  postDate: (!!linkedIn.postDate) ? new Date(linkedIn.postDate).toISOString() : '',
+                  postData: postedPost.postData.postData,
+                  socialName: 'linkedin',
+                  mediaUrl: linkedIn.mediaUrl,
+                  type: 'published'
+                })
+              }
+            });
+            if(socialMedia.includes('facebook'))
+            postedPost.postData.fbpost?.forEach((post: PostData) => {
+              if (this.checkAccountLinked('facebook', post.pageId)) {
+                this.publishedPost.push({
+                  userName: post.userName,
+                  userId: post.userId,
+                  pageId: post.pageId,
+                  postStatus: post.postStatus,
+                  postId: post.postId,
+                  postDate: (!!post.postDate) ? new Date(post.postDate).toISOString() : '',
+                  postData: postedPost.postData.postData,
+                  socialName: 'facebook',
+                  mediaUrl: post.mediaUrl,
+                  type: 'published'
+                })
+              }
+            });
+          });
+          // if (socialMedia.split("-")[0] == 'published') {
+          //   this.dataTransferService.socialMedia = socialMedia.split("-")[1];
+          //   this.dataTransferService.scheduleDate = day;
+          //   //this.router.navigate([`socialmedia/publishing/publishedpost`]);
+
+          // }
+          // if (socialMedia.split("-")[0] == 'scheduled') {
+          //   this.dataTransferService.socialMedia = socialMedia.split("-")[1];
+          //   this.dataTransferService.scheduleDate = day;
+          //   this.view = CalendarView.Day;
+          //   console.log(this.viewDate)
+          //   console.log(day)
+          //   console.log(new Date(day))
+          //   this.viewDate = new Date(day.date);
+          //   this.viewName = 'Scheduled';
+          // }
+        }
+        this.spinner.hide();
+        this.dateFilter = new Date(day.date).toDateString();
+        console.log(this.publishedPost);
+
+        this.dateFilter = this.datePipe.transform(new Date(this.dateFilter), 'yyyy-MM-dd');
+        this.modelData = this.publishedPost.filter((item: any) => {
+          return new Date(item.postDate).toLocaleDateString() === new Date('' + this.dateFilter).toLocaleDateString();
+        });
+        console.log("modelData", this.modelData);
+      })
+    }
   }
 
 
@@ -478,6 +577,11 @@ export class ScheduleComponent {
       const filterProf = this.dropdownList.filter((prof: any) => prof.userId == userId);
       if (filterProf && filterProf.length > 0) {
         return true;
+      } else {
+        const filterProf1 = this.dropdownList.filter((prof: any) => prof.pageId == userId);
+        if (filterProf1 && filterProf1.length > 0) {
+          return true;
+        }
       }
     } else {
       const filterProf = this.dropdownList.filter((prof: any) => prof.pageId == userId);
@@ -498,6 +602,20 @@ export class ScheduleComponent {
       acc[curr.socialId] = curr;
       return acc;
     }, {});
+  }
+
+  getSocialName(id: any) {
+    let socialname = this.dropdownList.filter((prof: any) => prof.userId == id);
+    // console.log(socialname);
+    
+    if (socialname && socialname.length > 0) {
+      return socialname[0].socialName;
+    } else {
+      let socialname1 = this.dropdownList.filter((prof: any) => prof.pageId == id);
+      if (socialname1) {
+        return socialname1[0].socialName;
+      }
+    }
   }
 
   generateSocialIcons(postData: any) {
@@ -629,7 +747,7 @@ export class ScheduleComponent {
     this.router.navigate([`socialmedia/publishing/newpost`]);
   }
 
-  filterCalendar() {	
+  filterCalendar() {
     const eventsFilter = JSON.parse(JSON.stringify(this.eventsOriginal));
     const filterSocial: string[] = [];
     this.dropdownList.forEach(socialProfile => {
@@ -685,9 +803,9 @@ export class ScheduleComponent {
 
   }
 
-  retreiveDetailedPost(socialName: string, pubPostId: string, userId: string ) {
+  retreiveDetailedPost(socialName: string, pubPostId: string, userId: string) {
     this.spinner.show();
-    
+
     this.twitterService.retreivePostFromWeb(socialName, pubPostId, userId).subscribe((res: any) => {
       this.spinner.hide();
       const modalRef = this.modalService.open(SocialDataComponent, { backdropClass: 'in', windowClass: 'in', size: 'lg', centered: true });
@@ -696,7 +814,7 @@ export class ScheduleComponent {
         socialProfile = this.userSocialProfile?.socialMedia?.filter((profile: any) => (profile.userId == res.data.postInfo.userId && profile.name == socialName));
       } else if (socialName === 'facebook') {
         socialProfile = this.userSocialProfile?.socialMedia?.filter((profile: any) => (profile.userId == res.data.postInfo.userId && profile.name == socialName));
-      }else if (socialName === 'linkedin') {
+      } else if (socialName === 'linkedin') {
         socialProfile = this.userSocialProfile?.socialMedia?.filter((profile: any) => (profile.userId == res.data.postInfo.userId && profile.name == socialName));
       }
       modalRef.componentInstance.postData =

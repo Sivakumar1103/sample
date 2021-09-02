@@ -49,8 +49,8 @@ body, html, .container-fluid
 
 *
 {
-  // font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-family: 'Poppins';
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  // font-family: 'Poppins';
 }
 
 @font-face {
@@ -402,12 +402,12 @@ body, html, .container-fluid
   .container-fluid {
     background-color: white;
     margin: 0;
-    // padding: 10px;
+    padding: 10px;
   }
 
   .publishedImage {
     width: 120px;
-    height: 90px;
+    // height: 90px;
     border-radius: 5px;
     border: 1px solid rgb(194, 194, 194);
 
@@ -441,7 +441,7 @@ body, html, .container-fluid
   .logoImage {
     color: rgb(52, 140, 190);
     position: relative;
-    left: -12px; top: 14px;
+    left: -4px; top: 14px;
   }
 
   .logoImageWhite {
@@ -689,9 +689,9 @@ body { margin: 0; font-family: 'Poppins'; }
   margin: 0;
 }
 .cdk-overlay-pane {
-  margin-top: 45px;
+  // margin-top: 45px;
 }
-.item:empty{
+.item:empty, .profileicon:empty{
   display: none;
 }
 .searchResult ul{
@@ -790,8 +790,63 @@ body { margin: 0; font-family: 'Poppins'; }
 .cal-week-view .cal-all-day-events .cal-events-row{
   margin-left: 0 !important;
 }
+
+.mat-form-field-appearance-fill .mat-form-field-underline::before{
+  display: none !important;
+}
+.mat-form-field-appearance-fill:not(.mat-form-field-disabled) .mat-form-field-flex:hover~.mat-form-field-underline .mat-form-field-ripple{
+  opacity: 0 !important;
+}
+.datepicker .mat-form-field-appearance-fill .mat-form-field-flex {
+  padding: 0 .75em 0 .75em !important;
+}
+
+.multiselect-dropdown .dropdown-btn {
+  padding: 5px 12px !important;
+}
+
+.multiselect-dropdown .dropdown-btn .dropdown-multiselect__caret{
+}
+
+.datepicker .mat-form-field-appearance-fill .mat-form-field-flex {
+  border-radius: 4px 4px 4px 4px;
+  height: 32px;
+}
+
+.datepicker .mat-form-field-appearance-fill .mat-form-field-ripple {
+  height: 0;
+}
+
+.clearDate{
+  top: 7px;
+  right: 28px;
+  font-size: 15px;
+  margin-right: 10px;
+  color: #f95e5e;
+  position: absolute;
+  cursor: pointer;
+}
+
+.multiprofile .multiselect-dropdown .dropdown-btn .selected-item{
+  background: #ffffff !important;
+}
+
+.multiprofile .dropdown-btn > span:first-child{
+  font-size: 12px;
+}
+
+.datepicker .mat-form-field{
+  font-size:12px;
+}
+
+.datepicker .mat-form-field-wrapper{
+  padding-bottom: 0 !important;
+}
+
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+
+@import "assets/css/all.css";

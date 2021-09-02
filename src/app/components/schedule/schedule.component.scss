@@ -86,6 +86,25 @@ h3
     color: #198ff9;
 }
 ::ng-deep {
+  .popover-body {
+    padding: .5rem .5rem;
+  }
+  .cal-month-view .cal-header {
+    position: sticky;
+    top: 0px;
+    z-index: 1;
+    background: #fff;
+}
+  .cal-week-view .cal-day-headers{
+    position: sticky;
+    top: 0px;
+    z-index: 1;
+    background: #fff;
+  }
+  .mat-drawer-content{
+    max-height: calc(100vh - 145px);
+    overflow-y: scroll;
+  }
   .cal-event {
     height: auto !important;
     display: block !important;
@@ -186,8 +205,8 @@ h3
     display: none;
   }
   .cal-week-view .cal-all-day-events {
-    height: 68vh;
-    overflow: auto;
+    // max-height: calc(100vh - 215px);
+    // overflow-y: scroll;
   }
   }
 
@@ -475,13 +494,14 @@ mwl-calendar-week-view-event {
 }
 .checkboxHover
 {
-
-  margin-bottom: -55px;
   cursor: pointer;
+  margin-bottom: 0;
+  display: flex;
+    align-items: center;
   .checkbox
   {
-    opacity: 0;
-    display: none;
+    // opacity: 0;
+    // display: none;
   }
 }
 .checkboxHover:hover
@@ -508,12 +528,13 @@ mwl-calendar-week-view-event {
 
 .checkboxBgColor
 {
-  background: rgb(218, 246, 255);
+  // background: rgb(218, 246, 255);
 }
 
 .checkboxNoBgColor
 {
   background: white;
+  // padding: 10px 0;
 }
 
 .columnLeft
@@ -640,7 +661,10 @@ mwl-calendar-week-view-event {
 }
 .card-body
 {
-    margin-top: -2rem !important;
+    // margin-top: -2rem !important;
+    padding: 25px;
+    border: 1px solid gray;
+    border-left: 10px solid #0cb90c;
 }
 .profileImage
 {
@@ -868,4 +892,174 @@ mwl-calendar-week-view-event {
     margin-top: 1rem !important;
     font-size: 16px;
     margin-left: 20px;
+}
+
+.popup ul{
+  list-style: none;
+  margin-top: -34px;
+  font-weight: 600;
+  margin-left: 13px;
+  
+}
+.popup img{
+border-radius: 50%;
+height: 30px;
+margin-left: 15px;
+}
+.round{
+  top: 17px;
+  right: 0px;
+  left: 3px;
+}
+.round span{
+  
+}
+.post{
+  color: white;
+  background-color: #46cd46;
+  font-weight: 700;
+  border: 0px;
+  font-size: 15px;
+  padding: 5px;
+  border-radius: 5px;
+}
+.test p{
+  font-weight: 600;
+  color: #7d90a2;
+  font-size: 12px;
+}
+
+
+.profilePost{
+
+}
+
+.profilePost h4{
+  font-size: 12px;
+  margin-bottom: 0;
+  font-weight: 500;
+  color: #125da9;
+  line-height: 1;
+}
+
+.profilePost img{
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+}
+
+.profilePost span{
+  display: inline-block;
+    width: 25px;
+    height: 25px;
+    font-size: 10px;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 25px;
+}
+
+.profilePost small{
+  font-size: 10px;
+  color: #125da9;
+  font-weight: 600;
+}
+
+.skeleton-wrapper-inner {
+  height: 200px;
+  padding: 15px;
+  position: relative;
+}
+
+div.skeleton-content-3 {
+  top: 140px !important;
+}
+
+div.skeleton-content-2 {
+  top: 120px !important;
+}
+
+div.skeleton-content-1 {
+  top: 100px !important;
+}
+
+div.skeleton-content-1,
+div.skeleton-content-2,
+div.skeleton-content-3 {
+  left: 15px !important;
+    right: 15px !important;
+    height: 10px !important;
+}
+
+div.skeleton-label {
+  left: 95px !important;
+    top: 50px !important;
+    height: 10px !important;
+    width: 100px !important;
+}
+
+div.skeleton-author {
+  top: 20px !important;
+  height: 20px !important;
+  left: 95px !important;
+  width: 150px !important;
+}
+
+div.skeleton-avatar {
+  height: 60px !important;
+  width: 60px;
+  border-radius: 60px;
+  right: auto !important;
+}
+
+
+.skeleton-wrapper-body div {
+  position: absolute !important;
+  right: 15px;
+  left: 15px;
+  top: 15px;
+}
+
+.skeleton-wrapper-body div {
+  -webkit-animation-duration: 1s;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-name: placeholderSkeleton;
+  -webkit-animation-timing-function: linear;
+  background: #f6f7f8;
+  background-image: -webkit-gradient(linear, left center, right center, from(#f6f7f8), color-stop(.2, #edeef1), color-stop(.4, #f6f7f8), to(#f6f7f8));
+  background-image: -webkit-linear-gradient(left, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+  background-repeat: no-repeat;
+  background-size: 800px 104px;
+  height: 104px;
+  position: relative;
+}
+
+
+
+
+
+@keyframes placeholderSkeleton {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+
+@keyframes skeletonAnimate {
+  from {
+    background-position: top left;
+  }
+  to {
+    background-position: top right;
+  }
+}
+
+
+.horizontal-bar{
+  width: 100%;
+  margin-top: 0rem;
+  margin-bottom: 1rem;
 }

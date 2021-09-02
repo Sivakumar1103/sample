@@ -11,8 +11,8 @@
 }
 .profileImage
 {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     float: left;
 }
@@ -32,7 +32,7 @@
 }
 .time
 {
-    margin-left: 3.2rem;
+    // margin-left: 3.2rem;
 }
 
 .col-sm-10
@@ -84,8 +84,8 @@
 }
 .postData
 {
-    padding-top: 20px;
-    margin-left: 4rem !important;
+    // padding-top: 20px;
+    // margin-left: 4rem !important;
 }
 .likeSection
 {
@@ -205,8 +205,8 @@
   }
 .postedData
 {
-    font-size: 18px;
-    margin-left: -15px;
+    font-size: 14px;
+    // margin-left: -15px;
     padding-top: 5px;
     padding-bottom: 10px;
 }
@@ -215,26 +215,29 @@
 .inputContainer {
     position: relative;
     overflow: hidden;
-    border-radius: 8px;
-    padding: 0;
+    // border-radius: 8px;
+    padding: 10px;
     margin: 0;
-    background-color: #e3e5e6;
-    width: 94%;
+    background-color: #eceaea;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
     cursor: text;
 }
-.inputWithAttach._active textarea, .inputContainer._active textarea, .storyComment._active textarea {
-    margin-bottom: 30px !important;
+.inputWithAttach._active textarea, 
+.inputContainer._active textarea, 
+.storyComment._active textarea {
     min-height: 30px;
-    width: 80%;
+    width: 100%;
     overflow-y: auto;
     max-height: 150px;
-    line-height: 21px;
     overflow: auto;
+    border: 0;
+    padding: 5px 10px;
 }
 
 .col2
 {
-    margin-right: 4rem;
+    // margin-right: 4rem;
 }
 .commentSection
 {
@@ -257,4 +260,93 @@
 {
     margin-top: 1rem !important;
     font-size: 16px;
+}
+
+.inputboxWrap{
+    background: #eceaea;
+    border-radius: 8px;
+}
+
+.inputboxWrap input{
+    border: 0;
+    padding: 5px 10px;
+    width: 100%;
+    font-size: 12px;
+}
+
+.inputboxWrap input:focus,
+.inputWithAttach._active textarea:focus, 
+.inputContainer._active textarea:focus, 
+.storyComment._active textarea:focus{
+    outline: none;
+}
+
+.inputboxWrap img{
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    object-fit: cover;
+}
+
+.profileName{
+    font-size: 16px;
+  margin-bottom: 0;
+  font-weight: 700;
+  color: #125da9;
+  line-height: 1;
+}
+
+.profileName i.username{
+    font-size: 12px;
+    color: grey;
+    font-weight: 400;
+    margin-left: 5px
+}
+
+.smallbtns{
+    color: #536471;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.smallbtns svg{
+    width: 2em;
+    height: 2em;
+    fill: currentColor;
+    padding: 6px;
+    margin-right: 5px;
+    border-radius: 50%;
+}
+
+.smallbtns.cmnt-btn:hover{
+    color: #1d9bf0;
+}
+
+.smallbtns.cmnt-btn:hover svg{
+    background: rgba(29, 155, 240, 0.1);
+}
+
+.smallbtns.retwt-btn:hover{
+    color: #00ba7c;
+}
+
+.smallbtns.retwt-btn:hover svg{
+    background: rgba(0, 186, 124, 0.1);
+}
+
+.smallbtns.like-btn:hover{
+    color: #f91880;
+}
+
+.smallbtns.like-btn:hover svg{
+    background: rgba(249, 24, 128, 0.1);
+}
+
+.smallbtns.del-btn:hover{
+    color: #f4212e;
+}
+
+.smallbtns.del-btn:hover svg{
+    background: rgba(244, 33, 46, 0.1);
 }

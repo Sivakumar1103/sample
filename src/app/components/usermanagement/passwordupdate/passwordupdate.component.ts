@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/usermanagement/auth.service';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl, Validators} from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { User } from 'src/app/model/user';
 import { ToastrService } from 'ngx-toastr';
 import { ProfileService } from 'src/app/services/usermanagement/profile.service';
@@ -24,18 +24,17 @@ export class PasswordupdateComponent implements OnInit {
     public profileService: ProfileService,
     private router: Router,
     private spinner: NgxSpinnerService,
-    private toastr: ToastrService)
-    {
-      this.changePassword = new FormGroup
+    private toastr: ToastrService) {
+    this.changePassword = new FormGroup
       ({
-          email: new FormControl('', Validators.required,),
-          oldPassword: new FormControl('', Validators.required),
-          newPassword: new FormControl('', Validators.required),
-          confirmPassword: new FormControl('', Validators.required)
+        email: new FormControl('', Validators.required,),
+        oldPassword: new FormControl('', Validators.required),
+        newPassword: new FormControl('', Validators.required),
+        confirmPassword: new FormControl('', Validators.required)
       });
-      this.changePassword.controls['email'].disable();
-      this.retrieveUserProfile();
-    }
+    this.changePassword.controls['email'].disable();
+    this.retrieveUserProfile();
+  }
 
   retrieveUserProfile(): void {
     this.spinner.show();
@@ -56,11 +55,15 @@ export class PasswordupdateComponent implements OnInit {
     this.auth.changePassword(this.changePassword.value)
       .subscribe(
         res => {
-            this.toastr.info(res.status,'Reset Password');
-            this.router.navigate(['/'])
+          this.toastr.info(res.status, 'Reset Password');
+          localStorage.setItem('canupdate', 'true');
+          this.router.navigate(['/'])
+            .then(() => {
+              window.location.reload();
+            });
         },
         err => {
-          this.toastr.info('Some error while trying to rest your password. Please contact the support team.','Reset Password')
+          this.toastr.info('Some error while trying to rest your password. Please contact the support team.', 'Reset Password')
           console.log(err);
         }
       )

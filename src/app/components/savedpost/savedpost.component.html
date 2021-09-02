@@ -5,17 +5,17 @@
     <a routerLink='/socialmedia/publishing/newpost'>Create a draft</a>
   </div>
 </div>
-<div class="container-fluid" *ngIf='!!publishedPost && publishedPost.length > 0'>
+<div class="" *ngIf='publishedPost && publishedPost.length > 0'>
   <div class="row">
-    <div class="col-sm-4">
-      <span style="font-size: large; font-weight: 700;">
+    <div class="col-sm-6">
+      <h2 class="mb-2">
         Draft
-      </span>
+      </h2>
 
     </div>
-    <div class="col-sm-8">
+    <div class="col-sm-3 offset-sm-3 multiprofile">
 
-      <ng-multiselect-dropdown style="width: 12rem; float: right;" [placeholder]="'Profiles'"
+      <ng-multiselect-dropdown style="width: 20rem; float: right;" [placeholder]="'Profiles'"
         [settings]="dropdownSettings" [data]="dropdownList" [(ngModel)]="selectedFilterSocailProfile"
         (onSelect)="applyFilter()" (onDeSelect)="applyFilter()">
         <ng-template #optionsTemplate let-item let-option="option" let-id="id" let-isSelected="isSelected">
@@ -43,10 +43,10 @@
 
   </div>
 
-  <hr>
+  <hr class="horizontal-bar">
 
 
-  <div class="row" style="overflow: auto; height: 750px; border: 1px solid rgb(207, 207, 207);">
+  <div class="" style="overflow: auto; height: 750px; border: 1px solid rgb(207, 207, 207);">
     <table mat-table [dataSource]="mediaDatasource" matSort class="mat-elevation-z1 matTable">
 
       <!--Checkbox Column-->
@@ -86,7 +86,7 @@
           <span *ngIf='pubPost.mediaData && pubPost.mediaData.length > 0'>
             <span>
               <div>
-                <i class="fa fa-image fa-lg iconRight"></i>
+                <i class="far fa-image fa-lg iconRight"></i>
                 <span *ngIf='pubPost.mediaData'
                   [ngClass]="{'imageShow' :pubPost.mediaData.length == 1, 'blurImage':  pubPost.mediaData.length > 1}">
                   <img [src]='pubPost.mediaData[0].fileUrl' alt="{{pubPost.mediaData[0].fileDisplayName}}"
@@ -100,7 +100,7 @@
             </span>
           </span>
           <span *ngIf='pubPost.mediaData && pubPost.mediaData.length == 0'>
-            <i class="fa fa-comment-alt iconRight"></i>
+            <i class="far fa-comment-alt iconRight"></i>
             {{(pubPost.postData.length>20)? (pubPost.postData | slice:0:20)+' ......':(pubPost.postData)}}
           </span>
 
@@ -128,16 +128,17 @@
 
       <!--Options Column-->
       <ng-container matColumnDef="options">
-        <th class="tableHeader" mat-header-cell *matHeaderCellDef="let pubPost">
+        <th class="tableHeader text-right" mat-header-cell *matHeaderCellDef="let pubPost">
           <span *ngIf='delete'>
-            <i style="cursor: pointer;" title="Delete" class="fa fa-trash-alt"></i>
+            <!-- <i style="cursor: pointer;" title="Delete" class="far fa-trash-alt"></i> -->
+            <button class="btn" style="background-color: #c82333; color: white;">Delete</button>
           </span>
         </th>
         <td mat-cell *matCellDef="let pubPost">
           <i title="Edit post" style="cursor: pointer;" (click)="navigatePost(pubPost.id)"
-            class="fa fa-edit  fa-sm deleteButton"></i> &nbsp;
+            class="far fa-edit  fa-sm deleteButton"></i> &nbsp;
           <i title="Delete post" style="cursor: pointer;" (click)="deletePost(pubPost.id)"
-            class="fa fa-trash fa-sm deleteButton"></i> &nbsp;
+            class="far fa-trash fa-sm deleteButton"></i> &nbsp;
 
         </td>
       </ng-container>

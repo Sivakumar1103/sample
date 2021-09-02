@@ -10,10 +10,13 @@ import { faPhotoVideo } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
-
+  block:any=false;
   constructor(private modalService: NgbModal) { }
 
   ngOnInit(): void {
+    if(!localStorage.getItem('canupdate')){
+      this.block = true;
+    }
   }
 
   faPhotoVideo = faPhotoVideo;

@@ -87,8 +87,9 @@ export class LoginComponent implements OnInit {
           },
           err => {
             this.spinner.hide();
+            console.log(err);
             this.buttonname = 'LOGIN'
-            this.toastr.error('Login Attempt Failed', err.error.status);
+            this.toastr.error('Login Attempt Failed', 'Incorrect UserName or Password');
             this.login.controls['username'].enable();
             this.login.controls['password'].enable();
             this.clicked = false;
@@ -151,6 +152,8 @@ export class LoginComponent implements OnInit {
     if (!!apiResponse.data.changePassword) {
       this._router.navigate([`passwordupdate`])
     } else {
+    localStorage.setItem('canupdate', 'true');
+
       this._router.navigate([`home/${apiResponse.data.id}/dashboard`])
     }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild ,ElementRef } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SocialProfile } from 'src/app/model/socialProfile';
 import { TwitterService } from 'src/app/services/socialmedia/twitter.service';
@@ -102,7 +102,7 @@ export class SocialDataComponent implements OnInit {
       console.log("err....", err);
     })
   }
-  CommentReply(postInfo: any) {
+  CommentReply(postInfo: any,type:any) {
        
 
     console.log('Posting Immediately:::::::',postInfo);
@@ -112,22 +112,35 @@ export class SocialDataComponent implements OnInit {
     const linkedInProfile: Array<any> = [];
     let id = "";
     let tweetData: any[] = [];
-
-
-    let tweetPro = {
-      name: "twitter",
-      postId: postInfo.postId,
-      userId: postInfo.userId
+    let linkedinData: any[] = [];
+    
+    if (type == 'twitter') {
+      let tweetPro = {
+        name: "twitter",
+        postId: postInfo.postId,
+        userId: postInfo.userId
+      }
+  
+      tweetData.push(tweetPro)
+      
+    } else {
+      let linkPro = {
+        name: "linkedin",
+        postId: postInfo.postId,
+        userId: postInfo.userId,
+        pageId: postInfo.pageId
+      }
+  
+      linkedinData.push(linkPro)
+      
     }
-
-    tweetData.push(tweetPro)
 
 
     const postData = {
       postData: this.postingData,
       scheduleTime: '',
       postStatus: 'Posted',
-      linkedInData: [],
+      linkedInData:linkedinData,
       fbpost: [],
       tweetData: tweetData,
       mediaData: this.mediaData,
@@ -174,13 +187,27 @@ export class SocialDataComponent implements OnInit {
           this.spinner.hide();
           console.log(res)
           this.toastr.success(res.status);
+          let currentUrl = this.router.url;
+          console.log(currentUrl);
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate([currentUrl]);
+            
+          });
         });
       });
     } else {
       this.twitterService.postSocial(postData).subscribe(res => {
         this.spinner.hide();
         console.log(res)
+        // $("#closebtn").modal('show');
+        // this.closebtn.nativeElement.click();
+        
         this.toastr.success(res.status);
+        let currentUrl = this.router.url;
+        console.log(currentUrl);
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate([currentUrl]);
+          });
       });
     }
   }
@@ -216,6 +243,15 @@ export class SocialDataComponent implements OnInit {
       acc[curr.socialId] = curr;
       return acc;
     }, {});
+  }
+
+  deletePostWeb(postId: string, social: string, userId: string, pageId: any) {
+    this.spinner.show();
+    this.twitterService.deletePostFromWeb({ postId, social, userId, pageId }).subscribe((res: any) => {
+      //console.log(res);
+      this.spinner.hide();
+      // this.retrievePublishedData();
+    })
   }
 
 }
